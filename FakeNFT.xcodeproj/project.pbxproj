@@ -33,6 +33,7 @@
 		BE9545882A98C30B006C9A7C /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545872A98C30B006C9A7C /* StatisticsViewController.swift */; };
 		BE95458C2A98CE63006C9A7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE95458E2A98CE63006C9A7C /* Localizable.strings */; };
 		BE9545922A98D226006C9A7C /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545912A98D226006C9A7C /* UIView + Extensions.swift */; };
+		BE9545942A98F66E006C9A7C /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545932A98F66E006C9A7C /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		BE95458D2A98CE63006C9A7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE95458F2A98CE74006C9A7C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE9545912A98D226006C9A7C /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
+		BE9545932A98F66E006C9A7C /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			children = (
 				3F478ECE29DB474E00F6D39E /* Colors.swift */,
 				3F478ED029DB476500F6D39E /* Fonts.swift */,
+				BE9545932A98F66E006C9A7C /* CustomButton.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -151,7 +154,7 @@
 				3F6806C929CBBCAF00B4F915 /* Models */,
 				3F6806C729CBBC5B00B4F915 /* Scenes  */,
 				3F6806C629CBBC4E00B4F915 /* Services */,
-				BE9545902A98D209006C9A7C /* Helpers */,
+				BE9545952A98F67A006C9A7C /* Extensions */,
 				3F68069F29CBBAF200B4F915 /* Assets.xcassets */,
 				BE95458E2A98CE63006C9A7C /* Localizable.strings */,
 				3F6806A129CBBAF200B4F915 /* LaunchScreen.storyboard */,
@@ -281,12 +284,12 @@
 			path = Statistics;
 			sourceTree = "<group>";
 		};
-		BE9545902A98D209006C9A7C /* Helpers */ = {
+		BE9545952A98F67A006C9A7C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				BE9545912A98D226006C9A7C /* UIView + Extensions.swift */,
 			);
-			path = Helpers;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +458,7 @@
 				BE9545842A98C299006C9A7C /* CatalogViewController.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
+				BE9545942A98F66E006C9A7C /* CustomButton.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,

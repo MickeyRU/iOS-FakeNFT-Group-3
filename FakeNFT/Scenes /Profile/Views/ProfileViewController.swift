@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController {
         let attributedString = NSMutableAttributedString(string: text)
         let linkRange = NSRange(location: 0, length: text.count)
         attributedString.addAttribute(.link, value: text, range: linkRange)
-
+        
         textView.attributedText = attributedString
         textView.isEditable = false
         textView.isSelectable = true
@@ -46,12 +46,23 @@ final class ProfileViewController: UIViewController {
         textView.textContainer.lineFragmentPadding = 16
         return textView
     }()
-
+    
+    private lazy var profileTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        self.navigationController?.delegate = self
+
         setupViews()
     }
     
@@ -61,14 +72,8 @@ final class ProfileViewController: UIViewController {
         // ToDo: действия по нажатию на кнопку редактирование
     }
     
-    @objc
-    private func linkTapped() {
-        print("linkTapped")
-        // ToDo: действия по нажатию на ссылку
-    }
-    
     private func setupViews() {
-        [imageButton, profileImageView, userNameLabel, userDescriptionLabel, urlTextView].forEach { view.addViewWithNoTAMIC($0) }
+        [imageButton, profileImageView, userNameLabel, userDescriptionLabel, urlTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
         
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
@@ -93,7 +98,75 @@ final class ProfileViewController: UIViewController {
             urlTextView.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 8),
             urlTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             urlTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            urlTextView.heightAnchor.constraint(lessThanOrEqualToConstant: 72)
+            urlTextView.heightAnchor.constraint(lessThanOrEqualToConstant: 72),
+            
+            profileTableView.topAnchor.constraint(equalTo: urlTextView.bottomAnchor, constant: 40),
+            profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            profileTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            profileTableView.heightAnchor.constraint(equalToConstant: 162)
         ])
+    }
+}
+
+//MARK: - UITableViewDataSource
+
+extension ProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reuseIdentifier, for: indexPath) as? ProfileCell else { return UITableViewCell() }
+        var cellTitle = ""
+        // ToDo: -  Доработать интерполяцию строк в 0 и 1 кейсах, после внедрения логики работы с сетью
+        switch indexPath.row {
+        case 0:
+            cellTitle = "Мои NFT" + " (112)"
+        case 1:
+            cellTitle = "Избранные NFT" + " (11)"
+        case 2:
+            cellTitle = "О разработчике"
+        default:
+            break
+        }
+        
+        cell.configure(title: cellTitle)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        54
+    }
+    
+}
+
+//MARK: - UITableViewDelegate
+
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var destinationVC = UIViewController()
+        switch indexPath.row {
+        case 0:
+            destinationVC = UserNFTViewController()
+        case 1:
+            destinationVC = UserNFTViewController()
+        case 2:
+            destinationVC = UserNFTViewController()
+        default:
+            break
+        }
+        destinationVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+}
+
+
+extension ProfileViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if viewController is ProfileViewController {
+            navigationController.setNavigationBarHidden(true, animated: animated)
+        } else if viewController is UserNFTViewController || viewController is UserNFTViewController || viewController is UserNFTViewController {
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
     }
 }

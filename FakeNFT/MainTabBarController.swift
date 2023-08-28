@@ -10,7 +10,7 @@ final class MainTabBarController: UITabBarController {
     }
 
     private func generateViewControllers() -> [UIViewController] {
-        let profileViewController = ProfileViewController()
+        let profileViewController = UINavigationController(rootViewController: ProfileViewController())
         let catalogViewController = CatalogViewController()
         let basketViewController = BasketViewController()
         let statisticsViewController = StatisticsViewController()

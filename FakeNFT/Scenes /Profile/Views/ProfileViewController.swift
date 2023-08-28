@@ -165,8 +165,11 @@ extension ProfileViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController is ProfileViewController {
             navigationController.setNavigationBarHidden(true, animated: animated)
-        } else if viewController is UserNFTViewController || viewController is UserNFTViewController || viewController is UserNFTViewController {
+        } else if viewController is UserNFTViewController {
             navigationController.setNavigationBarHidden(false, animated: animated)
+    
+            let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            self.navigationItem.backBarButtonItem = backItem
         }
     }
 }

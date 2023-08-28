@@ -3,6 +3,7 @@ import UIKit
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UINavigationBar.appearance().tintColor = UIColor.black // Черный цвет для всех элементов навигейшенБара
         return true
     }
 

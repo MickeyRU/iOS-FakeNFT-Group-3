@@ -62,7 +62,7 @@ final class ProfileViewController: UIViewController {
         
         view.backgroundColor = .white
         self.navigationController?.delegate = self
-
+        
         setupViews()
     }
     
@@ -149,9 +149,10 @@ extension ProfileViewController: UITableViewDelegate {
         case 0:
             destinationVC = UserNFTViewController()
         case 1:
-            destinationVC = UserNFTViewController()
+            destinationVC = FavoritesNFTViewController()
         case 2:
-            destinationVC = UserNFTViewController()
+            guard let url = URL(string: "https://practicum.yandex.ru/ios-developer/") else { break }
+            destinationVC = WebViewViewController(url: url)
         default:
             break
         }
@@ -160,14 +161,15 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UINavigationControllerDelegate
 
 extension ProfileViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController is ProfileViewController {
             navigationController.setNavigationBarHidden(true, animated: animated)
-        } else if viewController is UserNFTViewController {
+        } else if viewController is UserNFTViewController || viewController is FavoritesNFTViewController || viewController is WebViewViewController {
             navigationController.setNavigationBarHidden(false, animated: animated)
-    
+            
             let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             self.navigationItem.backBarButtonItem = backItem
         }

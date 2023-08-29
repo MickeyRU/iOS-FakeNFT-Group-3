@@ -1,9 +1,10 @@
 import UIKit
 
-final class UserNFTViewController: UIViewController {
+final class FavoritesNFTViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
 }
+

@@ -3,3 +3,6 @@
 "catalog" = "Catalog";
 "basket" = "Basket";
 "statistic" = "Statistic";
+
+// MARK: - Profile
+"changePhoto" = "Change photo";

@@ -68,8 +68,8 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func editButtonTapped() {
-        print("editButtonTapped")
-        // ToDo: действия по нажатию на кнопку редактирование
+        let editingViewController = EditingViewController()
+        present(editingViewController, animated: true)
     }
     
     private func setupViews() {
@@ -151,7 +151,7 @@ extension ProfileViewController: UITableViewDelegate {
         case 1:
             destinationVC = FavoritesNFTViewController()
         case 2:
-            guard let url = URL(string: "https://practicum.yandex.ru/ios-developer/") else { break }
+            guard let url = URL(string: "https://practicum.yandex.ru/ios-developer/") else { break } // ToDo: - в дальнейшем адрес будет запрашиваться в модели
             destinationVC = WebViewViewController(url: url)
         default:
             break

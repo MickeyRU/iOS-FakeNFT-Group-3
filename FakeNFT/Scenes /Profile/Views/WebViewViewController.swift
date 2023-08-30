@@ -3,6 +3,7 @@ import WebKit
 
 final class WebViewViewController: UIViewController {
     private var targetURL: URL
+    
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
         return webView

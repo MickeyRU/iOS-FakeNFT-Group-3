@@ -5,16 +5,26 @@ protocol EditingViewControllerProtocol: AnyObject {
 }
 
 final class EditingViewController: UIViewController {
+    private let userPhotoImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+    
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.init(hexString: "1A1B22").withAlphaComponent(0.6)
+        view.layer.cornerRadius = 35
+        return view
+    }()
+    
     weak var delegate: EditingViewControllerProtocol?
     
     private var userProfile: UserProfileModel
-    
+
     private lazy var nameLabel = createTextLabel()
     private lazy var nameTextView = createTextView()
-    
     private lazy var descriptionLabel = createTextLabel()
     private lazy var descriptionTextView = createTextView()
-    
     private lazy var webSiteLabel = createTextLabel()
     private lazy var webSiteTextView = createTextView()
     
@@ -36,18 +46,6 @@ final class EditingViewController: UIViewController {
         button.titleLabel?.textAlignment = .center
         button.addTarget(self, action: #selector(changePhotoTapper), for: .touchUpInside)
         return button
-    }()
-    
-    private let userPhotoImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    private let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.init(hexString: "1A1B22").withAlphaComponent(0.6)
-        view.layer.cornerRadius = 35
-        return view
     }()
     
     init(userProfile: UserProfileModel, delegate: EditingViewControllerProtocol) {

@@ -1,25 +1,8 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    private var viewModel: ProfileViewModel
-
-    private lazy var imageButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "editButton"), for: .normal)
-        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "mockAvatar")
-        imageView.layer.cornerRadius = 35
-        return imageView
-    }()
-    
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Joaquin Phoenix"
         label.font = UIFont.sfBold22
         return label
     }()
@@ -27,14 +10,13 @@ final class ProfileViewController: UIViewController {
     private let userDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfRegular13
-        label.text = "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям."
         label.numberOfLines = 0
         return label
     }()
     
     private let userWebSiteTextView: UITextView = {
         let textView = UITextView()
-        let text = "Joaquin Phoenix.com"
+        let text = ""
         let attributedString = NSMutableAttributedString(string: text)
         let linkRange = NSRange(location: 0, length: text.count)
         attributedString.addAttribute(.link, value: text, range: linkRange)
@@ -47,6 +29,22 @@ final class ProfileViewController: UIViewController {
         textView.font = UIFont.sfRegular15
         textView.textContainer.lineFragmentPadding = 16
         return textView
+    }()
+    
+    private var viewModel: ProfileViewModel
+
+    private lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "editButton"), for: .normal)
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "mockAvatar")
+        imageView.layer.cornerRadius = 35
+        return imageView
     }()
     
     private lazy var profileTableView: UITableView = {
@@ -100,18 +98,18 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupViews() {
-        [imageButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
+        [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
         
         NSLayoutConstraint.activate([
-            imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
-            imageButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
-            imageButton.heightAnchor.constraint(equalToConstant: 42),
-            imageButton.widthAnchor.constraint(equalTo: imageButton.heightAnchor, multiplier: 1.0),
+            editButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
+            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
+            editButton.heightAnchor.constraint(equalToConstant: 42),
+            editButton.widthAnchor.constraint(equalTo: editButton.heightAnchor, multiplier: 1.0),
             
             profileImageView.widthAnchor.constraint(equalToConstant: 70),
             profileImageView.heightAnchor.constraint(equalToConstant: 70),
             profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            profileImageView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 20),
+            profileImageView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 20),
             
             userNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 16),
             userNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -119,7 +117,7 @@ final class ProfileViewController: UIViewController {
             
             userDescriptionLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
             userDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            userDescriptionLabel.trailingAnchor.constraint(equalTo: imageButton.leadingAnchor),
+            userDescriptionLabel.trailingAnchor.constraint(equalTo: editButton.leadingAnchor),
             userDescriptionLabel.heightAnchor.constraint(equalToConstant: 72),
             
             userWebSiteTextView.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 8),
@@ -158,13 +156,13 @@ extension ProfileViewController: UITableViewDataSource {
         }
         
         cell.configure(title: cellTitle)
+        cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         54
     }
-    
 }
 
 //MARK: - UITableViewDelegate

@@ -19,7 +19,6 @@ final class ProfileCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-
     }
     
     required init?(coder: NSCoder) {

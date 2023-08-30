@@ -6,4 +6,6 @@
 
 // MARK: - Profile
 "changePhoto" = "Сменить фото";
-
+"userName" = "Имя";
+"discription" = "Описание";
+"webSite" = "Сайт";

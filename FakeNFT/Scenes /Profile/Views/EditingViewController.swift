@@ -1,6 +1,23 @@
 import UIKit
 
+protocol EditingViewControllerProtocol: AnyObject {
+    func updateUserProfile(userProfile: UserProfileModel)
+}
+
 final class EditingViewController: UIViewController {
+    weak var delegate: EditingViewControllerProtocol?
+    
+    private var userProfile: UserProfileModel
+    
+    private lazy var nameLabel = createTextLabel()
+    private lazy var nameTextView = createTextView()
+    
+    private lazy var descriptionLabel = createTextLabel()
+    private lazy var descriptionTextView = createTextView()
+    
+    private lazy var webSiteLabel = createTextLabel()
+    private lazy var webSiteTextView = createTextView()
+    
     private lazy var exitButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
@@ -8,19 +25,6 @@ final class EditingViewController: UIViewController {
         button.tintColor = .black
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         return button
-    }()
-    
-    private let userPhotoImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    // UIView с полупрозрачным фоном
-    private let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.init(hexString: "1A1B22").withAlphaComponent(0.6)
-        view.layer.cornerRadius = 35
-        return view
     }()
     
     private lazy var changePhotoButton: UIButton = {
@@ -34,14 +38,27 @@ final class EditingViewController: UIViewController {
         return button
     }()
     
-    private lazy var nameLabel = createTextLabel()
-    private lazy var nameTextView = createTextView()
+    private let userPhotoImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
     
-    private lazy var descriptionLabel = createTextLabel()
-    private lazy var descriptionTextView = createTextView()
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.init(hexString: "1A1B22").withAlphaComponent(0.6)
+        view.layer.cornerRadius = 35
+        return view
+    }()
     
-    private lazy var webSiteLabel = createTextLabel()
-    private lazy var webSiteTextView = createTextView()
+    init(userProfile: UserProfileModel, delegate: EditingViewControllerProtocol) {
+        self.userProfile = userProfile
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +66,13 @@ final class EditingViewController: UIViewController {
         view.backgroundColor = .white
         
         setupViews()
-        loadUserData()
+        setupDelegates()
+        loadUserProfile()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveUserProfile()
     }
     
     @objc
@@ -109,19 +132,28 @@ final class EditingViewController: UIViewController {
             webSiteTextView.leadingAnchor.constraint(equalTo: webSiteLabel.leadingAnchor),
             webSiteTextView.trailingAnchor.constraint(equalTo: webSiteLabel.trailingAnchor),
             webSiteTextView.topAnchor.constraint(equalTo: webSiteLabel.bottomAnchor, constant: 8),
-
+            
         ])
     }
     
-    private func loadUserData() {
-        // TODO: - после реализации MVVM этот метод подставляет в UI данные пользователя, которые в свою очередь берет из модели.
-        self.userPhotoImageView.image = UIImage(named: "mockAvatar")
-        self.nameLabel.text = "Имя"
-        self.nameTextView.text = "Joaquin Phoenix"
-        self.descriptionLabel.text = "Описание"
-        self.descriptionTextView.text = "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям."
-        self.webSiteLabel.text = "Сайт"
-        self.webSiteTextView.text = "Joaquin Phoenix.com"
+    private func setupDelegates() {
+        nameTextView.delegate = self
+        descriptionTextView.delegate = self
+        webSiteTextView.delegate = self
+    }
+    
+    private func loadUserProfile() {
+        self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
+        self.nameLabel.text = NSLocalizedString("userName", comment: "")
+        self.nameTextView.text = userProfile.name
+        self.descriptionLabel.text = NSLocalizedString("discription", comment: "")
+        self.descriptionTextView.text = userProfile.description
+        self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
+        self.webSiteTextView.text = userProfile.webSite
+    }
+    
+    private func saveUserProfile() {
+        delegate?.updateUserProfile(userProfile: userProfile)
     }
 }
 
@@ -142,5 +174,39 @@ extension EditingViewController {
         textView.layer.cornerRadius = 12
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 10, bottom: 11, right: 10)
         return textView
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension EditingViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        
+        if textView == nameTextView {
+            self.userProfile = createNewUserProfileModel(name: textView.text,
+                                                         avatar: nil,
+                                                         description: nil,
+                                                         webSite: nil)
+        } else if textView == descriptionTextView {
+            self.userProfile = createNewUserProfileModel(name: nil,
+                                                        avatar: nil,
+                                                        description: textView.text,
+                                                        webSite: nil)
+        } else if textView == webSiteTextView {
+            self.userProfile = createNewUserProfileModel(name: nil,
+                                                        avatar: nil,
+                                                        description: nil,
+                                                        webSite: textView.text)
+        }
+    }
+    
+    private func createNewUserProfileModel(name: String?,
+                                           avatar: String?,
+                                           description: String?,
+                                           webSite: String?) -> UserProfileModel {
+        UserProfileModel(name: name ?? userProfile.name,
+                         avatar: avatar ?? userProfile.avatar,
+                         description: description ?? userProfile.description,
+                         webSite: webSite ?? userProfile.webSite)
     }
 }

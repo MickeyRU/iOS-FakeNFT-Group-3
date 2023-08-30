@@ -1,6 +1,8 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
+    private var viewModel: ProfileViewModel
+
     private lazy var imageButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "editButton"), for: .normal)
@@ -30,7 +32,7 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
-    private let urlTextView: UITextView = {
+    private let userWebSiteTextView: UITextView = {
         let textView = UITextView()
         let text = "Joaquin Phoenix.com"
         let attributedString = NSMutableAttributedString(string: text)
@@ -56,6 +58,15 @@ final class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    init(viewModel: ProfileViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.bind()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,17 +74,33 @@ final class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         self.navigationController?.delegate = self
         
+        viewModel.getUserProfileData()
+        
         setupViews()
     }
     
     @objc
     private func editButtonTapped() {
-        let editingViewController = EditingViewController()
+        guard let userProfile = viewModel.userProfile else { return }
+        let editingViewController = EditingViewController(userProfile: userProfile, delegate: self)
         present(editingViewController, animated: true)
     }
     
+    private func bind() {
+        viewModel.$userProfile.bind { [weak self] ProfileModel in
+          guard
+            let self = self,
+            let profileModel = ProfileModel
+            else { return }
+            self.userNameLabel.text = profileModel.name
+            self.userDescriptionLabel.text = profileModel.description
+            self.userWebSiteTextView.text = profileModel.webSite
+            // ToDo: - логика загрузки картинок по URl, количества NFT, избранных NFT
+        }
+    }
+    
     private func setupViews() {
-        [imageButton, profileImageView, userNameLabel, userDescriptionLabel, urlTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
+        [imageButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
         
         NSLayoutConstraint.activate([
             imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
@@ -95,12 +122,12 @@ final class ProfileViewController: UIViewController {
             userDescriptionLabel.trailingAnchor.constraint(equalTo: imageButton.leadingAnchor),
             userDescriptionLabel.heightAnchor.constraint(equalToConstant: 72),
             
-            urlTextView.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 8),
-            urlTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            urlTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            urlTextView.heightAnchor.constraint(lessThanOrEqualToConstant: 72),
+            userWebSiteTextView.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 8),
+            userWebSiteTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            userWebSiteTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            userWebSiteTextView.heightAnchor.constraint(lessThanOrEqualToConstant: 72),
             
-            profileTableView.topAnchor.constraint(equalTo: urlTextView.bottomAnchor, constant: 40),
+            profileTableView.topAnchor.constraint(equalTo: userWebSiteTextView.bottomAnchor, constant: 40),
             profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileTableView.heightAnchor.constraint(equalToConstant: 162)
@@ -151,8 +178,9 @@ extension ProfileViewController: UITableViewDelegate {
         case 1:
             destinationVC = FavoritesNFTViewController()
         case 2:
-            guard let url = URL(string: "https://practicum.yandex.ru/ios-developer/") else { break } // ToDo: - в дальнейшем адрес будет запрашиваться в модели
+            guard let url = URL(string: userWebSiteTextView.text) else { break }
             destinationVC = WebViewViewController(url: url)
+            // ToDo: - индикатор загрузки
         default:
             break
         }
@@ -173,5 +201,15 @@ extension ProfileViewController: UINavigationControllerDelegate {
             let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             self.navigationItem.backBarButtonItem = backItem
         }
+    }
+}
+
+// MARK: - EditingViewControllerProtocol
+
+extension ProfileViewController: EditingViewControllerProtocol {
+    func updateUserProfile(userProfile: UserProfileModel) {
+        print(userProfile.name)
+        
+        viewModel.updateUserProfileData(profile: userProfile)
     }
 }

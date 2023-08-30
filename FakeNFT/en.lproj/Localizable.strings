@@ -6,3 +6,6 @@
 
 // MARK: - Profile
 "changePhoto" = "Change photo";
+"userName" = "Name";
+"discription" = "Discription";
+"webSite" = "Website";

@@ -38,6 +38,11 @@ final class CatalogViewController: UIViewController {
         view.backgroundColor = .white
 
         setupNavigationItem()
+        setupView()
+        setupConstraints()
+
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 
     @objc
@@ -82,6 +87,8 @@ extension CatalogViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
+        let collection = collections[indexPath.row]
+        cell.config(with: collection)
         return cell
     }
 
@@ -97,7 +104,6 @@ extension CatalogViewController: UITableViewDelegate {
         print("Collection was selected")
     }
 }
-
 
 // MARK: - UI
 extension CatalogViewController {

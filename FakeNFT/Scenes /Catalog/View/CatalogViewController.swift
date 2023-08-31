@@ -10,28 +10,7 @@ final class CatalogViewController: UIViewController {
         return tableView
     }()
 
-    private let collections = [
-        NFTCollection(
-            id: "1",
-            name: "Peach",
-            imageString: "https://code.s3.yandex.net/Mobile/iOS/NFT/Обложки_коллекций/Peach.png",
-            nfts: ["1", "2", "3"],
-            author: "Author",
-            description: "Some description of collection"),
-        NFTCollection(id: "2",
-            name: "Blue",
-            imageString: "https://code.s3.yandex.net/Mobile/iOS/NFT/Обложки_коллекций/Blue.png",
-            nfts: ["1", "2" ],
-            author: "Author",
-            description: "Some description of collection"),
-        NFTCollection(
-            id: "3",
-            name: "Brown",
-            imageString: "https://code.s3.yandex.net/Mobile/iOS/NFT/Обложки_коллекций/Brown.png",
-            nfts: ["1", "2", "3", "4"],
-            author: "Author", description: "Some description of collection"
-        )
-    ]
+    private lazy var viewModel = CatalogViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +22,18 @@ final class CatalogViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
+
+        bind()
+        viewModel.initialize()
+    }
+
+    private func bind() {
+        viewModel.$collections.bind(action: { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
 
     @objc
@@ -79,16 +70,16 @@ final class CatalogViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension CatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return collections.count
+        return viewModel.collectionsCount()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.identifier) as? CatalogCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.identifier) as? CatalogCell,
+            let collection = viewModel.collection(at: indexPath) else {
             return UITableViewCell()
         }
 
-        let collection = collections[indexPath.row]
-        cell.config(with: collection)
+        cell.viewModel = viewModel.getCellViewModel(for: collection)
         return cell
     }
 

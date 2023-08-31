@@ -12,7 +12,7 @@ class CatalogCell: UITableViewCell {
 
     static let identifier = "CatalogCell"
 
-    var collectionCover: UIImageView = {
+    private var collectionCover: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
@@ -20,12 +20,25 @@ class CatalogCell: UITableViewCell {
         return imageView
     }()
 
-    var collectionTitle: UILabel = {
+    private var collectionTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfRegular17
         label.textColor = .unBlack
         return label
     }()
+
+    var viewModel: CatalogCellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else {
+                return
+            }
+            collectionTitle.text = viewModel.collectionTitle
+            if let imageEncodedString = viewModel.imageString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),
+                let imageUrl = URL(string: imageEncodedString) {
+                collectionCover.kf.setImage(with: imageUrl)
+            }
+        }
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,14 +58,6 @@ class CatalogCell: UITableViewCell {
           )
      }
 
-    func config(with collection: NFTCollection) {
-        collectionTitle.text = "\(collection.name) (\(collection.nfts.count))"
-        if let imageEncodedString = collection.imageString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),
-            let imageUrl = URL(string: imageEncodedString) {
-            collectionCover.kf.setImage(with: imageUrl)
-        }
-    }
-
     private func setupView() {
         contentView.addViewWithNoTAMIC(collectionCover)
         contentView.addViewWithNoTAMIC(collectionTitle)
@@ -69,5 +74,4 @@ class CatalogCell: UITableViewCell {
             collectionCover.bottomAnchor.constraint(equalTo: collectionTitle.topAnchor, constant: -4)
         ])
     }
-
 }

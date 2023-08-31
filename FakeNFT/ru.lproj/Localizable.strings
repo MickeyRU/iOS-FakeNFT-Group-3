@@ -1,0 +1,5 @@
+// MARK: - TabBar
+"profile" = "Профиль";
+"catalog" = "Каталог";
+"basket" = "Корзина";
+"statistic" = "Статистика";

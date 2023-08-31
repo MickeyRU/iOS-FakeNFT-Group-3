@@ -31,7 +31,7 @@ final class ProfileViewController: UIViewController {
         return textView
     }()
     
-    private var viewModel: ProfileViewModel
+    private var viewModel: ProfileViewModelProtocol
 
     private lazy var editButton: UIButton = {
         let button = UIButton()
@@ -56,7 +56,7 @@ final class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.bind()
@@ -85,10 +85,10 @@ final class ProfileViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$userProfile.bind { [weak self] ProfileModel in
+        viewModel.observeUserProfileChanges { [weak self] (profileModel: UserProfileModel?) in
           guard
             let self = self,
-            let profileModel = ProfileModel
+            let profileModel = profileModel
             else { return }
             self.userNameLabel.text = profileModel.name
             self.userDescriptionLabel.text = profileModel.description

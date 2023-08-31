@@ -37,6 +37,14 @@ class CatalogCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+          super.layoutSubviews()
+          let bottomSpace: CGFloat = 8.0
+          contentView.frame = contentView.frame.inset(
+            by: UIEdgeInsets(top: 0, left: 0, bottom: bottomSpace, right: 0)
+          )
+     }
+
     func config(with collection: NFTCollection) {
         collectionTitle.text = "\(collection.name) (\(collection.nfts.count))"
         if let imageEncodedString = collection.imageString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),

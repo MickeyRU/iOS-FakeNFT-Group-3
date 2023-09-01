@@ -31,7 +31,11 @@ final class ProfileViewController: UIViewController {
         return textView
     }()
     
-    private var viewModel: ProfileViewModelProtocol
+    private let viewModel: ProfileViewModelProtocol
+    private lazy var router: ProfileRouting = {
+        return ProfileRouter(viewController: self)
+    }()
+
 
     private lazy var editButton: UIButton = {
         let button = UIButton()
@@ -80,8 +84,7 @@ final class ProfileViewController: UIViewController {
     @objc
     private func editButtonTapped() {
         guard let userProfile = viewModel.userProfile else { return }
-        let editingViewController = EditingViewController(userProfile: userProfile, delegate: self)
-        present(editingViewController, animated: true)
+        router.routeToEditingViewController(with: userProfile, delegate: self)
     }
     
     private func bind() {

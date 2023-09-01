@@ -32,10 +32,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     private let viewModel: ProfileViewModelProtocol
-    private lazy var router: ProfileRouting = {
-        return ProfileRouter(viewController: self)
-    }()
-
+    private lazy var router = ProfileRouter(viewController: self)
 
     private lazy var editButton: UIButton = {
         let button = UIButton()
@@ -172,21 +169,18 @@ extension ProfileViewController: UITableViewDataSource {
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var destinationVC = UIViewController()
         switch indexPath.row {
         case 0:
-            destinationVC = UserNFTViewController()
+            router.routeToUserNFT()
         case 1:
-            destinationVC = FavoritesNFTViewController()
+            router.routeToFavoritesNFT()
         case 2:
-            guard let url = URL(string: userWebSiteTextView.text) else { break }
-            destinationVC = WebViewViewController(url: url)
-            // ToDo: - индикатор загрузки
+            if let url = URL(string: userWebSiteTextView.text) {
+                router.routeToWebView(url: url)
+            }
         default:
             break
         }
-        destinationVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 

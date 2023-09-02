@@ -38,6 +38,7 @@
 		BE9319DE2AA1EBDB00BD2D2D /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9319DD2AA1EBDB00BD2D2D /* ProfileRouter.swift */; };
 		BE9319E02AA1F1B400BD2D2D /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9319DF2AA1F1B400BD2D2D /* ViewControllerFactory.swift */; };
 		BE9319E22AA2608D00BD2D2D /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9319E12AA2608D00BD2D2D /* AlertService.swift */; };
+		BE9319E42AA3560D00BD2D2D /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9319E32AA3560D00BD2D2D /* ViewFactory.swift */; };
 		BE95457C2A98BE79006C9A7C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE95457B2A98BE79006C9A7C /* MainTabBarController.swift */; };
 		BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545812A98C273006C9A7C /* ProfileViewController.swift */; };
 		BE9545842A98C299006C9A7C /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545832A98C299006C9A7C /* CatalogViewController.swift */; };
@@ -99,6 +100,7 @@
 		BE9319DD2AA1EBDB00BD2D2D /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		BE9319DF2AA1F1B400BD2D2D /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		BE9319E12AA2608D00BD2D2D /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		BE9319E32AA3560D00BD2D2D /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		BE95457B2A98BE79006C9A7C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BE9545812A98C273006C9A7C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BE9545832A98C299006C9A7C /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				BE43E58F2A9E33A200E5A1F6 /* Observable.swift */,
 				BE9319E12AA2608D00BD2D2D /* AlertService.swift */,
 				BE9319DF2AA1F1B400BD2D2D /* ViewControllerFactory.swift */,
+				BE9319E32AA3560D00BD2D2D /* ViewFactory.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
+				BE9319E42AA3560D00BD2D2D /* ViewFactory.swift in Sources */,
 				BE9545922A98D226006C9A7C /* UIView + Extensions.swift in Sources */,
 				BE9319E02AA1F1B400BD2D2D /* ViewControllerFactory.swift in Sources */,
 				BE95457C2A98BE79006C9A7C /* MainTabBarController.swift in Sources */,

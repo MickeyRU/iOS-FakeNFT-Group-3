@@ -2,6 +2,7 @@ import UIKit
 
 final class EditingViewController: UIViewController {
     private let viewModel: ProfileViewModelProtocol
+    private let viewFactory = ViewFactory()
     
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -19,12 +20,12 @@ final class EditingViewController: UIViewController {
         return AlertService(viewController: self)
     }()
     
-    private lazy var nameLabel = createTextLabel()
-    private lazy var nameTextView = createTextView()
-    private lazy var descriptionLabel = createTextLabel()
-    private lazy var descriptionTextView = createTextView()
-    private lazy var webSiteLabel = createTextLabel()
-    private lazy var webSiteTextView = createTextView()
+    private lazy var nameLabel = viewFactory.createTextLabel()
+    private lazy var nameTextView = viewFactory.createTextView()
+    private lazy var descriptionLabel = viewFactory.createTextLabel()
+    private lazy var descriptionTextView = viewFactory.createTextView()
+    private lazy var webSiteLabel = viewFactory.createTextLabel()
+    private lazy var webSiteTextView = viewFactory.createTextView()
     
     private lazy var exitButton: UIButton = {
         let button = UIButton()
@@ -46,7 +47,6 @@ final class EditingViewController: UIViewController {
         return button
     }()
     
-    
     init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -60,8 +60,6 @@ final class EditingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        
         setupViews()
         setupDelegates()
         viewModel.getUserProfile()
@@ -69,13 +67,13 @@ final class EditingViewController: UIViewController {
     
     @objc
     private func exitButtonTapped() {
-        dismiss(animated: true) 
+        dismiss(animated: true)
     }
     
     @objc func changePhotoTapped() {
         alertService.showChangePhotoURLAlert(with: "Введите URL",
-                                            message: nil,
-                                            textFieldPlaceholder: "URL изображения") { [weak self] urlText in
+                                             message: nil,
+                                             textFieldPlaceholder: "URL изображения") { [weak self] urlText in
             guard let self = self else { return }
             if let urlText = urlText, let url = URL(string: urlText) {
                 self.viewModel.updateImageURL(url: url)
@@ -94,6 +92,9 @@ final class EditingViewController: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = .white
+        view.addTapGestureToHideKeyboard()
+        
         [exitButton, userPhotoImageView, overlayView, changePhotoButton, nameLabel, nameTextView, descriptionLabel, descriptionTextView, webSiteLabel, webSiteTextView].forEach { view.addViewWithNoTAMIC($0) }
         
         NSLayoutConstraint.activate([
@@ -145,9 +146,7 @@ final class EditingViewController: UIViewController {
     }
     
     private func setupDelegates() {
-        nameTextView.delegate = self
-        descriptionTextView.delegate = self
-        webSiteTextView.delegate = self
+        [nameTextView, descriptionTextView, webSiteTextView].forEach { $0.delegate = self }
     }
     
     private func loadUserProfile(userProfile: UserProfileModel) {
@@ -158,26 +157,6 @@ final class EditingViewController: UIViewController {
         self.descriptionTextView.text = userProfile.description
         self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
         self.webSiteTextView.text = userProfile.webSite
-    }
-}
-
-// MARK: - Create UI Methods
-
-extension EditingViewController {
-    private func createTextLabel() -> UILabel {
-        let label = UILabel()
-        label.font = UIFont.sfBold22
-        return label
-    }
-    
-    private func createTextView() -> UITextView {
-        let textView = UITextView()
-        textView.isScrollEnabled = false
-        textView.font = UIFont.sfRegular17
-        textView.backgroundColor = UIColor.init(hexString: "F7F7F8")
-        textView.layer.cornerRadius = 12
-        textView.textContainerInset = UIEdgeInsets(top: 11, left: 10, bottom: 11, right: 10)
-        return textView
     }
 }
 
@@ -197,5 +176,13 @@ extension EditingViewController: UITextViewDelegate {
                 break
             }
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

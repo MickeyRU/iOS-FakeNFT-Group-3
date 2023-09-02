@@ -82,12 +82,12 @@ final class EditingViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.observeUserProfileChanges { [weak self] (profileModel: UserProfileModel?) in
+        viewModel.observeUserProfileChanges { [weak self] (profile: UserProfileModel?) in
             guard
                 let self = self,
-                let profileModel = profileModel
+                let profile = profile
             else { return }
-            self.loadUserProfile(userProfile: profileModel)
+            self.configureUIElements(with: profile)
         }
     }
     
@@ -149,14 +149,14 @@ final class EditingViewController: UIViewController {
         [nameTextView, descriptionTextView, webSiteTextView].forEach { $0.delegate = self }
     }
     
-    private func loadUserProfile(userProfile: UserProfileModel) {
+    private func configureUIElements(with profile: UserProfileModel) {
         self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
         self.nameLabel.text = NSLocalizedString("userName", comment: "")
-        self.nameTextView.text = userProfile.name
+        self.nameTextView.text = profile.name
         self.descriptionLabel.text = NSLocalizedString("discription", comment: "")
-        self.descriptionTextView.text = userProfile.description
+        self.descriptionTextView.text = profile.description
         self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
-        self.webSiteTextView.text = userProfile.webSite
+        self.webSiteTextView.text = profile.webSite
     }
 }
 

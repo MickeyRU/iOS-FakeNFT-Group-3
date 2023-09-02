@@ -15,7 +15,7 @@ final class ViewControllerFactory {
             return FavoritesNFTViewController()
     }
     
-    func makeEditingViewController(with profile: UserProfileModel, delegate: EditingViewControllerProtocol) -> EditingViewController {
-            return EditingViewController(userProfile: profile, delegate: delegate)
+    func makeEditingViewController(viewModel: ProfileViewModelProtocol) -> EditingViewController {
+        return EditingViewController(viewModel: viewModel)
     }
 }

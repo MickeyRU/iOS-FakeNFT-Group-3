@@ -2,14 +2,16 @@ import Foundation
 
 @propertyWrapper
 final class Observable<Value> {
-    private var onChange: ((Value) -> Void)? = nil
-
+    private var observers: [(Value) -> Void] = []
+    
     var wrappedValue: Value {
         didSet {
-            onChange?(wrappedValue)
+            for observer in observers {
+                observer(wrappedValue)
+            }
         }
     }
-
+    
     var projectedValue: Observable<Value> {
         return self
     }
@@ -17,8 +19,9 @@ final class Observable<Value> {
     init(wrappedValue: Value) {
         self.wrappedValue = wrappedValue
     }
-
-    func bind(action: @escaping (Value) -> Void) {
-        self.onChange = action
+    
+    func observe(_ observer: @escaping (Value) -> Void) {
+            observers.append(observer)
+            observer(wrappedValue)
     }
 }

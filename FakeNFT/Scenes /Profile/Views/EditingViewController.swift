@@ -1,10 +1,8 @@
 import UIKit
 
-protocol EditingViewControllerProtocol: AnyObject {
-    func updateUserProfile(userProfile: UserProfileModel)
-}
-
 final class EditingViewController: UIViewController {
+    private let viewModel: ProfileViewModelProtocol
+    
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -17,10 +15,10 @@ final class EditingViewController: UIViewController {
         return view
     }()
     
-    weak var delegate: EditingViewControllerProtocol?
+    private lazy var alertService: AlertServiceProtocol = {
+        return AlertService(viewController: self)
+    }()
     
-    private var userProfile: UserProfileModel
-
     private lazy var nameLabel = createTextLabel()
     private lazy var nameTextView = createTextView()
     private lazy var descriptionLabel = createTextLabel()
@@ -44,14 +42,15 @@ final class EditingViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .medium)
         button.titleLabel?.numberOfLines = 2
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(changePhotoTapper), for: .touchUpInside)
+        button.addTarget(self, action: #selector(changePhotoTapped), for: .touchUpInside)
         return button
     }()
     
-    init(userProfile: UserProfileModel, delegate: EditingViewControllerProtocol) {
-        self.userProfile = userProfile
-        self.delegate = delegate
+    
+    init(viewModel: ProfileViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.bind()
     }
     
     required init?(coder: NSCoder) {
@@ -65,22 +64,33 @@ final class EditingViewController: UIViewController {
         
         setupViews()
         setupDelegates()
-        loadUserProfile()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        saveUserProfile()
+        viewModel.getUserProfile()
     }
     
     @objc
     private func exitButtonTapped() {
-        dismiss(animated: true)
+        dismiss(animated: true) 
     }
     
-    @objc func changePhotoTapper() {
-        print("changePhotoTapper")
-        // ToDo: - Логика смены фото пользователя.
+    @objc func changePhotoTapped() {
+        alertService.showChangePhotoURLAlert(with: "Введите URL",
+                                            message: nil,
+                                            textFieldPlaceholder: "URL изображения") { [weak self] urlText in
+            guard let self = self else { return }
+            if let urlText = urlText, let url = URL(string: urlText) {
+                self.viewModel.updateImageURL(url: url)
+            }
+        }
+    }
+    
+    private func bind() {
+        viewModel.observeUserProfileChanges { [weak self] (profileModel: UserProfileModel?) in
+            guard
+                let self = self,
+                let profileModel = profileModel
+            else { return }
+            self.loadUserProfile(userProfile: profileModel)
+        }
     }
     
     private func setupViews() {
@@ -140,7 +150,7 @@ final class EditingViewController: UIViewController {
         webSiteTextView.delegate = self
     }
     
-    private func loadUserProfile() {
+    private func loadUserProfile(userProfile: UserProfileModel) {
         self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
         self.nameLabel.text = NSLocalizedString("userName", comment: "")
         self.nameTextView.text = userProfile.name
@@ -148,10 +158,6 @@ final class EditingViewController: UIViewController {
         self.descriptionTextView.text = userProfile.description
         self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
         self.webSiteTextView.text = userProfile.webSite
-    }
-    
-    private func saveUserProfile() {
-        delegate?.updateUserProfile(userProfile: userProfile)
     }
 }
 
@@ -179,32 +185,17 @@ extension EditingViewController {
 
 extension EditingViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        
-        if textView == nameTextView {
-            self.userProfile = createNewUserProfileModel(name: textView.text,
-                                                         avatar: nil,
-                                                         description: nil,
-                                                         webSite: nil)
-        } else if textView == descriptionTextView {
-            self.userProfile = createNewUserProfileModel(name: nil,
-                                                        avatar: nil,
-                                                        description: textView.text,
-                                                        webSite: nil)
-        } else if textView == webSiteTextView {
-            self.userProfile = createNewUserProfileModel(name: nil,
-                                                        avatar: nil,
-                                                        description: nil,
-                                                        webSite: textView.text)
+        if let text = textView.text {
+            switch textView {
+            case nameTextView:
+                viewModel.updateName(text)
+            case descriptionTextView:
+                viewModel.updateDescription(text)
+            case webSiteTextView:
+                viewModel.updateWebSite(text)
+            default:
+                break
+            }
         }
-    }
-    
-    private func createNewUserProfileModel(name: String?,
-                                           avatar: String?,
-                                           description: String?,
-                                           webSite: String?) -> UserProfileModel {
-        UserProfileModel(name: name ?? userProfile.name,
-                         avatar: avatar ?? userProfile.avatar,
-                         description: description ?? userProfile.description,
-                         webSite: webSite ?? userProfile.webSite)
     }
 }

@@ -33,7 +33,7 @@ final class ProfileViewController: UIViewController {
     
     private let viewModel: ProfileViewModelProtocol
     private lazy var router = ProfileRouter(viewController: self)
-
+    
     private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "editButton"), for: .normal)
@@ -73,28 +73,30 @@ final class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         self.navigationController?.delegate = self
         
-        viewModel.getUserProfileData()
+        viewModel.getUserProfile()
         
         setupViews()
     }
     
     @objc
     private func editButtonTapped() {
-        guard let userProfile = viewModel.userProfile else { return }
-        router.routeToEditingViewController(with: userProfile, delegate: self)
+        router.routeToEditingViewController(viewModel: viewModel)
     }
     
     private func bind() {
-        viewModel.observeUserProfileChanges { [weak self] (profileModel: UserProfileModel?) in
-          guard
-            let self = self,
-            let profileModel = profileModel
+        viewModel.observeUserProfileChanges { [weak self] profileModel in
+            guard
+                let self = self,
+                let model = profileModel
             else { return }
-            self.userNameLabel.text = profileModel.name
-            self.userDescriptionLabel.text = profileModel.description
-            self.userWebSiteTextView.text = profileModel.webSite
-            // ToDo: - логика загрузки картинок по URl, количества NFT, избранных NFT
+            self.updateUI(with: model)
         }
+    }
+    
+    private func updateUI(with model: UserProfileModel) {
+        userNameLabel.text = model.name
+        userDescriptionLabel.text = model.description
+        userWebSiteTextView.text = model.webSite
     }
     
     private func setupViews() {
@@ -196,15 +198,5 @@ extension ProfileViewController: UINavigationControllerDelegate {
             let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             self.navigationItem.backBarButtonItem = backItem
         }
-    }
-}
-
-// MARK: - EditingViewControllerProtocol
-
-extension ProfileViewController: EditingViewControllerProtocol {
-    func updateUserProfile(userProfile: UserProfileModel) {
-        print(userProfile.name)
-        
-        viewModel.updateUserProfileData(profile: userProfile)
     }
 }

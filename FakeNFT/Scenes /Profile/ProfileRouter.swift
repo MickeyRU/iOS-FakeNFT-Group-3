@@ -1,8 +1,10 @@
 import UIKit
 
 protocol ProfileRouting {
-    func routeToEditingViewController(with profile: UserProfileModel, delegate: EditingViewControllerProtocol)
+    func routeToEditingViewController(viewModel: ProfileViewModelProtocol)
     func routeToWebView(url: URL)
+    func routeToUserNFT()
+    func routeToFavoritesNFT()
 }
 
 class ProfileRouter: ProfileRouting {
@@ -23,8 +25,8 @@ class ProfileRouter: ProfileRouting {
         pushController(destinationVC)
     }
     
-    func routeToEditingViewController(with profile: UserProfileModel, delegate: EditingViewControllerProtocol) {
-        let editingViewController = factory.makeEditingViewController(with: profile, delegate: delegate)
+    func routeToEditingViewController(viewModel: ProfileViewModelProtocol) {
+        let editingViewController = factory.makeEditingViewController(viewModel: viewModel)
         presentController(editingViewController)
     }
     

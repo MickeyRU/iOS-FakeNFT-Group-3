@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import ProgressHUD
 
 final class WebViewViewController: UIViewController {
     private var targetURL: URL
@@ -20,13 +21,15 @@ final class WebViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-
+        
         setupViews()
         webView.load(URLRequest(url: targetURL))
+        webView.navigationDelegate = self
     }
     
     private func setupViews() {
+        view.backgroundColor = .white
+        
         view.addViewWithNoTAMIC(webView)
         
         NSLayoutConstraint.activate([
@@ -35,5 +38,25 @@ final class WebViewViewController: UIViewController {
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension WebViewViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        ProgressHUD.show("Загрузка...")
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        ProgressHUD.dismiss()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        ProgressHUD.dismiss()
+        // ToDo: - показать пользователю сообщение об ошибке, если это необходимо
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        ProgressHUD.dismiss()
+        // ToDo: - показать пользователю сообщение об ошибке, если это необходимо
     }
 }

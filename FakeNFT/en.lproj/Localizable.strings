@@ -3,3 +3,8 @@
 "catalog" = "Catalog";
 "basket" = "Basket";
 "statistic" = "Statistic";
+"sort" = "Sorting";
+"sort.byName" = "By name";
+"sort.byAmount" = "By number of NFTs";
+"close" = "Close";
+"author" = "Collection author";

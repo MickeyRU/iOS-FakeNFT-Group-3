@@ -8,12 +8,12 @@
 import Foundation
 
 struct NFTCollection: Codable {
-    var id: String
-    var name: String
-    var imageString: String
-    var nfts: [String]
-    var author: String
-    var description: String
+    let id: String
+    let name: String
+    let imageString: String
+    let nfts: [String]
+    let author: String
+    let description: String
 
     enum CodingKeys: String, CodingKey {
         case id, name, imageString = "cover", nfts, author, description

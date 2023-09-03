@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class CatalogCellViewModel {
-    var collectionTitle: String
-    var imageString: String
+struct CatalogCellViewModel {
+    let collectionTitle: String
+    let imageString: String
 
     init(collectionTitle: String, imageString: String) {
         self.collectionTitle = collectionTitle

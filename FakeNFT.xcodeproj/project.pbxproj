@@ -30,6 +30,8 @@
 		4F57E5342AA0F86E00957522 /* CatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F57E5332AA0F86E00957522 /* CatalogCell.swift */; };
 		4F57E5362AA0FAD900957522 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F57E5352AA0FAD900957522 /* CatalogViewModel.swift */; };
 		4F57E5382AA0FB0500957522 /* CatalogCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F57E5372AA0FB0500957522 /* CatalogCellViewModel.swift */; };
+		4FE61EAB2AA47831008072F2 /* CatalogObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */; };
+		4FE61EAE2AA47875008072F2 /* CatalogViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE61EAD2AA47875008072F2 /* CatalogViewModelProtocol.swift */; };
 		BE95457C2A98BE79006C9A7C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE95457B2A98BE79006C9A7C /* MainTabBarController.swift */; };
 		BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545812A98C273006C9A7C /* ProfileViewController.swift */; };
 		BE9545842A98C299006C9A7C /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545832A98C299006C9A7C /* CatalogViewController.swift */; };
@@ -83,6 +85,8 @@
 		4F57E5332AA0F86E00957522 /* CatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCell.swift; sourceTree = "<group>"; };
 		4F57E5352AA0FAD900957522 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
 		4F57E5372AA0FB0500957522 /* CatalogCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCellViewModel.swift; sourceTree = "<group>"; };
+		4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogObservable.swift; sourceTree = "<group>"; };
+		4FE61EAD2AA47875008072F2 /* CatalogViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModelProtocol.swift; sourceTree = "<group>"; };
 		BE95457B2A98BE79006C9A7C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BE9545812A98C273006C9A7C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BE9545832A98C299006C9A7C /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +290,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4FE61EA92AA477F3008072F2 /* ViewModelObservable */ = {
+			isa = PBXGroup;
+			children = (
+				4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */,
+			);
+			path = ViewModelObservable;
+			sourceTree = "<group>";
+		};
+		4FE61EAC2AA47846008072F2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				4FE61EAD2AA47875008072F2 /* CatalogViewModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		BE95457D2A98C217006C9A7C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +320,8 @@
 				4F57E52E2AA0F6EB00957522 /* View */,
 				4F57E52F2AA0F6F700957522 /* Model */,
 				4F57E5302AA0F70100957522 /* ViewModel */,
+				4FE61EA92AA477F3008072F2 /* ViewModelObservable */,
+				4FE61EAC2AA47846008072F2 /* Protocol */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -490,6 +512,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FE61EAB2AA47831008072F2 /* CatalogObservable.swift in Sources */,
 				BE9545862A98C2DF006C9A7C /* BasketViewController.swift in Sources */,
 				4F57E5342AA0F86E00957522 /* CatalogCell.swift in Sources */,
 				BE9545842A98C299006C9A7C /* CatalogViewController.swift in Sources */,
@@ -497,6 +520,7 @@
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				BE9545942A98F66E006C9A7C /* CustomButton.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
+				4FE61EAE2AA47875008072F2 /* CatalogViewModelProtocol.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,

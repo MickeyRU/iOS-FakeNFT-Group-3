@@ -7,9 +7,11 @@
 
 import Foundation
 
-final class CatalogViewModel {
+final class CatalogViewModel: CatalogViewModelProtocol {
     @CatalogObservable
     private(set) var collections: [NFTCollection]?
+    var collectionsObserve: CatalogObservable<[NFTCollection]?> { $collections }
+    private(set) var numberOfRows = 0
 
     func initialize() {
         collections = [
@@ -34,10 +36,7 @@ final class CatalogViewModel {
                 author: "Author", description: "Some description of collection"
             )
         ]
-    }
-
-    func collectionsCount() -> Int {
-        collections?.count ?? 0
+        numberOfRows = collections?.count ?? 0
     }
 
     func collection(at indexPath: IndexPath) -> NFTCollection? {
@@ -55,27 +54,4 @@ final class CatalogViewModel {
         return cellViewModel
     }
 
-}
-
-@propertyWrapper
-final class CatalogObservable<Value> {
-    private var onChange: ((Value) -> Void)?
-
-    var wrappedValue: Value {
-        didSet {
-            onChange?(wrappedValue)
-        }
-    }
-
-    var projectedValue: CatalogObservable<Value> {
-        return self
-    }
-
-    init(wrappedValue: Value) {
-        self.wrappedValue = wrappedValue
-    }
-
-    func bind(action: @escaping (Value) -> Void) {
-        self.onChange = action
-    }
 }

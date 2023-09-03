@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class CatalogCell: UITableViewCell {
+final class CatalogCell: UITableViewCell {
 
     static let identifier = "CatalogCell"
 
@@ -68,6 +68,7 @@ class CatalogCell: UITableViewCell {
             collectionCover.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionCover.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionCover.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionCover.heightAnchor.constraint(equalToConstant: 140),
             collectionTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),

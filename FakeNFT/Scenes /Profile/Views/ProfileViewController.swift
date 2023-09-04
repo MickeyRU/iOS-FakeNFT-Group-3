@@ -28,6 +28,7 @@ final class ProfileViewController: UIViewController {
         textView.dataDetectorTypes = .link
         textView.font = UIFont.sfRegular15
         textView.textContainer.lineFragmentPadding = 16
+        textView.isHidden = true
         return textView
     }()
     
@@ -73,7 +74,7 @@ final class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         self.navigationController?.delegate = self
         
-        viewModel.getUserProfile()
+        viewModel.fetchUserProfile()
         
         setupViews()
     }
@@ -94,13 +95,21 @@ final class ProfileViewController: UIViewController {
     }
     
     private func updateUI(with model: UserProfileModel) {
-        userNameLabel.text = model.name
-        userDescriptionLabel.text = model.description
-        userWebSiteTextView.text = model.webSite
+        DispatchQueue.main.async {
+            self.userNameLabel.text = model.name
+            self.userDescriptionLabel.text = model.description
+            self.userWebSiteTextView.text = model.website
+            [self.editButton, self.profileImageView, self.userNameLabel, self.userDescriptionLabel, self.userWebSiteTextView, self.profileTableView].forEach { $0.isHidden = false }
+        }
     }
     
     private func setupViews() {
-        [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
+        [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach {
+            view.addViewWithNoTAMIC($0)
+            $0.isHidden = true
+        }
+        
+        [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { $0.isHidden = true }
         
         NSLayoutConstraint.activate([
             editButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),

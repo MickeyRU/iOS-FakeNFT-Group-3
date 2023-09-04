@@ -1,10 +1,11 @@
 import Foundation
+import ProgressHUD
 
 protocol ProfileViewModelProtocol {
     var userProfile: UserProfileModel? { get }
     func observeUserProfileChanges(_ handler: @escaping (UserProfileModel?) -> Void)
     
-    func getUserProfile()
+    func fetchUserProfile()
     
     func updateName(_ name: String)
     func updateDescription(_ description: String)
@@ -26,10 +27,22 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         $userProfile.observe(handler)
     }
     
-    func getUserProfile() {
-        userProfile = model.mockProfileData
-        // ToDo: Загрузка данных из сети
+    func fetchUserProfile() {
+        ProgressHUD.show("Загрузка...")
+
+        model.fetchProfile { [weak self] result in
+            guard let self = self else { return }
+            ProgressHUD.dismiss()
+            switch result {
+            case .success(let userProfile):
+                self.userProfile = userProfile
+            case .failure(let error):
+                //ToDo: - Уведомление об ошибке
+                print(error)
+            }
+        }
     }
+    
     
     func updateName(_ name: String) {
         if let currentProfile = userProfile {
@@ -37,7 +50,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 name: name,
                 avatar: currentProfile.avatar,
                 description: currentProfile.description,
-                webSite: currentProfile.webSite
+                website: currentProfile.website,
+                nfts: currentProfile.nfts,
+                likes: currentProfile.likes,
+                id: currentProfile.id
             )
         }
     }
@@ -48,10 +64,13 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 name: currentProfile.name,
                 avatar: currentProfile.avatar,
                 description: description,
-                webSite: currentProfile.webSite
+                website: currentProfile.website,
+                nfts: currentProfile.nfts,
+                likes: currentProfile.likes,
+                id: currentProfile.id
             )
         }
-
+        
     }
     
     func updateWebSite(_ website: String) {
@@ -60,7 +79,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 name: currentProfile.name,
                 avatar: currentProfile.avatar,
                 description: currentProfile.description,
-                webSite:website
+                website: website,
+                nfts: currentProfile.nfts,
+                likes: currentProfile.likes,
+                id: currentProfile.id
             )
         }
     }

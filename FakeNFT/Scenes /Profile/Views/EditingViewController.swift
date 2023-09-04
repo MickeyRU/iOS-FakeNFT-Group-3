@@ -62,7 +62,7 @@ final class EditingViewController: UIViewController {
         
         setupViews()
         setupDelegates()
-        viewModel.getUserProfile()
+        viewModel.fetchUserProfile()
     }
     
     @objc
@@ -150,13 +150,15 @@ final class EditingViewController: UIViewController {
     }
     
     private func configureUIElements(with profile: UserProfileModel) {
-        self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
-        self.nameLabel.text = NSLocalizedString("userName", comment: "")
-        self.nameTextView.text = profile.name
-        self.descriptionLabel.text = NSLocalizedString("discription", comment: "")
-        self.descriptionTextView.text = profile.description
-        self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
-        self.webSiteTextView.text = profile.webSite
+        DispatchQueue.main.async {
+            self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
+            self.nameLabel.text = NSLocalizedString("userName", comment: "")
+            self.nameTextView.text = profile.name
+            self.descriptionLabel.text = NSLocalizedString("discription", comment: "")
+            self.descriptionTextView.text = profile.description
+            self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
+            self.webSiteTextView.text = profile.website
+        }
     }
 }
 

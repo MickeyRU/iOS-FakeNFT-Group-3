@@ -1,9 +1,32 @@
 import Foundation
 
-final class ProfileModel {
-    let mockProfileData = UserProfileModel(name: "Elijah Anderson",
-                                                   avatar: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/179.jpg",
-                                                   description: "NFT collector and enthusiast 🚀",
-                                                   webSite: "https://practicum.yandex.ru/qa-engineer/")
+struct UserProfileModel: Decodable {
+    let name: String
+    let avatar: String
+    let description: String
+    let website: String
+    let nfts: [String]
+    let likes: [String]
+    let id: String
+}
 
+final class ProfileModel {
+    private let networkClient: NetworkClient
+    private let request: NetworkRequest
+    
+    init() {
+        self.networkClient = DefaultNetworkClient()
+        self.request = ProfileNetworkRequest()
+    }
+    
+    func fetchProfile(completion: @escaping (Result<UserProfileModel, Error>) -> Void) {
+        networkClient.send(request: request, type: UserProfileModel.self) { result in
+            switch result {
+            case .success(let profile):
+                completion(.success(profile))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

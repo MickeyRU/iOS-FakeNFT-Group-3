@@ -31,4 +31,22 @@ class AlertService: AlertServiceProtocol {
         
         viewController?.present(alertController, animated: true, completion: nil)
     }
+    
+    func showErrorMessage(with title: String?,
+                          message: String?,
+                          retryHandler: (() -> Void)? = nil) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let reloadAction = UIAlertAction(title: "Попробовать еще раз", style: .default) { _ in
+            retryHandler?()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        
+        alertController.addAction(reloadAction)
+        alertController.addAction(cancelAction)
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+    }
 }

@@ -68,6 +68,11 @@ final class EditingViewController: UIViewController {
         setupDelegates()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.saveUserProfile()
+    }
+    
     @objc
     private func exitButtonTapped() {
         dismiss(animated: true)
@@ -78,8 +83,9 @@ final class EditingViewController: UIViewController {
                                              message: nil,
                                              textFieldPlaceholder: "URL изображения") { [weak self] urlText in
             guard let self = self else { return }
-            if let urlText = urlText, let url = URL(string: urlText) {
-                self.viewModel.updateImageURL(url: url)
+            if let urlText = urlText,
+               let url = URL(string: urlText) {
+                self.viewModel.updateImageURL(with: url)
             } else {
                 alertService.showAvatarChangeError()
             }

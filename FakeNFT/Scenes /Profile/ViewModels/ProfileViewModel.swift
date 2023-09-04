@@ -6,11 +6,12 @@ protocol ProfileViewModelProtocol {
     func observeUserProfileChanges(_ handler: @escaping (UserProfileModel?) -> Void)
     
     func fetchUserProfile()
+    func saveUserProfile()
     
     func updateName(_ name: String)
     func updateDescription(_ description: String)
     func updateWebSite(_ website: String)
-    func updateImageURL(url: URL)
+    func updateImageURL(with url: URL)
 }
 
 final class ProfileViewModel: ProfileViewModelProtocol {
@@ -18,9 +19,11 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     private(set) var userProfile: UserProfileModel?
     
     private let model: ProfileModel
+    private let imageValidator: ImageValidatorProtocol
     
-    init(model: ProfileModel) {
+    init(model: ProfileModel, imageValidator: ImageValidatorProtocol = ImageValidator()) {
         self.model = model
+        self.imageValidator = imageValidator
     }
     
     func observeUserProfileChanges(_ handler: @escaping (UserProfileModel?) -> Void) {
@@ -29,14 +32,13 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func fetchUserProfile() {
         ProgressHUD.show("Загрузка...")
-
+        
         model.fetchProfile { [weak self] result in
             guard let self = self else { return }
             ProgressHUD.dismiss()
             switch result {
             case .success(let userProfile):
                 self.userProfile = userProfile
-                print(userProfile.nfts.count)
             case .failure(let error):
                 //ToDo: - Уведомление об ошибке
                 print(error)
@@ -70,7 +72,6 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 id: currentProfile.id
             )
         }
-        
     }
     
     func updateWebSite(_ website: String) {
@@ -87,8 +88,37 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         }
     }
     
-    func updateImageURL(url: URL) {
-        print("Тут должна быть логика проверки ссылки - \(url) и ее последующее обновление на сервере")
-        // ToDo: Логика проверки и обновления URL в модели ->  в сети
+    func updateImageURL(with url: URL) {
+        imageValidator.isValidImageURL(url) { [weak self] isValid in
+            guard let self = self else { return }
+            if isValid,
+               let currentProfile = userProfile {
+                self.userProfile = UserProfileModel(
+                    name: currentProfile.name,
+                    avatar: url.absoluteString,
+                    description: currentProfile.description,
+                    website: currentProfile.website,
+                    nfts: currentProfile.nfts,
+                    likes: currentProfile.likes,
+                    id: currentProfile.id
+                )
+            } else {
+                // ToDo: Уведомьте пользователя, что URL не является действительным изображением.
+            }
+        }
+    }
+    
+    func saveUserProfile() {
+        guard let userProfile = userProfile else { return }
+        model.updateProfile(with: userProfile) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let updatedProfile):
+                self.userProfile = updatedProfile
+            case .failure(let error):
+                //ToDo: - Уведомление об ошибке
+                print(error)
+            }
+        }
     }
 }

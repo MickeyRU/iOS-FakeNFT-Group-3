@@ -179,7 +179,7 @@ final class ProfileViewController: UIViewController {
             default:
                 break
             }
-            
+        
             cell.configure(title: cellTitle)
             cell.selectionStyle = .none
             return cell

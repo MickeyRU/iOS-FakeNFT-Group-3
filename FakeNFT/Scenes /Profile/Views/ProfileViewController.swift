@@ -129,12 +129,10 @@ final class ProfileViewController: UIViewController {
             userDescriptionLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
             userDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             userDescriptionLabel.trailingAnchor.constraint(equalTo: editButton.leadingAnchor),
-            userDescriptionLabel.heightAnchor.constraint(equalToConstant: 72),
             
             userWebSiteTextView.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 8),
             userWebSiteTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             userWebSiteTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            userWebSiteTextView.heightAnchor.constraint(lessThanOrEqualToConstant: 72),
             
             profileTableView.topAnchor.constraint(equalTo: userWebSiteTextView.bottomAnchor, constant: 40),
             profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

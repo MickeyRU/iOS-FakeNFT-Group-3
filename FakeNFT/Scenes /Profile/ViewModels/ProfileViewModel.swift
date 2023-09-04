@@ -43,7 +43,6 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         }
     }
     
-    
     func updateName(_ name: String) {
         if let currentProfile = userProfile {
             userProfile = UserProfileModel(

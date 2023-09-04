@@ -50,7 +50,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var profileTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.reuseIdentifier)
+        tableView.register(ProfileCell.self)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -143,7 +143,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reuseIdentifier, for: indexPath) as? ProfileCell else { return UITableViewCell() }
+        let cell: ProfileCell = tableView.dequeueReusableCell()
         var cellTitle = ""
         // ToDo: -  Доработать интерполяцию строк в 0 и 1 кейсах, после внедрения логики работы с сетью
         switch indexPath.row {

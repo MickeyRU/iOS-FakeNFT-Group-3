@@ -1,8 +1,6 @@
 import UIKit
 
-final class ProfileCell: UITableViewCell {
-    static let reuseIdentifier = "ProfileCell"
-    
+final class ProfileCell: UITableViewCell, ReuseIdentifying {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfBold17

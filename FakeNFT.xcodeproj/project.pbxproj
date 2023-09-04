@@ -323,10 +323,10 @@
 		BE95457D2A98C217006C9A7C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				BE9319DD2AA1EBDB00BD2D2D /* ProfileRouter.swift */,
 				BE43E5882A9E2CBB00E5A1F6 /* Models */,
 				BE7E893F2A9CCE2300C6B536 /* Views */,
 				BE43E5892A9E2CC100E5A1F6 /* ViewModels */,
+				BE9319DD2AA1EBDB00BD2D2D /* ProfileRouter.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";

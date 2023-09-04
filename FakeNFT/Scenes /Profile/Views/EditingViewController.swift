@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class EditingViewController: UIViewController {
     private let viewModel: ProfileViewModelProtocol
@@ -6,6 +7,9 @@ final class EditingViewController: UIViewController {
     
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.cornerRadius = 35
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -62,7 +66,6 @@ final class EditingViewController: UIViewController {
         
         setupViews()
         setupDelegates()
-        viewModel.fetchUserProfile()
     }
     
     @objc
@@ -77,6 +80,8 @@ final class EditingViewController: UIViewController {
             guard let self = self else { return }
             if let urlText = urlText, let url = URL(string: urlText) {
                 self.viewModel.updateImageURL(url: url)
+            } else {
+                alertService.showAvatarChangeError()
             }
         }
     }
@@ -151,7 +156,7 @@ final class EditingViewController: UIViewController {
     
     private func configureUIElements(with profile: UserProfileModel) {
         DispatchQueue.main.async {
-            self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
+            self.userPhotoImageView.kf.setImage(with: URL(string: profile.avatar))
             self.nameLabel.text = NSLocalizedString("userName", comment: "")
             self.nameTextView.text = profile.name
             self.descriptionLabel.text = NSLocalizedString("discription", comment: "")

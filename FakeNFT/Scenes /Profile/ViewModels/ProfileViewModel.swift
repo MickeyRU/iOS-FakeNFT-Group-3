@@ -36,6 +36,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
             switch result {
             case .success(let userProfile):
                 self.userProfile = userProfile
+                print(userProfile.nfts.count)
             case .failure(let error):
                 //ToDo: - Уведомление об ошибке
                 print(error)
@@ -87,7 +88,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     }
     
     func updateImageURL(url: URL) {
-        print("updateImageURL, \(url)")
+        print("Тут должна быть логика проверки ссылки - \(url) и ее последующее обновление на сервере")
         // ToDo: Логика проверки и обновления URL в модели ->  в сети
     }
 }

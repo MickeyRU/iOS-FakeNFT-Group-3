@@ -16,11 +16,11 @@ struct UpdateProfileNetworkRequest: NetworkRequest {
     }
 
     var httpMethod: HttpMethod {
-        return .put // измените .post на .put
+        return .put
     }
 
     var dto: Encodable? {
-        return profileDTO // здесь вы передаете данные, которые хотите отправить на сервер
+        return profileDTO
     }
     
     let profileDTO: ProfileUpdateDTO

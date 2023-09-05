@@ -125,8 +125,6 @@ final class ProfileViewController: UIViewController {
                 $0.isHidden = true
             }
             
-            [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { $0.isHidden = true }
-            
             NSLayoutConstraint.activate([
                 editButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
                 editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),

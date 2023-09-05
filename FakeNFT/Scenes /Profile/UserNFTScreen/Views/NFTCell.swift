@@ -1,26 +1,28 @@
 import UIKit
 import Cosmos
+import Kingfisher
 
 final class NFTCell: UITableViewCell, ReuseIdentifying {
     private let nftImageView = ViewFactory.shared.createNFTImageView()
     private let likeImageView = ViewFactory.shared.createLikeImageView()
     
-    private let name: UILabel = {
+    private var name: UILabel = {
         let label = UILabel()
-        label.text = "Lilo"
         label.font = UIFont.sfBold17
         return label
     }()
     
     private let ratingView: CosmosView = {
         let view = CosmosView()
-        view.rating = 3
         view.settings.starSize = 12
+        view.settings.totalStars = 5
         view.settings.starMargin = 2
         view.settings.filledColor = UIColor.unYellow
         view.settings.emptyBorderColor = UIColor.init(hexString: "F7F7F8")
         view.settings.filledBorderColor = UIColor.unYellow
         view.settings.updateOnTouch = false
+        view.settings.filledImage = UIImage(named: "filledStarImage")
+        view.settings.emptyImage = UIImage(named: "emptyStarImage")
         return view
     }()
     
@@ -34,7 +36,6 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
     private let author: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfRegular13
-        label.text = "John Doe"
         return label
     }()
     
@@ -62,7 +63,6 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
     private let currentPriceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfBold17
-        label.text = "1,78 ETH"
         return label
     }()
     
@@ -76,17 +76,22 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        
-        nftImageView.image = UIImage(named: "mockImage")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func configure(image: UIImage) {
-//        self .nftImageView.image = image
-//    }
+    func configure(nft: NFT, authorName: String) {
+        self.nftImageView.kf.setImage(with: URL(string: nft.images[0]))
+        self.name.text = nft.name
+        self.ratingView.rating = Double(nft.rating)
+        self.author.text = authorName
+        
+        if let formattedPrice = NumberFormatter.defaultPriceFormatter.string(from: NSNumber(value: nft.price)) {
+            self.currentPriceLabel.text = "\(formattedPrice) ETH"
+        }
+    }
     
     private func setupViews() {
         nftImageView.addViewWithNoTAMIC(likeImageView)

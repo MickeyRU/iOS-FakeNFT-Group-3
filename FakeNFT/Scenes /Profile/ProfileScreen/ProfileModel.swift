@@ -1,15 +1,5 @@
 import Foundation
 
-struct UserProfileModel: Codable {
-    let name: String
-    let avatar: String
-    let description: String
-    let website: String
-    let nfts: [String]
-    let likes: [String]
-    let id: String
-}
-
 final class ProfileModel {
     private let networkClient: NetworkClient
     
@@ -18,8 +8,8 @@ final class ProfileModel {
     }
     
     func fetchProfile(request: NetworkRequest = FetchProfileNetworkRequest(),
-                      completion: @escaping (Result<UserProfileModel, Error>) -> Void) {
-        networkClient.send(request: request, type: UserProfileModel.self) { result in
+                      completion: @escaping (Result<UserProfile, Error>) -> Void) {
+        networkClient.send(request: request, type: UserProfile.self) { result in
             switch result {
             case .success(let profile):
                 completion(.success(profile))
@@ -29,10 +19,10 @@ final class ProfileModel {
         }
     }
     
-    func updateProfile(with userProfileModel: UserProfileModel,
-                       completion: @escaping (Result<UserProfileModel, Error>) -> Void) {
+    func updateProfile(with userProfileModel: UserProfile,
+                       completion: @escaping (Result<UserProfile, Error>) -> Void) {
         let request = UpdateProfileNetworkRequest(userProfile: userProfileModel)
-            networkClient.send(request: request, type: UserProfileModel.self) { result in
+            networkClient.send(request: request, type: UserProfile.self) { result in
                 switch result {
                 case .success(let updatedProfile):
                     completion(.success(updatedProfile))

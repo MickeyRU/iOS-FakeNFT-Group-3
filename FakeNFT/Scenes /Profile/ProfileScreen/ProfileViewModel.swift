@@ -2,8 +2,8 @@ import Foundation
 import ProgressHUD
 
 protocol ProfileViewModelProtocol {
-    var userProfile: UserProfileModel? { get }
-    func observeUserProfileChanges(_ handler: @escaping (UserProfileModel?) -> Void)
+    var userProfile: UserProfile? { get }
+    func observeUserProfileChanges(_ handler: @escaping (UserProfile?) -> Void)
     
     func fetchUserProfile()
     func saveUserProfile()
@@ -16,7 +16,7 @@ protocol ProfileViewModelProtocol {
 
 final class ProfileViewModel: ProfileViewModelProtocol {
     @Observable
-    private(set) var userProfile: UserProfileModel?
+    private(set) var userProfile: UserProfile?
     
     private let model: ProfileModel
     private let imageValidator: ImageValidatorProtocol
@@ -26,7 +26,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         self.imageValidator = imageValidator
     }
     
-    func observeUserProfileChanges(_ handler: @escaping (UserProfileModel?) -> Void) {
+    func observeUserProfileChanges(_ handler: @escaping (UserProfile?) -> Void) {
         $userProfile.observe(handler)
     }
     
@@ -48,7 +48,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func updateName(_ name: String) {
         if let currentProfile = userProfile {
-            userProfile = UserProfileModel(
+            userProfile = UserProfile(
                 name: name,
                 avatar: currentProfile.avatar,
                 description: currentProfile.description,
@@ -62,7 +62,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func updateDescription(_ description: String) {
         if let currentProfile = userProfile {
-            userProfile = UserProfileModel(
+            userProfile = UserProfile(
                 name: currentProfile.name,
                 avatar: currentProfile.avatar,
                 description: description,
@@ -76,7 +76,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func updateWebSite(_ website: String) {
         if let currentProfile = userProfile {
-            userProfile = UserProfileModel(
+            userProfile = UserProfile(
                 name: currentProfile.name,
                 avatar: currentProfile.avatar,
                 description: currentProfile.description,
@@ -93,7 +93,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
             guard let self = self else { return }
             if isValid,
                let currentProfile = userProfile {
-                self.userProfile = UserProfileModel(
+                self.userProfile = UserProfile(
                     name: currentProfile.name,
                     avatar: url.absoluteString,
                     description: currentProfile.description,

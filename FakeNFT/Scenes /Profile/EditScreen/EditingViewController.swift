@@ -91,7 +91,7 @@ final class EditingViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.observeUserProfileChanges { [weak self] (profile: UserProfileModel?) in
+        viewModel.observeUserProfileChanges { [weak self] (profile: UserProfile?) in
             guard
                 let self = self,
                 let profile = profile
@@ -158,7 +158,7 @@ final class EditingViewController: UIViewController {
         [nameTextView, descriptionTextView, webSiteTextView].forEach { $0.delegate = self }
     }
     
-    private func configureUIElements(with profile: UserProfileModel) {
+    private func configureUIElements(with profile: UserProfile) {
         DispatchQueue.main.async {
             self.userPhotoImageView.kf.setImage(with: URL(string: profile.avatar))
             self.nameLabel.text = NSLocalizedString("userName", comment: "")

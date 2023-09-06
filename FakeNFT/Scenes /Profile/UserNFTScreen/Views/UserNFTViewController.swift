@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 
 final class UserNFTViewController: UIViewController {
     private let nftList: [String]
@@ -11,6 +12,13 @@ final class UserNFTViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         return tableView
+    }()
+    
+    private lazy var sortButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "sortButtonImage"), for: .normal)
+        button.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     init(nftList: [String], viewModel: UserNFTViewModelProtocol) {
@@ -29,11 +37,28 @@ final class UserNFTViewController: UIViewController {
         
         viewModel.fetchNFT(nftList: nftList)
         setupViews()
+        configNavigationBar()
+    }
+    
+    @objc private func sortButtonTapped() {
+        //ToDo: - логика сортировки
+        print("sortButtonTapped")
+    }
+    
+    private func startLoading() {
+        ProgressHUD.show("Загрузка...")
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+
+    private func stopLoading() {
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        ProgressHUD.dismiss()
     }
     
     private func bind() {
         viewModel.observeUserNFT { [weak self] _ in
             guard let self = self else { return }
+            stopLoading()
             self.nftTableView.reloadData()
         }
     }
@@ -50,6 +75,14 @@ final class UserNFTViewController: UIViewController {
             nftTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private func configNavigationBar() {
+        let barButtonItem = UIBarButtonItem(customView: sortButton)
+        navigationItem.rightBarButtonItem = barButtonItem
+        navigationItem.title = NSLocalizedString("MyNFTTitle", comment: "")
+        setupCustomBackButton()
+        startLoading()
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -64,7 +97,7 @@ extension UserNFTViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         
         guard let nft = viewModel.userNFT?[indexPath.row] else {
-            print("error to get NFT")
+            print("Error to get NFT")
             return cell
         }
         
@@ -72,7 +105,6 @@ extension UserNFTViewController: UITableViewDataSource {
                 cell.configure(nft: nft, authorName: author.name)
             } else {
                 print("error to get author ID")
-                // You can set a placeholder for the author name here
                 cell.configure(nft: nft, authorName: "Unknown author")
             }
         

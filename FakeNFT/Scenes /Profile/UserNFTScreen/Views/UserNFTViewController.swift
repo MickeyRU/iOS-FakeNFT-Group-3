@@ -5,6 +5,10 @@ final class UserNFTViewController: UIViewController {
     private let nftList: [String]
     private let viewModel: UserNFTViewModelProtocol
     
+    private lazy var alertService: AlertServiceProtocol = {
+        return AlertService(viewController: self)
+    }()
+    
     private lazy var nftTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(NFTCell.self)
@@ -41,8 +45,15 @@ final class UserNFTViewController: UIViewController {
     }
     
     @objc private func sortButtonTapped() {
-        //ToDo: - логика сортировки
-        print("sortButtonTapped")
+        alertService.showSortAlert(
+            priceSortAction: { [weak self] in self?.sortData(by: .price) },
+            ratingSortAction: { [weak self] in self?.sortData(by: .rating) },
+            titleSortAction: { [weak self] in self?.sortData(by: .title) }
+        )
+    }
+
+    private func sortData(by option: SortOption) {
+        viewModel.sortData(by: option)
     }
     
     private func startLoading() {
@@ -51,8 +62,8 @@ final class UserNFTViewController: UIViewController {
     }
 
     private func stopLoading() {
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
         ProgressHUD.dismiss()
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     private func bind() {

@@ -57,6 +57,7 @@
 		BE9545922A98D226006C9A7C /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545912A98D226006C9A7C /* UIView + Extensions.swift */; };
 		BE9545942A98F66E006C9A7C /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545932A98F66E006C9A7C /* CustomButton.swift */; };
 		BEAAF4A82AA8900600402335 /* UIViewController + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAAF4A72AA8900600402335 /* UIViewController + Extensions.swift */; };
+		BEAAF4AA2AA89A0500402335 /* SortOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAAF4A92AA89A0500402335 /* SortOptions.swift */; };
 		BEB15D472AA71A3500FDC9C1 /* NFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB15D462AA71A3500FDC9C1 /* NFTCell.swift */; };
 		BEB15D4A2AA727E400FDC9C1 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = BEB15D492AA727E400FDC9C1 /* Cosmos */; };
 /* End PBXBuildFile section */
@@ -132,6 +133,7 @@
 		BE9545912A98D226006C9A7C /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 		BE9545932A98F66E006C9A7C /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		BEAAF4A72AA8900600402335 /* UIViewController + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extensions.swift"; sourceTree = "<group>"; };
+		BEAAF4A92AA89A0500402335 /* SortOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptions.swift; sourceTree = "<group>"; };
 		BEB15D462AA71A3500FDC9C1 /* NFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -318,6 +320,7 @@
 				BE9319DF2AA1F1B400BD2D2D /* ViewControllerFactory.swift */,
 				BE9319E32AA3560D00BD2D2D /* ViewFactory.swift */,
 				BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */,
+				BEAAF4A92AA89A0500402335 /* SortOptions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				BE9545882A98C30B006C9A7C /* StatisticsViewController.swift in Sources */,
 				BE9319DE2AA1EBDB00BD2D2D /* ProfileRouter.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
+				BEAAF4AA2AA89A0500402335 /* SortOptions.swift in Sources */,
 				BE43E5902A9E33A200E5A1F6 /* Observable.swift in Sources */,
 				BE906FCE2AA754EF00178C7D /* UserNFTViewModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,

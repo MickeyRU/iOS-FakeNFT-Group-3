@@ -7,6 +7,8 @@ protocol UserNFTViewModelProtocol {
     
     func fetchNFT(nftList: [String])
     func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void)
+    
+    func sortData(by option: SortOption)
 }
 
 final class UserNFTViewModel: UserNFTViewModelProtocol {
@@ -43,23 +45,23 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         }
         
         group.notify(queue: .main) {
-                let authorGroup = DispatchGroup()
-                for nft in fetchedNFTs {
-                    authorGroup.enter()
-                    self.fetchAuthor(authorID: nft.author) { result in
-                        switch result {
-                        case .success(let author):
-                            self.authors[nft.author] = author
-                        case .failure(let error):
-                            print("Failed to fetch author with ID \(nft.author): \(error)")
-                        }
-                        authorGroup.leave()
+            let authorGroup = DispatchGroup()
+            for nft in fetchedNFTs {
+                authorGroup.enter()
+                self.fetchAuthor(authorID: nft.author) { result in
+                    switch result {
+                    case .success(let author):
+                        self.authors[nft.author] = author
+                    case .failure(let error):
+                        print("Failed to fetch author with ID \(nft.author): \(error)")
                     }
-                }
-                authorGroup.notify(queue: .main) {
-                    self.userNFT = fetchedNFTs
+                    authorGroup.leave()
                 }
             }
+            authorGroup.notify(queue: .main) {
+                self.userNFT = fetchedNFTs
+            }
+        }
     }
     
     func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void) {
@@ -71,5 +73,22 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func sortData(by option: SortOption) {
+        guard var nfts = userNFT else {
+            print("No NFTs available to sort")
+            return
+        }
+
+        switch option {
+        case .price:
+            nfts.sort(by: { $0.price < $1.price })
+        case .rating:
+            nfts.sort(by: { $0.rating < $1.rating })
+        case .title:
+            nfts.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
+        }
+        self.userNFT = nfts
     }
 }

@@ -4,7 +4,7 @@ final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.identifier)
-        tableView.allowsSelection = false
+        // tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         return tableView
@@ -101,7 +101,13 @@ extension CatalogViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Collection was selected")
+        guard let collection = viewModel.collection(at: indexPath) else {
+            return
+        }
+
+        let vc = UINavigationController(rootViewController: NFTCollectionViewController(with: collection))
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
 

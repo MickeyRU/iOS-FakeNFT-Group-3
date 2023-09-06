@@ -21,7 +21,7 @@ final class CatalogViewModel: CatalogViewModelProtocol {
                 imageString: "https://code.s3.yandex.net/Mobile/iOS/NFT/Обложки_коллекций/Peach.png",
                 nfts: ["1", "2", "3"],
                 author: "Author",
-                description: "Some description of collection"),
+                description: "Персиковый — как облака над закатным солнцемв океане. В этой коллекции совмещены трогательная нежность и живая игривость сказочных зефирных зверей."),
             NFTCollection(id: "2",
                 name: "Blue",
                 imageString: "https://code.s3.yandex.net/Mobile/iOS/NFT/Обложки_коллекций/Blue.png",

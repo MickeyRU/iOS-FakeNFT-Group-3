@@ -291,6 +291,9 @@
 			children = (
 				3F6806CA29CBBCC700B4F915 /* ExampleNetworkModel.swift */,
 				BE28CB1D2AA616B500AADB8D /* ProfileUpdateDTO.swift */,
+				BE906FD12AA756B800178C7D /* NFT.swift */,
+				BE906FCF2AA7565E00178C7D /* UserProfile.swift */,
+				BE906FD72AA76A3700178C7D /* Author.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -328,7 +331,6 @@
 		BE906FC92AA751B400178C7D /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BE906FCF2AA7565E00178C7D /* UserProfile.swift */,
 				BE43E58A2A9E327400E5A1F6 /* ProfileModel.swift */,
 				BEB15D402AA7196E00FDC9C1 /* Views */,
 				BE43E58C2A9E329800E5A1F6 /* ProfileViewModel.swift */,
@@ -411,8 +413,6 @@
 			isa = PBXGroup;
 			children = (
 				BE906FCB2AA754D600178C7D /* UserNFTModel.swift */,
-				BE906FD12AA756B800178C7D /* NFT.swift */,
-				BE906FD72AA76A3700178C7D /* Author.swift */,
 				BE906FCA2AA754BD00178C7D /* Views */,
 				BE906FCD2AA754EF00178C7D /* UserNFTViewModel.swift */,
 			);

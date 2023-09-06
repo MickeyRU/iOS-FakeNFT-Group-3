@@ -29,7 +29,7 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
     private let authorPrefix: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfRegular15
-        label.text = "от"
+        label.text = NSLocalizedString("from", comment: "")
         return label
     }()
     
@@ -42,6 +42,7 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
     private let authorStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.alignment = .firstBaseline
         stackView.spacing = 4
         return stackView
     }()
@@ -55,7 +56,7 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "Цена"
+        label.text = NSLocalizedString("Price", comment: "") 
         label.font = UIFont.sfRegular13
         return label
     }()

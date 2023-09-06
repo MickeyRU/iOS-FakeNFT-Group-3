@@ -76,7 +76,8 @@ final class EditingViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func changePhotoTapped() {
+    @objc
+    private func changePhotoTapped() {
         alertService.showChangePhotoURLAlert(with: "Введите URL",
                                              message: nil,
                                              textFieldPlaceholder: "URL изображения") { [weak self] urlText in

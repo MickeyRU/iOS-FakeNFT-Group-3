@@ -1,9 +1,19 @@
 import Foundation
 
+enum LoadingState {
+    case idle
+    case loading
+    case loaded
+    case error(Error)
+}
+
 protocol UserNFTViewModelProtocol {
     var userNFT: [NFT]? { get }
     var authors: [String: Author] { get }
+    var state: LoadingState { get }
+    
     func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void)
+    func observeState(_ handler: @escaping (LoadingState) -> Void)
     
     func fetchNFT(nftList: [String])
     func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void)
@@ -14,6 +24,9 @@ protocol UserNFTViewModelProtocol {
 final class UserNFTViewModel: UserNFTViewModelProtocol {
     @Observable
     private (set) var userNFT: [NFT]?
+    
+    @Observable
+    private (set) var state: LoadingState = .idle
     
     private (set) var authors: [String: Author] = [:] // Dictionary с ID автора как ключом и данными автора как значением.
     private let model: UserNFTModel
@@ -26,7 +39,13 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         $userNFT.observe(handler)
     }
     
+    func observeState(_ handler: @escaping (LoadingState) -> Void) {
+        $state.observe(handler)
+    }
+    
     func fetchNFT(nftList: [String]) {
+        state = .loading
+
         var fetchedNFTs: [NFT] = []
         let group = DispatchGroup()
         
@@ -46,6 +65,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         
         group.notify(queue: .main) {
             let authorGroup = DispatchGroup()
+            
             for nft in fetchedNFTs {
                 authorGroup.enter()
                 self.fetchAuthor(authorID: nft.author) { result in
@@ -60,6 +80,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
             }
             authorGroup.notify(queue: .main) {
                 self.userNFT = fetchedNFTs
+                self.state = .loaded
             }
         }
     }

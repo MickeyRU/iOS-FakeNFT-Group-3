@@ -16,7 +16,11 @@ public final class CartOrderSorter: CartOrderSorterProtocol {
     
     private let sortingQueue = DispatchQueue(label: "com.practicum.yandex.sorting-nft")
     
-    public func sort(order: OrderViewModel, trait: SortingTrait, completion: @escaping LoadingCompletionBlock<OrderViewModel>) {
+    public func sort(
+        order: OrderViewModel,
+        trait: SortingTrait,
+        completion: @escaping LoadingCompletionBlock<OrderViewModel>
+    ) {
         let sortingClosure = self.getSortingClosure(trait: trait)
         self.sortingQueue.sync {
             let sortedOrder = order.sorted(by: sortingClosure)

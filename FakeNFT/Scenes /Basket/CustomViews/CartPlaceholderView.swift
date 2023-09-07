@@ -39,8 +39,8 @@ final class CartPlaceholderView: UIView {
     
     func addConstraints() {
         NSLayoutConstraint.activate([
-            self.label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 }

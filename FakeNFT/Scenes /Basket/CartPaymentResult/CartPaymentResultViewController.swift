@@ -17,7 +17,7 @@ final class CartPaymentResultViewController: UIViewController {
     private let resultType: ResultType
     
     private lazy var resultImageView: UIImageView = {
-        let image: UIImage = resultType == .success ? UIImage.PaymentResult.success :  UIImage.PaymentResult.failure
+        let image: UIImage = resultType == .success ? UIImage.PaymentResult.success : UIImage.PaymentResult.failure
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -63,6 +63,7 @@ final class CartPaymentResultViewController: UIViewController {
     }
     
     // MARK: - LifeCycle
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         

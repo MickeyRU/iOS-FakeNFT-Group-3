@@ -13,7 +13,12 @@ public struct CurrencyCellViewModel: Equatable {
     let name: String
     let image: UIImage?
     
-    public init(id: String, title: String, name: String, image: UIImage?) {
+    public init(
+        id: String,
+        title: String,
+        name: String,
+        image: UIImage?
+    ) {
         self.id = id
         self.title = title
         self.name = name

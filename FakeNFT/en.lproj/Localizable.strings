@@ -15,3 +15,4 @@
 "sort_alert_rating_action" = "By rating";
 "sort_alert_name_action" = "By name";
 "sort_alert_close_action" = "Close";
+"default _error_title" = "Название";

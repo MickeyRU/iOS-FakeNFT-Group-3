@@ -105,7 +105,6 @@ extension CartRemoveNftViewController {
     }
     
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             blurredEffectView.topAnchor.constraint(equalTo: view.topAnchor),
             blurredEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

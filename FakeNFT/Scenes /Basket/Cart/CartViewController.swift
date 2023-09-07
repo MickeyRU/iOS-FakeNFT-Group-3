@@ -8,7 +8,6 @@
 import UIKit
 
 final class CartViewController: UIViewController {
-    
     private let cartView = CartView()
     
     private lazy var sortButton: UIBarButtonItem = {
@@ -54,6 +53,7 @@ final class CartViewController: UIViewController {
     
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         viewModel.fetchOrder()
     }
     

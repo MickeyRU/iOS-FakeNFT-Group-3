@@ -33,7 +33,6 @@ final class CartView: UIView {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.refreshControl = self.refreshControl
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register<CartTableViewCell>(CartTableViewCell.self)
         return tableView
     }()
@@ -50,7 +49,6 @@ final class CartView: UIView {
         let label = UILabel()
         label.font = .sfRegular15
         label.adjustsFontSizeToFitWidth = true
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -58,7 +56,6 @@ final class CartView: UIView {
         let label = UILabel()
         label.textColor = .unGreenUniversal
         label.font = .sfBold17
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -135,17 +132,16 @@ extension CartView {
 extension CartView {
     
     private func addSubviews() {
-        addSubview(cartTableView)
-        addSubview(purchaseBackgroundView)
-        addSubview(placeholderView)
+        addViewWithNoTAMIC(cartTableView)
+        addViewWithNoTAMIC(purchaseBackgroundView)
+        addViewWithNoTAMIC(placeholderView)
 
-        purchaseBackgroundView.addSubview(purchaseButton)
-        purchaseBackgroundView.addSubview(nftCountLabel)
-        purchaseBackgroundView.addSubview(finalCostLabel)
+        purchaseBackgroundView.addViewWithNoTAMIC(purchaseButton)
+        purchaseBackgroundView.addViewWithNoTAMIC(nftCountLabel)
+        purchaseBackgroundView.addViewWithNoTAMIC(finalCostLabel)
     }
     
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             cartTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             cartTableView.leadingAnchor.constraint(equalTo: leadingAnchor),

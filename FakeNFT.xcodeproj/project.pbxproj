@@ -39,6 +39,10 @@
 		914090482AA0D6060078C234 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914090472AA0D6060078C234 /* Currency.swift */; };
 		9140904A2AA0D6170078C234 /* CurrencyCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914090492AA0D6170078C234 /* CurrencyCellViewModel.swift */; };
 		9140904C2AA0D6420078C234 /* PurchaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9140904B2AA0D6420078C234 /* PurchaseResult.swift */; };
+		91CABF172AA99F1300365C0D /* PurchaseBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CABF162AA99F1300365C0D /* PurchaseBackgroundView.swift */; };
+		91CABF192AA9A11300365C0D /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CABF182AA9A11300365C0D /* AppButton.swift */; };
+		91CABF1B2AA9A42100365C0D /* StarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CABF1A2AA9A42100365C0D /* StarsView.swift */; };
+		91CABF1E2AA9A83E00365C0D /* ProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CABF1D2AA9A83E00365C0D /* ProgressHUDWrapper.swift */; };
 		BE95457C2A98BE79006C9A7C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE95457B2A98BE79006C9A7C /* MainTabBarController.swift */; };
 		BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545812A98C273006C9A7C /* ProfileViewController.swift */; };
 		BE9545842A98C299006C9A7C /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545832A98C299006C9A7C /* CatalogViewController.swift */; };
@@ -101,6 +105,10 @@
 		914090472AA0D6060078C234 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		914090492AA0D6170078C234 /* CurrencyCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCellViewModel.swift; sourceTree = "<group>"; };
 		9140904B2AA0D6420078C234 /* PurchaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResult.swift; sourceTree = "<group>"; };
+		91CABF162AA99F1300365C0D /* PurchaseBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseBackgroundView.swift; sourceTree = "<group>"; };
+		91CABF182AA9A11300365C0D /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
+		91CABF1A2AA9A42100365C0D /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
+		91CABF1D2AA9A83E00365C0D /* ProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		BE95457B2A98BE79006C9A7C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BE9545812A98C273006C9A7C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BE9545832A98C299006C9A7C /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
@@ -325,7 +333,11 @@
 		914090302AA0C15C0078C234 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				91CABF162AA99F1300365C0D /* PurchaseBackgroundView.swift */,
+				91CABF182AA9A11300365C0D /* AppButton.swift */,
+				91CABF1A2AA9A42100365C0D /* StarsView.swift */,
 				914090322AA0C1B50078C234 /* CartPlaceholderView.swift */,
+				91CABF1D2AA9A83E00365C0D /* ProgressHUDWrapper.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -382,6 +394,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		91CABF1F2AA9AA8F00365C0D /* CartRemoveNft */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CartRemoveNft;
+			sourceTree = "<group>";
+		};
 		BE95457D2A98C217006C9A7C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +425,7 @@
 				914090352AA0C6D80078C234 /* CartPaymentResult */,
 				914090312AA0C1920078C234 /* ViewController */,
 				914090302AA0C15C0078C234 /* CustomViews */,
+				91CABF1F2AA9AA8F00365C0D /* CartRemoveNft */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -601,6 +621,7 @@
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				9140904C2AA0D6420078C234 /* PurchaseResult.swift in Sources */,
 				9140902D2AA0BF670078C234 /* Strings+Extensions.swift in Sources */,
+				91CABF192AA9A11300365C0D /* AppButton.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				914090462AA0D5DE0078C234 /* NFTCartCellViewModel.swift in Sources */,
@@ -608,6 +629,8 @@
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
+				91CABF172AA99F1300365C0D /* PurchaseBackgroundView.swift in Sources */,
+				91CABF1B2AA9A42100365C0D /* StarsView.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				914090402AA0D48E0078C234 /* CartOrderSorter.swift in Sources */,
 				BE9545922A98D226006C9A7C /* UIView + Extensions.swift in Sources */,
@@ -617,6 +640,7 @@
 				BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */,
 				BE9545882A98C30B006C9A7C /* StatisticsViewController.swift in Sources */,
 				9140903D2AA0D2370078C234 /* UIAlertController+Extensions.swift in Sources */,
+				91CABF1E2AA9A83E00365C0D /* ProgressHUDWrapper.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				914090372AA0C7100078C234 /* CartPaymentResultViewController.swift in Sources */,

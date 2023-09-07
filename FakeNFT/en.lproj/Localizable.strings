@@ -3,3 +3,16 @@
 "catalog" = "Catalog";
 "basket" = "Basket";
 "statistic" = "Statistic";
+
+//MARK: Basket
+"cart_placeholder_text" = "Cart is empty";
+"cart_payment_success_title_buttom" = "Back to catalog";
+"cart_payment_failure_title_buttom" = "Try again";
+"cart_payment_success_title_label" = "Success! Payment completed, congratulations on your purchase!";
+"cart_payment_failure_title_label" = "Oops! Something went wrong :( Try again!";
+"sort_alert_title" = "Sorting NFTs";
+"sort_alert_price_action" = "By price";
+"sort_alert_rating_action" = "By rating";
+"sort_alert_name_action" = "By name";
+"sort_alert_close_action" = "Close";
+"default _error_title" = "Название";

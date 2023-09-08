@@ -1,8 +1,10 @@
 import UIKit
 import Kingfisher
+import ProgressHUD
 
 final class EditingViewController: UIViewController {
-    private let viewModel: ProfileViewModelProtocol
+    private let viewModel: EditingViewModelProtocol
+    
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 35
@@ -48,7 +50,7 @@ final class EditingViewController: UIViewController {
         return button
     }()
     
-    init(viewModel: ProfileViewModelProtocol) {
+    init(viewModel: EditingViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.bind()
@@ -68,7 +70,7 @@ final class EditingViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.userWillcloseViewController()
+        viewModel.viewWillDisappear()
     }
     
     @objc
@@ -179,6 +181,7 @@ final class EditingViewController: UIViewController {
             self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
             self.webSiteTextView.text = profile.website
         }
+        ProgressHUD.dismiss()
     }
 }
 

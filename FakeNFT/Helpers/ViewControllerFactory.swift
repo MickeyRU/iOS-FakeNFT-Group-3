@@ -8,7 +8,8 @@ final class ViewControllerFactory {
     }
     
     func makeUserNFTViewController(nftList: [String]) -> UserNFTViewController {
-        let userNFTViewController = UserNFTViewController(nftList: nftList, viewModel: UserNFTViewModel(model: UserNFTModel()))
+        let userNFTViewController = UserNFTViewController(nftList: nftList,
+                                                          viewModel: UserNFTViewModel(model: UserNFTModel()))
         return userNFTViewController
     }
     
@@ -17,6 +18,6 @@ final class ViewControllerFactory {
     }
     
     func makeEditingViewController() -> EditingViewController {
-        return EditingViewController(viewModel: ProfileViewModel(model: ProfileService(networkClient: DefaultNetworkClient())))
+        return EditingViewController(viewModel: EditingViewModel(profileService: ProfileService(networkClient: DefaultNetworkClient())))
     }
 }

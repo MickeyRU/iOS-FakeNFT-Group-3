@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 
 final class EditingViewController: UIViewController {
-    private let viewModel: ProfileViewModelProtocol    
+    private let viewModel: ProfileViewModelProtocol
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 35
@@ -31,8 +31,7 @@ final class EditingViewController: UIViewController {
     
     private lazy var exitButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage(named: "xmarkImage"), for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         return button
@@ -61,6 +60,7 @@ final class EditingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewDidLoad()
         
         setupViews()
         setupDelegates()
@@ -68,7 +68,7 @@ final class EditingViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.saveUserProfile()
+        viewModel.userWillcloseViewController()
     }
     
     @objc
@@ -78,18 +78,28 @@ final class EditingViewController: UIViewController {
     
     @objc
     private func changePhotoTapped() {
-        alertService.showChangePhotoURLAlert(with: "Введите URL",
-                                             message: nil,
-                                             textFieldPlaceholder: "URL изображения") { [weak self] urlText in
+        let confirmAction = AlertActionModel(title: "Подтвердить", style: .default) { [weak self] urlText in
             guard let self = self else { return }
             if let urlText = urlText,
                let url = URL(string: urlText) {
-                self.viewModel.updateImageURL(with: url)
+                self.viewModel.photoURLdidChanged(with: url)
             } else {
-                alertService.showAvatarChangeError()
+                let errorModel = AlertModel(title: "Ошибка",
+                                            message: "Введен не корректный URL адрес",
+                                            style: .alert,
+                                            actions: [AlertActionModel(title: "OK", style: .cancel, handler: nil)],
+                                            textFieldPlaceholder: nil)
+                alertService.showAlert(model: errorModel)
             }
         }
+        
+        let cancelAction = AlertActionModel(title: "Отмена", style: .cancel, handler: nil)
+        
+        let alertModel = AlertModel(title: "Введите URL", message: nil, style: .alert, actions: [confirmAction, cancelAction], textFieldPlaceholder: "URL изображения")
+        
+        alertService.showAlert(model: alertModel)
     }
+    
     
     private func bind() {
         viewModel.observeUserProfileChanges { [weak self] (profile: UserProfile?) in
@@ -97,7 +107,7 @@ final class EditingViewController: UIViewController {
                 let self = self,
                 let profile = profile
             else { return }
-            self.configureUIElements(with: profile)
+            self.updateUIElements(with: profile)
         }
     }
     
@@ -159,7 +169,7 @@ final class EditingViewController: UIViewController {
         [nameTextView, descriptionTextView, webSiteTextView].forEach { $0.delegate = self }
     }
     
-    private func configureUIElements(with profile: UserProfile) {
+    private func updateUIElements(with profile: UserProfile) {
         DispatchQueue.main.async {
             self.userPhotoImageView.kf.setImage(with: URL(string: profile.avatar))
             self.nameLabel.text = NSLocalizedString("userName", comment: "")

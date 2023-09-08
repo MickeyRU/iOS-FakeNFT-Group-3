@@ -1,5 +1,4 @@
 import UIKit
-import ProgressHUD
 
 final class UserNFTViewController: UIViewController {
     private let nftList: [String]
@@ -50,27 +49,40 @@ final class UserNFTViewController: UIViewController {
         viewModel.fetchNFT(nftList: nftList)
         setupViews()
         configNavigationBar()
-        startLoading()
     }
     
-    @objc private func sortButtonTapped() {
-        alertService.showSortAlert(
-            priceSortAction: { [weak self] in self?.sortData(by: .price) },
-            ratingSortAction: { [weak self] in self?.sortData(by: .rating) },
-            titleSortAction: { [weak self] in self?.sortData(by: .title) }
-        )
+    @objc
+    private func sortButtonTapped() {
+        let priceAction = AlertActionModel(title: SortOption.price.description, style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.userSelectedSorting(by: .price)
+        }
+        
+        let ratingAction = AlertActionModel(title: SortOption.rating.description, style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.userSelectedSorting(by: .rating)
+        }
+        
+        let titleAction = AlertActionModel(title: SortOption.title.description, style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.userSelectedSorting(by: .title)
+        }
+        
+        let cancelAction = AlertActionModel(title: "Закрыть", style: .cancel, handler: nil)
+        
+        let alertModel = AlertModel(title: "Сортировка",
+                                    message: nil,
+                                    style: .actionSheet,
+                                    actions: [priceAction, ratingAction, titleAction, cancelAction],
+                                    textFieldPlaceholder: nil)
+        
+        alertService.showAlert(model: alertModel)
     }
+
+    
     
     private func sortData(by option: SortOption) {
-        viewModel.sortData(by: option)
-    }
-    
-    private func startLoading() {
-        ProgressHUD.show("Загрузка...")
-    }
-    
-    private func stopLoading() {
-        ProgressHUD.dismiss()
+        viewModel.userSelectedSorting(by: option)
     }
     
     private func bind() {
@@ -84,16 +96,15 @@ final class UserNFTViewController: UIViewController {
             
             switch state {
             case .loading:
-                self.startLoading()
+                print("Загрузка")
             case .loaded:
-                self.stopLoading()
                 if self.viewModel.userNFT == nil {
                     self.noNFTLabel.isHidden = false
                 } else {
                     self.updateUIBasedOnNFTData()
                 }
             case .error(_):
-                self.stopLoading()
+                print("Ошибка")
                 // ToDo: - Error Alert
             default:
                 break

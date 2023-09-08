@@ -16,7 +16,7 @@ final class ViewControllerFactory {
         return FavoritesNFTViewController()
     }
     
-    func makeEditingViewController(viewModel: ProfileViewModelProtocol) -> EditingViewController {
-        return EditingViewController(viewModel: viewModel)
+    func makeEditingViewController() -> EditingViewController {
+        return EditingViewController(viewModel: ProfileViewModel(model: ProfileService(networkClient: DefaultNetworkClient())))
     }
 }

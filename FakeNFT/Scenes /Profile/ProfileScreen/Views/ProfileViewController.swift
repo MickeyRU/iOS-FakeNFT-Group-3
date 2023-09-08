@@ -22,7 +22,6 @@ final class ProfileViewController: UIViewController {
         let attributedString = NSMutableAttributedString(string: text)
         let linkRange = NSRange(location: 0, length: text.count)
         attributedString.addAttribute(.link, value: text, range: linkRange)
-        
         textView.attributedText = attributedString
         textView.isEditable = false
         textView.isSelectable = true
@@ -73,19 +72,17 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewDidLoad()
         
         self.navigationController?.delegate = self
         self.tabBarController?.tabBar.isHidden = true
-        ProgressHUD.show("Загрузка...")
-        
-        viewModel.fetchUserProfile()
-        
+
         setupViews()
     }
-    
+
     @objc
     private func editButtonTapped() {
-        router.routeToEditingViewController(viewModel: viewModel)
+        router.routeToEditingViewController()
     }
     
     private func bind() {
@@ -94,7 +91,6 @@ final class ProfileViewController: UIViewController {
                 let self = self,
                 let model = profileModel
             else { return }
-            ProgressHUD.dismiss()
             self.updateUI(with: model)
         }
     }
@@ -117,6 +113,7 @@ final class ProfileViewController: UIViewController {
                     // ToDo: Аллерт для пользователя
                 }
             }
+            ProgressHUD.dismiss()
         }
     }
     
@@ -171,7 +168,7 @@ extension ProfileViewController: UITableViewDataSource {
         var cellTitle = ""
         switch indexPath.row {
         case 0:
-            cellTitle = "Мои NFT " + "(\(viewModel.userProfile?.nfts.count ?? 0))"
+            cellTitle = NSLocalizedString("MyNFTTitle", comment: "") + " (\(viewModel.userProfile?.nfts.count ?? 0))"
         case 1:
             cellTitle = "Избранные NFT " + "(\(viewModel.userProfile?.likes.count ?? 0))"
         case 2:

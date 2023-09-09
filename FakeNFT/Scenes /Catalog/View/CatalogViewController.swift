@@ -4,7 +4,6 @@ final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.identifier)
-        // tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         return tableView

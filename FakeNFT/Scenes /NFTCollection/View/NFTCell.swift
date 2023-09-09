@@ -47,30 +47,11 @@ final class NFTCell: UICollectionViewCell {
         return stack
     }()
 
-    private let ratingImageViewOne = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-
-    private let ratingImageViewTwo = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-
-    private let ratingImageViewThree = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-
-    private let ratingImageViewFour = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-
-    private let ratingImageViewFive = {
-        let imageView = UIImageView()
-        return imageView
-    }()
+    private let ratingImageViewOne = UIImageView()
+    private let ratingImageViewTwo = UIImageView()
+    private let ratingImageViewThree = UIImageView()
+    private let ratingImageViewFour = UIImageView()
+    private let ratingImageViewFive = UIImageView()
 
     private let nameLabel = {
         let label = UILabel()

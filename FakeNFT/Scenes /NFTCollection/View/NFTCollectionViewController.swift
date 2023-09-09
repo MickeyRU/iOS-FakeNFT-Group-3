@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NFTCollectionViewController: UIViewController {
 
@@ -51,131 +52,11 @@ class NFTCollectionViewController: UIViewController {
     }()
 
     private let collection: NFTCollection
-    private let nfts = [
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74),
-        NFT(
-            id: "49",
-            name: "Archie",
-            imageStrings: [
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/1.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/2.png",
-                "https://code.s3.yandex.net/Mobile/iOS/NFT/Peach/Archie/3.png"
-            ],
-            author: "18",
-            description: "An animated gif of a bear fishing.",
-            rating: 5,
-            price: 7.74)
-    ]
+    private let viewModel: NFTCollectionViewModelProtocol
 
-    init(with collection: NFTCollection) {
+    init(with collection: NFTCollection, viewModel: NFTCollectionViewModelProtocol) {
         self.collection = collection
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -190,20 +71,46 @@ class NFTCollectionViewController: UIViewController {
         setupView()
         setupConstraints()
 
-        if let imageEncodedString = collection.imageString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),
-            let imageUrl = URL(string: imageEncodedString) {
-            imageView.kf.setImage(with: imageUrl)
-        }
-        nameLabel.text = collection.name
-        authorLabel.text = "\(NSLocalizedString("author", comment: "author label text")): \(collection.author)"
-        descriptionLabel.text = collection.description
-
         collectionView.dataSource = self
         collectionView.delegate = self
+
+        bind()
+        viewModel.initialize(with: collection)
+    }
+
+    private func bind() {
+        viewModel.nameObserve.bind(action: { [weak self] newValue in
+            guard let self = self else { return }
+            self.nameLabel.text = newValue
+        })
+
+        viewModel.authorObserve.bind(action: { [weak self] newValue in
+            guard let self = self else { return }
+            self.authorLabel.text = newValue
+        })
+
+        viewModel.descriptionObserve.bind(action: { [weak self] newValue in
+            guard let self = self else { return }
+            self.descriptionLabel.text = newValue
+        })
+
+        viewModel.imageURLObserve.bind(action: { [weak self] newValue in
+            guard let self = self, let imageURL = newValue else { return }
+            DispatchQueue.main.async {
+                self.imageView.kf.setImage(with: imageURL)
+            }
+        })
+
+        viewModel.nftsObserve.bind(action: { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        })
     }
 
     @objc
-    func backButtonTapped() {
+    private func backButtonTapped() {
         dismiss(animated: true)
     }
 }
@@ -211,15 +118,16 @@ class NFTCollectionViewController: UIViewController {
 // MARK: - CollectionViewDataSource
 extension NFTCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        nfts.count
+        viewModel.numberOfRows
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCell.identifier, for: indexPath) as? NFTCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCell.identifier, for: indexPath) as? NFTCell,
+            let nft = viewModel.nft(at: indexPath) else {
             return UICollectionViewCell()
         }
-        let nft = nfts[indexPath.row]
-        cell.setupCell(with: nft)
+
+        cell.viewModel = viewModel.getCellViewModel(for: nft)
         return cell
     }
 }

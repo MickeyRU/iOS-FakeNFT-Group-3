@@ -91,7 +91,31 @@ final class NFTCell: UICollectionViewCell {
         return button
     }()
 
+    private let ratingImageViews: [UIImageView]
+
+    var viewModel: NFTCellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else {
+                return
+            }
+            nameLabel.text = viewModel.name
+            priceLabel.text = "\(viewModel.price) ETH"
+            setupRating(with: viewModel.rating)
+            favoriteButton.setImage(viewModel.favorite ? UIImage(named: "favorites.delete") : UIImage(named: "favorites.add"), for: .normal)
+            cartButton.setImage(viewModel.cart ? UIImage(named: "cart.delete") : UIImage(named: "cart.add"), for: .normal)
+            if let imageUrl = viewModel.imageURL {
+                imageView.kf.setImage(with: imageUrl)
+            }
+        }
+    }
+
     override init(frame: CGRect) {
+        ratingImageViews = [
+            ratingImageViewOne, ratingImageViewTwo,
+            ratingImageViewThree, ratingImageViewFour,
+            ratingImageViewFive
+        ]
+
         super.init(frame: frame)
         setupView()
         setupConstraints()
@@ -101,23 +125,15 @@ final class NFTCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupCell(with nft: NFT) {
-        if let imageEncodedString = nft.imageStrings[0].addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),
-            let imageUrl = URL(string: imageEncodedString) {
-            imageView.kf.setImage(with: imageUrl)
+    private func setupRating(with rating: Int) {
+        for position in 0..<5 {
+            let ratingStar = ratingImageViews[position]
+            if rating >= position + 1 {
+                ratingStar.image = UIImage(named: "star.active")
+            } else {
+                ratingStar.image = UIImage(named: "star.inactive")
+            }
         }
-
-        favoriteButton.setImage(UIImage(named: "favorites.add"), for: .normal)
-
-        ratingImageViewOne.image = UIImage(named: "star.active")
-        ratingImageViewTwo.image = UIImage(named: "star.active")
-        ratingImageViewThree.image = UIImage(named: "star.active")
-        ratingImageViewFour.image = UIImage(named: "star.active")
-        ratingImageViewFive.image = UIImage(named: "star.inactive")
-
-        nameLabel.text = nft.name
-        priceLabel.text = "\(nft.price) ETH"
-        cartButton.setImage(UIImage(named: "cart.add"), for: .normal)
     }
 }
 

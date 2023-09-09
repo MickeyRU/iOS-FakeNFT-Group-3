@@ -1,4 +1,6 @@
 import UIKit
+import Kingfisher
+import ProgressHUD
 
 final class ProfileViewController: UIViewController {
     private let userNameLabel: UILabel = {
@@ -20,7 +22,6 @@ final class ProfileViewController: UIViewController {
         let attributedString = NSMutableAttributedString(string: text)
         let linkRange = NSRange(location: 0, length: text.count)
         attributedString.addAttribute(.link, value: text, range: linkRange)
-        
         textView.attributedText = attributedString
         textView.isEditable = false
         textView.isSelectable = true
@@ -28,6 +29,7 @@ final class ProfileViewController: UIViewController {
         textView.dataDetectorTypes = .link
         textView.font = UIFont.sfRegular15
         textView.textContainer.lineFragmentPadding = 16
+        textView.isHidden = true
         return textView
     }()
     
@@ -43,14 +45,15 @@ final class ProfileViewController: UIViewController {
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "mockAvatar")
         imageView.layer.cornerRadius = 35
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private lazy var profileTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.reuseIdentifier)
+        tableView.register(ProfileCell.self)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -69,18 +72,17 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewDidLoad()
         
-        view.backgroundColor = .white
         self.navigationController?.delegate = self
-        
-        viewModel.getUserProfile()
-        
+        self.tabBarController?.tabBar.isHidden = true
+
         setupViews()
     }
-    
+
     @objc
     private func editButtonTapped() {
-        router.routeToEditingViewController(viewModel: viewModel)
+        router.routeToEditingViewController()
     }
     
     private func bind() {
@@ -93,14 +95,35 @@ final class ProfileViewController: UIViewController {
         }
     }
     
-    private func updateUI(with model: UserProfileModel) {
-        userNameLabel.text = model.name
-        userDescriptionLabel.text = model.description
-        userWebSiteTextView.text = model.webSite
+    private func updateUI(with model: UserProfile) {
+        DispatchQueue.main.async {
+            self.profileImageView.kf.setImage(with: URL(string: model.avatar)) { result in
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        self.userNameLabel.text = model.name
+                        self.userDescriptionLabel.text = model.description
+                        self.userWebSiteTextView.text = model.website
+                        [self.editButton, self.profileImageView, self.userNameLabel, self.userDescriptionLabel, self.userWebSiteTextView, self.profileTableView].forEach { $0.isHidden = false }
+                        self.tabBarController?.tabBar.isHidden = false
+                        self.profileTableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                    // ToDo: Аллерт для пользователя
+                }
+            }
+            ProgressHUD.dismiss()
+        }
     }
     
     private func setupViews() {
-        [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach { view.addViewWithNoTAMIC($0) }
+        view.backgroundColor = .white
+        
+        [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach {
+            view.addViewWithNoTAMIC($0)
+            $0.isHidden = true
+        }
         
         NSLayoutConstraint.activate([
             editButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
@@ -120,12 +143,10 @@ final class ProfileViewController: UIViewController {
             userDescriptionLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
             userDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             userDescriptionLabel.trailingAnchor.constraint(equalTo: editButton.leadingAnchor),
-            userDescriptionLabel.heightAnchor.constraint(equalToConstant: 72),
             
             userWebSiteTextView.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 8),
             userWebSiteTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             userWebSiteTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            userWebSiteTextView.heightAnchor.constraint(lessThanOrEqualToConstant: 72),
             
             profileTableView.topAnchor.constraint(equalTo: userWebSiteTextView.bottomAnchor, constant: 40),
             profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -143,14 +164,13 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reuseIdentifier, for: indexPath) as? ProfileCell else { return UITableViewCell() }
+        let cell: ProfileCell = tableView.dequeueReusableCell()
         var cellTitle = ""
-        // ToDo: -  Доработать интерполяцию строк в 0 и 1 кейсах, после внедрения логики работы с сетью
         switch indexPath.row {
         case 0:
-            cellTitle = "Мои NFT" + " (112)"
+            cellTitle = NSLocalizedString("MyNFTTitle", comment: "") + " (\(viewModel.userProfile?.nfts.count ?? 0))"
         case 1:
-            cellTitle = "Избранные NFT" + " (11)"
+            cellTitle = "Избранные NFT " + "(\(viewModel.userProfile?.likes.count ?? 0))"
         case 2:
             cellTitle = "О разработчике"
         default:
@@ -173,7 +193,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            router.routeToUserNFT()
+            router.routeToUserNFT(nftList: viewModel.userProfile?.nfts ?? [])
         case 1:
             router.routeToFavoritesNFT()
         case 2:
@@ -194,9 +214,6 @@ extension ProfileViewController: UINavigationControllerDelegate {
             navigationController.setNavigationBarHidden(true, animated: animated)
         } else if viewController is UserNFTViewController || viewController is FavoritesNFTViewController || viewController is WebViewViewController {
             navigationController.setNavigationBarHidden(false, animated: animated)
-            
-            let backItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-            self.navigationItem.backBarButtonItem = backItem
         }
     }
 }

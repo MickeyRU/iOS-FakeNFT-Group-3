@@ -1,11 +1,15 @@
 import UIKit
+import Kingfisher
+import ProgressHUD
 
 final class EditingViewController: UIViewController {
-    private let viewModel: ProfileViewModelProtocol
-    private let viewFactory = ViewFactory()
+    private let viewModel: EditingViewModelProtocol
     
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.cornerRadius = 35
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -20,17 +24,16 @@ final class EditingViewController: UIViewController {
         return AlertService(viewController: self)
     }()
     
-    private lazy var nameLabel = viewFactory.createTextLabel()
-    private lazy var nameTextView = viewFactory.createTextView()
-    private lazy var descriptionLabel = viewFactory.createTextLabel()
-    private lazy var descriptionTextView = viewFactory.createTextView()
-    private lazy var webSiteLabel = viewFactory.createTextLabel()
-    private lazy var webSiteTextView = viewFactory.createTextView()
+    private lazy var nameLabel = ViewFactory.shared.createTextLabel()
+    private lazy var nameTextView = ViewFactory.shared.createTextView()
+    private lazy var descriptionLabel = ViewFactory.shared.createTextLabel()
+    private lazy var descriptionTextView = ViewFactory.shared.createTextView()
+    private lazy var webSiteLabel = ViewFactory.shared.createTextLabel()
+    private lazy var webSiteTextView = ViewFactory.shared.createTextView()
     
     private lazy var exitButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage(named: "xmarkImage"), for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         return button
@@ -47,7 +50,7 @@ final class EditingViewController: UIViewController {
         return button
     }()
     
-    init(viewModel: ProfileViewModelProtocol) {
+    init(viewModel: EditingViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.bind()
@@ -59,10 +62,15 @@ final class EditingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewDidLoad()
         
         setupViews()
         setupDelegates()
-        viewModel.getUserProfile()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.viewWillDisappear()
     }
     
     @objc
@@ -70,24 +78,38 @@ final class EditingViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func changePhotoTapped() {
-        alertService.showChangePhotoURLAlert(with: "Введите URL",
-                                             message: nil,
-                                             textFieldPlaceholder: "URL изображения") { [weak self] urlText in
+    @objc
+    private func changePhotoTapped() {
+        let confirmAction = AlertActionModel(title: "Подтвердить", style: .default) { [weak self] urlText in
             guard let self = self else { return }
-            if let urlText = urlText, let url = URL(string: urlText) {
-                self.viewModel.updateImageURL(url: url)
+            if let urlText = urlText,
+               let url = URL(string: urlText) {
+                self.viewModel.photoURLdidChanged(with: url)
+            } else {
+                let errorModel = AlertModel(title: "Ошибка",
+                                            message: "Введен не корректный URL адрес",
+                                            style: .alert,
+                                            actions: [AlertActionModel(title: "OK", style: .cancel, handler: nil)],
+                                            textFieldPlaceholder: nil)
+                alertService.showAlert(model: errorModel)
             }
         }
+        
+        let cancelAction = AlertActionModel(title: "Отмена", style: .cancel, handler: nil)
+        
+        let alertModel = AlertModel(title: "Введите URL", message: nil, style: .alert, actions: [confirmAction, cancelAction], textFieldPlaceholder: "URL изображения")
+        
+        alertService.showAlert(model: alertModel)
     }
     
+    
     private func bind() {
-        viewModel.observeUserProfileChanges { [weak self] (profile: UserProfileModel?) in
+        viewModel.observeUserProfileChanges { [weak self] (profile: UserProfile?) in
             guard
                 let self = self,
                 let profile = profile
             else { return }
-            self.configureUIElements(with: profile)
+            self.updateUIElements(with: profile)
         }
     }
     
@@ -149,14 +171,17 @@ final class EditingViewController: UIViewController {
         [nameTextView, descriptionTextView, webSiteTextView].forEach { $0.delegate = self }
     }
     
-    private func configureUIElements(with profile: UserProfileModel) {
-        self.userPhotoImageView.image = UIImage(named: "mockAvatar") // ToDo: - загрузка из сети по адресу
-        self.nameLabel.text = NSLocalizedString("userName", comment: "")
-        self.nameTextView.text = profile.name
-        self.descriptionLabel.text = NSLocalizedString("discription", comment: "")
-        self.descriptionTextView.text = profile.description
-        self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
-        self.webSiteTextView.text = profile.webSite
+    private func updateUIElements(with profile: UserProfile) {
+        DispatchQueue.main.async {
+            self.userPhotoImageView.kf.setImage(with: URL(string: profile.avatar))
+            self.nameLabel.text = NSLocalizedString("userName", comment: "")
+            self.nameTextView.text = profile.name
+            self.descriptionLabel.text = NSLocalizedString("discription", comment: "")
+            self.descriptionTextView.text = profile.description
+            self.webSiteLabel.text = NSLocalizedString("webSite", comment: "")
+            self.webSiteTextView.text = profile.website
+        }
+        ProgressHUD.dismiss()
     }
 }
 

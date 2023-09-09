@@ -2,7 +2,7 @@ import Foundation
 
 @propertyWrapper
 final class Observable<Value> {
-    private var observers: [(Value) -> Void] = []
+    private var observers: [(Value) -> Void] = [] 
     
     var wrappedValue: Value {
         didSet {

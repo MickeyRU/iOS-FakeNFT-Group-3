@@ -3,10 +3,11 @@ import UIKit
 final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.identifier)
-        tableView.allowsSelection = false
+        tableView.register(CatalogCell.self)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
+        tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
 
@@ -28,9 +29,6 @@ final class CatalogViewController: UIViewController {
         setupNavigationItem()
         setupView()
         setupConstraints()
-
-        tableView.dataSource = self
-        tableView.delegate = self
 
         bind()
         viewModel.initialize()
@@ -83,12 +81,12 @@ extension CatalogViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.identifier) as? CatalogCell,
-            let collection = viewModel.collection(at: indexPath) else {
+        guard let collection = viewModel.collection(at: indexPath) else {
             return UITableViewCell()
         }
-
+        let cell: CatalogCell = tableView.dequeueReusableCell()
         cell.viewModel = viewModel.getCellViewModel(for: collection)
+        cell.selectedBackgroundView = UIView()
         return cell
     }
 
@@ -101,12 +99,20 @@ extension CatalogViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Collection was selected")
+        guard let collection = viewModel.collection(at: indexPath) else {
+            return
+        }
+
+        let vc = UINavigationController(
+            rootViewController: NFTCollectionViewController(
+                viewModel: NFTCollectionViewModel(with: collection)))
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
 
 // MARK: - UI
-extension CatalogViewController {
+private extension CatalogViewController {
     func setupNavigationItem() {
         let barItem = UIBarButtonItem(
             image: UIImage(named: "sort"),

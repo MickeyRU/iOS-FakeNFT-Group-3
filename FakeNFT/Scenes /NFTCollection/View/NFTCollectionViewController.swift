@@ -47,7 +47,6 @@ final class NFTCollectionViewController: UIViewController {
             frame: .zero,
             collectionViewLayout: UICollectionViewFlowLayout())
         collection.register(NFTCell.self)
-        // , forCellWithReuseIdentifier: NFTCell.identifier)
         collection.backgroundColor = .unWhite
         collection.dataSource = self
         collection.delegate = self

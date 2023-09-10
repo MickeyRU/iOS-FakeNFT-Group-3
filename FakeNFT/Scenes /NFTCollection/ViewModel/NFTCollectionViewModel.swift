@@ -9,8 +9,8 @@ import Foundation
 
 final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
     @NFTCollectionObservable
-    private(set) var nfts: [NFT]?
-    var nftsObserve: NFTCollectionObservable<[NFT]?> { $nfts }
+    private(set) var nfts: [NFT] = []
+    var nftsObserve: NFTCollectionObservable<[NFT]> { $nfts }
 
     @NFTCollectionObservable
     private(set) var name: String?
@@ -29,8 +29,13 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
     var imageURLObserve: NFTCollectionObservable<URL?> { $imageURL }
 
     private(set) var numberOfRows = 0
+    private let collection: NFTCollection
 
-    func initialize(with collection: NFTCollection) {
+    init(with collection: NFTCollection) {
+        self.collection = collection
+    }
+
+    func initialize() {
         name = collection.name
         author = collection.author
         description = collection.description
@@ -50,7 +55,7 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
                 ],
                 author: "18",
                 description: "An animated gif of a bear fishing.",
-                rating: 5,
+                rating: 4,
                 price: 7.74),
             NFT(
                 id: "49",
@@ -62,7 +67,7 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
                 ],
                 author: "18",
                 description: "An animated gif of a bear fishing.",
-                rating: 5,
+                rating: 3,
                 price: 7.74),
             NFT(
                 id: "49",
@@ -89,14 +94,10 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
                 rating: 5,
                 price: 7.74)
          ]
-        numberOfRows = nfts?.count ?? 0
+        numberOfRows = nfts.count
     }
 
     func nft(at indexPath: IndexPath) -> NFT? {
-        guard let nfts = nfts else {
-            return nil
-        }
-
         return nfts[indexPath.row]
     }
 

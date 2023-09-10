@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class NFTCollectionViewController: UIViewController {
+final class NFTCollectionViewController: UIViewController {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -21,7 +21,7 @@ class NFTCollectionViewController: UIViewController {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfRegular22
+        label.font = UIFont.sfBold22
         label.textColor = .unBlack
         return label
     }()
@@ -42,20 +42,21 @@ class NFTCollectionViewController: UIViewController {
         return label
     }()
 
-    private let collectionView = {
+    private lazy var collectionView = {
         let collection = UICollectionView(
             frame: .zero,
             collectionViewLayout: UICollectionViewFlowLayout())
-        collection.register(NFTCell.self, forCellWithReuseIdentifier: NFTCell.identifier)
+        collection.register(NFTCell.self)
+        // , forCellWithReuseIdentifier: NFTCell.identifier)
         collection.backgroundColor = .unWhite
+        collection.dataSource = self
+        collection.delegate = self
         return collection
     }()
 
-    private let collection: NFTCollection
     private let viewModel: NFTCollectionViewModelProtocol
 
-    init(with collection: NFTCollection, viewModel: NFTCollectionViewModelProtocol) {
-        self.collection = collection
+    init(viewModel: NFTCollectionViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,11 +72,8 @@ class NFTCollectionViewController: UIViewController {
         setupView()
         setupConstraints()
 
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
         bind()
-        viewModel.initialize(with: collection)
+        viewModel.initialize()
     }
 
     private func bind() {
@@ -122,11 +120,10 @@ extension NFTCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCell.identifier, for: indexPath) as? NFTCell,
-            let nft = viewModel.nft(at: indexPath) else {
+        guard let nft = viewModel.nft(at: indexPath) else {
             return UICollectionViewCell()
         }
-
+        let cell: NFTCell = collectionView.dequeueReusableCell(indexPath: indexPath)
         cell.viewModel = viewModel.getCellViewModel(for: nft)
         return cell
     }
@@ -142,12 +139,16 @@ extension NFTCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.bounds.width - 32 - 18) / 3, height: 192)
+        let edgePadding: CGFloat = 32
+        let totalSpaceBetweenCells: CGFloat = 18
+        let amountOfCellsInARow: CGFloat = 3
+        let cellHeight: CGFloat = 192
+        return CGSize(width: (view.bounds.width - edgePadding - totalSpaceBetweenCells) / amountOfCellsInARow, height: cellHeight)
     }
 }
 
 // MARK: - UI
-extension NFTCollectionViewController {
+private extension NFTCollectionViewController {
     func setupNavigationItem() {
         let barItem = UIBarButtonItem(
             image: UIImage(named: "back"),
@@ -158,7 +159,7 @@ extension NFTCollectionViewController {
         navigationItem.leftBarButtonItem = barItem
     }
 
-    private func setupView() {
+    func setupView() {
         view.addViewWithNoTAMIC(imageView)
         view.addViewWithNoTAMIC(nameLabel)
         view.addViewWithNoTAMIC(authorLabel)
@@ -166,7 +167,7 @@ extension NFTCollectionViewController {
         view.addViewWithNoTAMIC(collectionView)
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

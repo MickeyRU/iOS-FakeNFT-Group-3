@@ -8,8 +8,8 @@
 import Foundation
 
 protocol NFTCollectionViewModelProtocol: AnyObject {
-    var nfts: [NFT]? { get }
-    var nftsObserve: NFTCollectionObservable<[NFT]?> { get }
+    var nfts: [NFT] { get }
+    var nftsObserve: NFTCollectionObservable<[NFT]> { get }
 
     var name: String? { get }
     var nameObserve: NFTCollectionObservable<String?> { get }
@@ -25,7 +25,7 @@ protocol NFTCollectionViewModelProtocol: AnyObject {
 
     var numberOfRows: Int { get }
 
-    func initialize(with collection: NFTCollection)
+    func initialize()
     func nft(at indexPath: IndexPath) -> NFT?
     func getCellViewModel(for nft: NFT) -> NFTCellViewModel
 }

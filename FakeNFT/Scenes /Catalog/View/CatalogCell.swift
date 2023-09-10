@@ -8,10 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class CatalogCell: UITableViewCell {
-
-    static let identifier = "CatalogCell"
-
+final class CatalogCell: UITableViewCell, ReuseIdentifying {
     private var collectionCover: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -22,7 +19,7 @@ final class CatalogCell: UITableViewCell {
 
     private var collectionTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfRegular17
+        label.font = UIFont.sfBold17
         label.textColor = .unBlack
         return label
     }()

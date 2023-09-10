@@ -8,9 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class NFTCell: UICollectionViewCell {
-    static let identifier = "NFTCell"
-
+final class NFTCell: UICollectionViewCell, ReuseIdentifying {
     private let imageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -47,12 +45,6 @@ final class NFTCell: UICollectionViewCell {
         return stack
     }()
 
-    private let ratingImageViewOne = UIImageView()
-    private let ratingImageViewTwo = UIImageView()
-    private let ratingImageViewThree = UIImageView()
-    private let ratingImageViewFour = UIImageView()
-    private let ratingImageViewFive = UIImageView()
-
     private let nameLabel = {
         let label = UILabel()
         label.font = UIFont.sfBold17
@@ -72,8 +64,6 @@ final class NFTCell: UICollectionViewCell {
         return button
     }()
 
-    private let ratingImageViews: [UIImageView]
-
     var viewModel: NFTCellViewModel? {
         didSet {
             guard let viewModel = viewModel else {
@@ -91,12 +81,6 @@ final class NFTCell: UICollectionViewCell {
     }
 
     override init(frame: CGRect) {
-        ratingImageViews = [
-            ratingImageViewOne, ratingImageViewTwo,
-            ratingImageViewThree, ratingImageViewFour,
-            ratingImageViewFive
-        ]
-
         super.init(frame: frame)
         setupView()
         setupConstraints()
@@ -108,27 +92,26 @@ final class NFTCell: UICollectionViewCell {
 
     private func setupRating(with rating: Int) {
         for position in 0..<5 {
-            let ratingStar = ratingImageViews[position]
-            if rating >= position + 1 {
-                ratingStar.image = UIImage(named: "star.active")
-            } else {
-                ratingStar.image = UIImage(named: "star.inactive")
+            if let ratingStar = ratingStack.arrangedSubviews[position] as? UIImageView {
+                if rating >= position + 1 {
+                    ratingStar.image = UIImage(named: "star.active")
+                } else {
+                    ratingStar.image = UIImage(named: "star.inactive")
+                }
             }
         }
     }
 }
 
 // MARK: - UI
-extension NFTCell {
+private extension NFTCell {
     func setupView() {
         contentView.addViewWithNoTAMIC(imageView)
         contentView.addViewWithNoTAMIC(favoriteButton)
 
-        ratingStack.addArrangedSubview(ratingImageViewOne)
-        ratingStack.addArrangedSubview(ratingImageViewTwo)
-        ratingStack.addArrangedSubview(ratingImageViewThree)
-        ratingStack.addArrangedSubview(ratingImageViewFour)
-        ratingStack.addArrangedSubview(ratingImageViewFive)
+        for _ in 0..<5 {
+            ratingStack.addArrangedSubview(UIImageView(frame: CGRect(x: 0, y: 0, width: 12, height: 12)))
+        }
         contentView.addViewWithNoTAMIC(ratingStack)
 
         descriptionStack.addArrangedSubview(nameLabel)
@@ -144,7 +127,6 @@ extension NFTCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 108),
             imageView.heightAnchor.constraint(equalToConstant: 108),
             favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -153,16 +135,6 @@ extension NFTCell {
             ratingStack.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             ratingStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             ratingStack.widthAnchor.constraint(equalToConstant: 68),
-            ratingImageViewOne.widthAnchor.constraint(equalToConstant: 12),
-            ratingImageViewOne.heightAnchor.constraint(equalToConstant: 12),
-            ratingImageViewTwo.widthAnchor.constraint(equalToConstant: 12),
-            ratingImageViewTwo.heightAnchor.constraint(equalToConstant: 12),
-            ratingImageViewThree.widthAnchor.constraint(equalToConstant: 12),
-            ratingImageViewThree.heightAnchor.constraint(equalToConstant: 12),
-            ratingImageViewFour.widthAnchor.constraint(equalToConstant: 12),
-            ratingImageViewFour.heightAnchor.constraint(equalToConstant: 12),
-            ratingImageViewFive.widthAnchor.constraint(equalToConstant: 12),
-            ratingImageViewFive.heightAnchor.constraint(equalToConstant: 12),
             descriptionPlusCartStack.topAnchor.constraint(equalTo: ratingStack.bottomAnchor, constant: 5),
             descriptionPlusCartStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             descriptionPlusCartStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

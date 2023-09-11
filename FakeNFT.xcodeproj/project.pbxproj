@@ -26,6 +26,8 @@
 		3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */; };
 		3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ExampleRequest.swift */; };
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
+		BE00EA822AAF25420051A403 /* FavoritesNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE00EA812AAF25420051A403 /* FavoritesNFTCell.swift */; };
+		BE00EA862AAF38F60051A403 /* GeometricParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE00EA852AAF38F60051A403 /* GeometricParams.swift */; };
 		BE28CB1C2AA5E4DA00AADB8D /* ProfileNetworkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE28CB1B2AA5E4DA00AADB8D /* ProfileNetworkRequests.swift */; };
 		BE28CB1E2AA616B500AADB8D /* ProfileUpdateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE28CB1D2AA616B500AADB8D /* ProfileUpdateDTO.swift */; };
 		BE28CB202AA61F4800AADB8D /* ImageValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */; };
@@ -102,6 +104,8 @@
 		3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3FC8C39029D2453B0081F015 /* ExampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleRequest.swift; sourceTree = "<group>"; };
 		3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatters+Presets.swift"; sourceTree = "<group>"; };
+		BE00EA812AAF25420051A403 /* FavoritesNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTCell.swift; sourceTree = "<group>"; };
+		BE00EA852AAF38F60051A403 /* GeometricParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometricParams.swift; sourceTree = "<group>"; };
 		BE28CB1B2AA5E4DA00AADB8D /* ProfileNetworkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkRequests.swift; sourceTree = "<group>"; };
 		BE28CB1D2AA616B500AADB8D /* ProfileUpdateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateDTO.swift; sourceTree = "<group>"; };
 		BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageValidator.swift; sourceTree = "<group>"; };
@@ -323,6 +327,7 @@
 				BE9319E32AA3560D00BD2D2D /* ViewFactory.swift */,
 				BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */,
 				BEAAF4A92AA89A0500402335 /* SortOptions.swift */,
+				BE00EA852AAF38F60051A403 /* GeometricParams.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				BE7E89442A9CDA2C00C6B536 /* FavoritesNFTViewController.swift */,
+				BE00EA812AAF25420051A403 /* FavoritesNFTCell.swift */,
 			);
 			path = FavoritesNFTScreen;
 			sourceTree = "<group>";
@@ -581,6 +587,7 @@
 				BE9545862A98C2DF006C9A7C /* BasketViewController.swift in Sources */,
 				BE9545842A98C299006C9A7C /* CatalogViewController.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
+				BE00EA862AAF38F60051A403 /* GeometricParams.swift in Sources */,
 				BE43E58D2A9E329800E5A1F6 /* ProfileViewModel.swift in Sources */,
 				BEB15D472AA71A3500FDC9C1 /* NFTCell.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
@@ -609,6 +616,7 @@
 				BE28CB1E2AA616B500AADB8D /* ProfileUpdateDTO.swift in Sources */,
 				BE95457C2A98BE79006C9A7C /* MainTabBarController.swift in Sources */,
 				BE9319E22AA2608D00BD2D2D /* AlertService.swift in Sources */,
+				BE00EA822AAF25420051A403 /* FavoritesNFTCell.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */,
 				BE28CB202AA61F4800AADB8D /* ImageValidator.swift in Sources */,

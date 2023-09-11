@@ -99,7 +99,7 @@ extension CartTableViewCell {
     
     private func addSubviews() {
         backgroundColor = .unWhite
-        accessoryView = self.cartAccessoryView
+        accessoryView = cartAccessoryView
         [nftImageView, titleLabel, starsView, priceTitleLabel, priceLabel].forEach{contentView.addViewWithNoTAMIC($0)}
     }
     

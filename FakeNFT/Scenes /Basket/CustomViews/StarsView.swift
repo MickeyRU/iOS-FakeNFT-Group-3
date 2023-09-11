@@ -66,8 +66,8 @@ final class StarsView: UIView {
 extension StarsView {
     
     private func addSubviews() {
-        addSubview(stackView)
-        stars.forEach{ stackView.addViewWithNoTAMIC($0) }
+        addSubview(self.stackView)
+        stars.forEach { stackView.addArrangedSubview($0) }
     }
     
     private func setConstraints() {

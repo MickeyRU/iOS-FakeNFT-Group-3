@@ -24,5 +24,18 @@ final class CurrenciesService {
 // MARK: - CurrenciesServiceProtocol
 
 extension CurrenciesService: CurrenciesServiceProtocol {
-    func fetchCurrencies(completion: @escaping ResultHandler<CurrenciesResult>) {}
+    func fetchCurrencies(completion: @escaping ResultHandler<CurrenciesResult>) {
+        assert(Thread.isMainThread)
+        guard !self.fetchingTask.isRunning else { return }
+        
+        let request = CurrenciesRequest()
+        let task = self.networkRequestSender.send(
+            request: request,
+            task: self.fetchingTask,
+            type: CurrenciesResult.self,
+            completion: completion
+        )
+        
+        self.fetchingTask = task
+    }
 }

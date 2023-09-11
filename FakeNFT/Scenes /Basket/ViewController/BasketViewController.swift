@@ -42,7 +42,7 @@ final class BasketViewController: UIViewController {
     // MARK: - LifeCycle
     
     override public func loadView() {
-        self.view = self.cartView
+        view = cartView
     }
     
     override public func viewDidLoad() {
@@ -89,8 +89,8 @@ extension BasketViewController: CartTableViewHelperDelegate {
 
 private extension BasketViewController {
     func configure() {
-        // TODO: - откомментировать по факту окончания экипка
-        //ProgressHUDWrapper.show()
+        
+        ProgressHUDWrapper.show()
         
         tableViewHelper.delegate = self
         
@@ -114,21 +114,21 @@ private extension BasketViewController {
         viewModel.finalOrderCost.bind { [weak self] cost in
             self?.cartView.setFinalOrderCost(cost)
         }
-        // TODO: - откомментировать по факту окончания экипка.
+        
         viewModel.cartViewState.bind { [weak self] state in
             guard let self = self else { return }
-//            switch state {
-//            case .empty:
-//                ProgressHUDWrapper.hide()
-//                self.cartView.shouldHidePlaceholder(false)
-//                self.shouldHideSortButton(true)
-//            case .loaded:
-//                ProgressHUDWrapper.hide()
-//                self.cartView.shouldHidePlaceholder(true)
-//                self.shouldHideSortButton(false)
-//            case .loading:
-//                ProgressHUDWrapper.show()
-//            }
+            switch state {
+            case .empty:
+                ProgressHUDWrapper.hide()
+                self.cartView.shouldHidePlaceholder(false)
+                self.shouldHideSortButton(true)
+            case .loaded:
+                ProgressHUDWrapper.hide()
+                self.cartView.shouldHidePlaceholder(true)
+                self.shouldHideSortButton(false)
+            case .loading:
+                ProgressHUDWrapper.show()
+            }
         }
         
         viewModel.error.bind { [weak self] error in

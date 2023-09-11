@@ -20,3 +20,9 @@ final class CurrenciesService {
         self.networkRequestSender = networkRequestSender
     }
 }
+
+// MARK: - CurrenciesServiceProtocol
+
+extension CurrenciesService: CurrenciesServiceProtocol {
+    func fetchCurrencies(completion: @escaping ResultHandler<CurrenciesResult>) {}
+}

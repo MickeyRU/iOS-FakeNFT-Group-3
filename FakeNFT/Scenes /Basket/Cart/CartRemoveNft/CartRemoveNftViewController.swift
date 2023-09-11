@@ -49,7 +49,7 @@ public final class CartRemoveNftViewController: UIViewController {
         label.textAlignment = .center
         label.font = .sfRegular13
         label.textColor = .unBlack
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         return label
     }()
     
@@ -83,7 +83,7 @@ public final class CartRemoveNftViewController: UIViewController {
         setConstraints()
     }
     
-    // MARK: - Selector
+    // MARK: - Handler action 
     
     @objc func didTapRemoveNftButton() {
         self.onChoosingRemoveNft?(.remove)

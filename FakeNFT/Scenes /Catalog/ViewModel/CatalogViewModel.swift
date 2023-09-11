@@ -54,4 +54,10 @@ final class CatalogViewModel: CatalogViewModelProtocol {
         return cellViewModel
     }
 
+    func sort(handler: (NFTCollection, NFTCollection) -> Bool) {
+        collections?.sort(by: {
+            handler($0, $1)
+        })
+     }
+
 }

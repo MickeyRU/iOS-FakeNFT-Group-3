@@ -12,10 +12,13 @@ final class CatalogViewController: UIViewController {
     }()
 
     private let viewModel: CatalogViewModelProtocol
+    private var alertService: AlertServiceProtocol?
+    private var alertModel: AlertModel?
 
     init(viewModel: CatalogViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
     }
 
     required init?(coder: NSCoder) {
@@ -32,6 +35,8 @@ final class CatalogViewController: UIViewController {
 
         bind()
         viewModel.initialize()
+
+        initializeAlertService()
     }
 
     private func bind() {
@@ -43,34 +48,45 @@ final class CatalogViewController: UIViewController {
         })
     }
 
-    @objc
-    private func sortButtonTapped() {
-        let alert = UIAlertController(
+    private func initializeAlertService() {
+        alertService = AlertService(viewController: self)
+        alertModel = AlertModel(
             title: NSLocalizedString("sort", comment: "Sorting alert title"),
             message: nil,
-            preferredStyle: .actionSheet)
+            style: .actionSheet,
+            actions: [
+                AlertActionModel(
+                    title: NSLocalizedString("sort.byName", comment: "Sorting alert by name button"),
+                    style: .default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.viewModel.sort {
+                            $0.name < $1.name
+                        }
+                    }),
+                AlertActionModel(
+                    title: NSLocalizedString("sort.byAmount", comment: "Sorting alert by amount button"),
+                    style: .default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.viewModel.sort {
+                            $0.nfts.count > $1.nfts.count
+                        }
+                    }),
+                AlertActionModel(
+                    title: NSLocalizedString("close", comment: "Sorting alert close button"),
+                    style: .cancel,
+                    handler: nil)
 
-        let sortByName = UIAlertAction(
-            title: NSLocalizedString("sort.byName", comment: "Sorting alert by name button"),
-            style: .default) { _ in
-            print("Sorted by name")
+            ],
+            textFieldPlaceholder: nil)
+    }
 
+    @objc
+    private func sortButtonTapped() {
+        guard let alertService = alertService,
+            let alertModel = alertModel else {
+            return
         }
-        alert.addAction(sortByName)
-
-        let sortByCount = UIAlertAction(
-            title: NSLocalizedString("sort.byAmount", comment: "Sorting alert by amount button"),
-            style: .default) { _ in
-            print("Sorted by count")
-        }
-        alert.addAction(sortByCount)
-
-        let cancel = UIAlertAction(
-            title: NSLocalizedString("close", comment: "Sorting alert close button"),
-            style: .cancel)
-        alert.addAction(cancel)
-
-        present(alert, animated: true)
+        alertService.showAlert(model: alertModel)
     }
 }
 

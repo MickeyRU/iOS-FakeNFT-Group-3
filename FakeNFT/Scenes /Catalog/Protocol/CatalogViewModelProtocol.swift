@@ -15,4 +15,5 @@ protocol CatalogViewModelProtocol: AnyObject {
     func initialize()
     func collection(at indexPath: IndexPath) -> NFTCollection?
     func getCellViewModel(for collection: NFTCollection) -> CatalogCellViewModel
+    func sort(handler: (NFTCollection, NFTCollection) -> Bool)
 }

@@ -1,4 +1,5 @@
 import UIKit
+import Cosmos
 
 final class ViewFactory {
     static let shared = ViewFactory()
@@ -30,5 +31,19 @@ final class ViewFactory {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "heartButtonImage")
         return imageView
+    }
+    
+    func createRatingView() -> CosmosView {
+        let view = CosmosView()
+        view.settings.starSize = 12
+        view.settings.totalStars = 5
+        view.settings.starMargin = 2
+        view.settings.filledColor = UIColor.unYellow
+        view.settings.emptyBorderColor = UIColor.init(hexString: "F7F7F8")
+        view.settings.filledBorderColor = UIColor.unYellow
+        view.settings.updateOnTouch = false
+        view.settings.filledImage = UIImage(named: "filledStarImage")
+        view.settings.emptyImage = UIImage(named: "emptyStarImage")
+        return view
     }
 }

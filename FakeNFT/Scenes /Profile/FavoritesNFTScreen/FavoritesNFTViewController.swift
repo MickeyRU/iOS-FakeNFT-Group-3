@@ -53,7 +53,7 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: FavoritesNFTCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        cell.backgroundColor = .red
+        cell.configure()
         return cell
     }
 }

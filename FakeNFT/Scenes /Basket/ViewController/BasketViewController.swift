@@ -114,7 +114,7 @@ private extension BasketViewController {
         viewModel.finalOrderCost.bind { [weak self] cost in
             self?.cartView.setFinalOrderCost(cost)
         }
-        // TODO: - откомментировать по факту окончания экипка 
+        // TODO: - откомментировать по факту окончания экипка.
         viewModel.cartViewState.bind { [weak self] state in
             guard let self = self else { return }
 //            switch state {

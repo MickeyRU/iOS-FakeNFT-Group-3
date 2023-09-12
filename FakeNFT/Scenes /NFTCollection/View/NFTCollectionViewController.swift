@@ -26,10 +26,20 @@ final class NFTCollectionViewController: UIViewController {
         return label
     }()
 
-    private let authorLabel: UILabel = {
+    private let authorTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfRegular13
         label.textColor = .unBlack
+        label.text = NSLocalizedString("author", comment: "author title")
+        return label
+    }()
+
+    private lazy var authorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.sfRegular15
+        label.textColor = UIColor(red: 0.039, green: 0.518, blue: 1, alpha: 1)
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(authorLabelTapped)))
         return label
     }()
 
@@ -110,6 +120,15 @@ final class NFTCollectionViewController: UIViewController {
     private func backButtonTapped() {
         dismiss(animated: true)
     }
+
+    @objc
+    private func authorLabelTapped() {
+        let vc = UINavigationController(
+            rootViewController: AuthorWebViewController(viewModel: AuthorWebViewModel()))
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+
 }
 
 // MARK: - CollectionViewDataSource
@@ -161,6 +180,7 @@ private extension NFTCollectionViewController {
     func setupView() {
         view.addViewWithNoTAMIC(imageView)
         view.addViewWithNoTAMIC(nameLabel)
+        view.addViewWithNoTAMIC(authorTitleLabel)
         view.addViewWithNoTAMIC(authorLabel)
         view.addViewWithNoTAMIC(descriptionLabel)
         view.addViewWithNoTAMIC(collectionView)
@@ -174,8 +194,10 @@ private extension NFTCollectionViewController {
             imageView.heightAnchor.constraint(equalToConstant: 310),
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            authorLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 13),
-            authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            authorTitleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 13),
+            authorTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            authorLabel.leadingAnchor.constraint(equalTo: authorTitleLabel.trailingAnchor, constant: 4),
+            authorLabel.centerYAnchor.constraint(equalTo: authorTitleLabel.centerYAnchor),
             descriptionLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 5),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),

@@ -30,9 +30,9 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
     private (set) var state: LoadingState = .idle
     
     private (set) var authors: [String: Author] = [:] // Dictionary с ID автора как ключом и данными автора как значением.
-    private let model: UserNFTModel
+    private let model: NFTService
     
-    init(model: UserNFTModel) {
+    init(model: NFTService) {
         self.model = model
     }
     

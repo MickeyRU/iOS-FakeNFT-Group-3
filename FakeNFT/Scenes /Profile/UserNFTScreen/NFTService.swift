@@ -1,6 +1,6 @@
 import Foundation
 
-final class UserNFTModel {
+final class NFTService {
     private let networkClient: NetworkClient
     
     init() {

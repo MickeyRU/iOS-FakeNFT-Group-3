@@ -29,7 +29,7 @@ final class ViewFactory {
     
     func createLikeImageView() -> UIImageView {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "heartButtonImage")
+        imageView.image = UIImage(named: "emptyHeartButtonImage")
         return imageView
     }
     

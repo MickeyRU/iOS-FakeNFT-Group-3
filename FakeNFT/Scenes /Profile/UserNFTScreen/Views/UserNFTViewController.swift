@@ -46,7 +46,7 @@ final class UserNFTViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.fetchNFT(nftList: nftList)
+        viewModel.fetchNFT(nftList: self.nftList)
         setupViews()
         configNavigationBar()
     }

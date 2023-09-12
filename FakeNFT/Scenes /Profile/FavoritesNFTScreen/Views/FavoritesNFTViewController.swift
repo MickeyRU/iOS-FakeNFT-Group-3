@@ -1,6 +1,8 @@
 import UIKit
 
 final class FavoritesNFTViewController: UIViewController {
+    private let viewModel: FavoritesNFTViewModelProtocol
+    private let nftList: [String]
     private let geometricParams: GeometricParams = {
         GeometricParams(cellPerRowCount: 2,
                         cellSpacing: 7,
@@ -17,17 +19,52 @@ final class FavoritesNFTViewController: UIViewController {
         return collection
     }()
     
+    init(nftList: [String], viewModel: FavoritesNFTViewModelProtocol) {
+        self.nftList = nftList
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.bind()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        viewModel.viewDidLoad(nftList: self.nftList)
         
         configNavigationBar()
         setupViews()
     }
     
+    private func bind() {
+        viewModel.observeFavoritesNFT { [weak self] _ in
+            guard let self = self else { return }
+            self.nftCollectionView.reloadData()
+        }
+        
+        viewModel.observeState { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .loading:
+                print("Загрузка")
+            case .loaded:
+                self.updateUIBasedOnNFTData()
+            case .error(_):
+                print("Ошибка")
+                // ToDo: - Error Alert
+            default:
+                break
+            }
+        }
+    }
+    private func updateUIBasedOnNFTData() {
+        navigationItem.title = NSLocalizedString("FavoritesNFT", comment: "")
+    }
+    
     private func configNavigationBar() {
         setupCustomBackButton()
-        navigationItem.title = NSLocalizedString("FavoritesNFT", comment: "")
     }
     
     private func setupViews() {
@@ -48,12 +85,13 @@ final class FavoritesNFTViewController: UIViewController {
 
 extension FavoritesNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return viewModel.favoritesNFT?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: FavoritesNFTCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        cell.configure()
+        guard let nft = viewModel.favoritesNFT?[indexPath.row] else { return cell }
+        cell.configure(with: nft)
         return cell
     }
 }
@@ -75,6 +113,6 @@ extension FavoritesNFTViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: geometricParams.cellLeftInset, bottom: 0, right: geometricParams.cellRightInset)
+        UIEdgeInsets(top: 20, left: geometricParams.cellLeftInset, bottom: 0, right: geometricParams.cellRightInset)
     }
 }

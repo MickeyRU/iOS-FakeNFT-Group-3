@@ -1,7 +1,6 @@
 import UIKit
 
 extension UIViewController {
-
     func setupCustomBackButton() {
         let backButton = UIBarButtonItem(image: UIImage(named: "backButtonImage"),
                                          style: .plain, target: self,

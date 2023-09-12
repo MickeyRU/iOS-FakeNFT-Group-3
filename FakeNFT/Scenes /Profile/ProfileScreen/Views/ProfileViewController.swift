@@ -195,7 +195,7 @@ extension ProfileViewController: UITableViewDelegate {
         case 0:
             router.routeToUserNFT(nftList: viewModel.userProfile?.nfts ?? [])
         case 1:
-            router.routeToFavoritesNFT()
+            router.routeToFavoritesNFT(nftList: viewModel.userProfile?.likes ?? [])
         case 2:
             if let url = URL(string: userWebSiteTextView.text) {
                 router.routeToWebView(url: url)

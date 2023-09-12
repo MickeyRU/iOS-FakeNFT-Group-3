@@ -4,7 +4,7 @@ protocol ProfileRouting {
     func routeToEditingViewController()
     func routeToWebView(url: URL)
     func routeToUserNFT(nftList: [String])
-    func routeToFavoritesNFT()
+    func routeToFavoritesNFT(nftList: [String])
 }
 
 class ProfileRouter: ProfileRouting {
@@ -20,8 +20,8 @@ class ProfileRouter: ProfileRouting {
         pushController(destinationVC)
     }
     
-    func routeToFavoritesNFT() {
-        let destinationVC = factory.makeFavoritesNFTViewController()
+    func routeToFavoritesNFT(nftList: [String]) {
+        let destinationVC = factory.makeFavoritesNFTViewController(nftList: nftList)
         pushController(destinationVC)
     }
     

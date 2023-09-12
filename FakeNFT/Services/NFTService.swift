@@ -1,10 +1,11 @@
 import Foundation
 
 final class NFTService {
+    static let shared = NFTService(networkClient: DefaultNetworkClient())
     private let networkClient: NetworkClient
     
-    init() {
-        self.networkClient = DefaultNetworkClient()
+    init(networkClient: NetworkClient) {
+        self.networkClient = networkClient
     }
     
     func fetchNFT(nftID: String,

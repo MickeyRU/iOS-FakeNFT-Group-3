@@ -241,6 +241,9 @@
 		3F6806C629CBBC4E00B4F915 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BE9319DD2AA1EBDB00BD2D2D /* ProfileRouter.swift */,
+				BE43E58A2A9E327400E5A1F6 /* ProfileService.swift */,
+				BE906FCB2AA754D600178C7D /* NFTService.swift */,
 				3FC8C38F29D245250081F015 /* Requests */,
 			);
 			path = Services;
@@ -343,7 +346,6 @@
 		BE906FC92AA751B400178C7D /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BE43E58A2A9E327400E5A1F6 /* ProfileService.swift */,
 				BEB15D402AA7196E00FDC9C1 /* Views */,
 				BE43E58C2A9E329800E5A1F6 /* ProfileViewModel.swift */,
 			);
@@ -362,7 +364,6 @@
 		BE95457D2A98C217006C9A7C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				BE9319DD2AA1EBDB00BD2D2D /* ProfileRouter.swift */,
 				BE906FC92AA751B400178C7D /* ProfileScreen */,
 				BEB15D412AA7197F00FDC9C1 /* EditScreen */,
 				BEB15D422AA7198F00FDC9C1 /* UserNFTScreen */,
@@ -426,7 +427,6 @@
 		BEB15D422AA7198F00FDC9C1 /* UserNFTScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BE906FCB2AA754D600178C7D /* NFTService.swift */,
 				BE906FCA2AA754BD00178C7D /* Views */,
 				BE906FCD2AA754EF00178C7D /* UserNFTViewModel.swift */,
 			);

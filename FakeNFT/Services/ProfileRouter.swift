@@ -31,7 +31,7 @@ class ProfileRouter: ProfileRouting {
     }
     
     func routeToWebView(url: URL) {
-        let webView = ViewControllerFactory().makeWebView(url: url)
+        let webView = factory.makeWebView(url: url)
         pushController(webView)
     }
     

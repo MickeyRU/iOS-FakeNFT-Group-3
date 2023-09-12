@@ -32,8 +32,8 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
     private (set) var authors: [String: Author] = [:] // Dictionary с ID автора как ключом и данными автора как значением.
     private let model: NFTService
     
-    init(model: NFTService) {
-        self.model = model
+    init(nftService: NFTService) {
+        self.model = nftService
     }
     
     func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void) {

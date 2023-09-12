@@ -3,13 +3,12 @@ import UIKit
 final class ViewControllerFactory {
     func makeWebView(url: URL) -> WebViewViewController {
         let controller = WebViewViewController(url: url)
-        // TODO: - индикатор загрузки
         return controller
     }
     
     func makeUserNFTViewController(nftList: [String]) -> UserNFTViewController {
         let userNFTViewController = UserNFTViewController(nftList: nftList,
-                                                          viewModel: UserNFTViewModel(model: NFTService()))
+                                                          viewModel: UserNFTViewModel(nftService: NFTService.shared))
         return userNFTViewController
     }
     
@@ -18,6 +17,6 @@ final class ViewControllerFactory {
     }
     
     func makeEditingViewController() -> EditingViewController {
-        return EditingViewController(viewModel: EditingViewModel(profileService: ProfileService(networkClient: DefaultNetworkClient())))
+        return EditingViewController(viewModel: EditingViewModel(profileService: ProfileService.shared))
     }
 }

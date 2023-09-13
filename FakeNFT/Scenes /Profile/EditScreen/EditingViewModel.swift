@@ -19,8 +19,9 @@ final class EditingViewModel: EditingViewModelProtocol {
     @Observable
     private(set) var userProfile: UserProfile?
     private let profileService: ProfileService
-    
     private let imageValidator: ImageValidatorProtocol
+    
+    private var isChanged: Bool = false
     
     init(profileService: ProfileService, imageValidator: ImageValidatorProtocol = ImageValidator()) {
         self.profileService = profileService
@@ -46,6 +47,7 @@ final class EditingViewModel: EditingViewModelProtocol {
             likes: currentProfile.likes,
             id: currentProfile.id
         )
+        isChanged = true
     }
     
     func updateDescription(_ description: String) {
@@ -59,6 +61,7 @@ final class EditingViewModel: EditingViewModelProtocol {
             likes: currentProfile.likes,
             id: currentProfile.id
         )
+        isChanged = true
     }
     
     func updateWebSite(_ website: String) {
@@ -72,10 +75,14 @@ final class EditingViewModel: EditingViewModelProtocol {
             likes: currentProfile.likes,
             id: currentProfile.id
         )
+        isChanged = true
     }
     
     func viewWillDisappear() {
-        guard let userProfile = userProfile else { return }
+        guard isChanged,
+              let userProfile = userProfile
+        else { return }
+        
         profileService.updateProfile(with: userProfile) { [weak self] result in
             guard let self = self else { return }
             switch result {

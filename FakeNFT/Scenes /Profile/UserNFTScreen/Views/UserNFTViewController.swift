@@ -46,9 +46,14 @@ final class UserNFTViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.fetchNFT(nftList: self.nftList)
+        viewModel.viewDidLoad(nftList: self.nftList)
         setupViews()
         configNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.viewWillDisappear()
     }
     
     @objc

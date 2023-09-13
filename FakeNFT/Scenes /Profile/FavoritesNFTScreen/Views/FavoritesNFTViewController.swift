@@ -38,6 +38,11 @@ final class FavoritesNFTViewController: UIViewController {
         setupViews()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.viewWillDisappear()
+    }
+    
     private func bind() {
         viewModel.observeFavoritesNFT { [weak self] _ in
             guard let self = self else { return }

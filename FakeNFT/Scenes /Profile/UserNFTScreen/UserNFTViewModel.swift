@@ -9,8 +9,8 @@ protocol UserNFTViewModelProtocol {
     func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void)
     func observeState(_ handler: @escaping (LoadingState) -> Void)
     
-    func fetchNFT(nftList: [String])
-    func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void)
+    func viewDidLoad(nftList: [String])
+    func viewWillDisappear()
     
     func userSelectedSorting(by option: SortOption)
 }
@@ -37,7 +37,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         $state.observe(handler)
     }
     
-    func fetchNFT(nftList: [String]) {
+    func viewDidLoad(nftList: [String]) {
         ProgressHUD.show("Загрузка...")
         state = .loading
         
@@ -59,19 +59,13 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         }
         
         group.notify(queue: .main) {
-            self.fetchAuthor(nfts: fetchedNFTs)
+            self.fetchAuthorList(nfts: fetchedNFTs)
         }
     }
     
-    func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void) {
-        service.fetchAuthor(authorID: authorID) { result in
-            switch result {
-            case .success(let author):
-                completion(.success(author))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func viewWillDisappear() {
+        service.stopAllTasks()
+        ProgressHUD.dismiss()
     }
     
     func userSelectedSorting(by option: SortOption) {
@@ -91,7 +85,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         self.userNFT = nfts
     }
     
-    private func fetchAuthor(nfts: [NFT]) {
+    private func fetchAuthorList(nfts: [NFT]) {
         let authorGroup = DispatchGroup()
         
         for nft in nfts {
@@ -109,7 +103,18 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         authorGroup.notify(queue: .main) {
             self.userNFT = nfts
             self.state = .loaded
+            ProgressHUD.dismiss()
         }
-        ProgressHUD.dismiss()
+    }
+    
+    private func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void) {
+        service.fetchAuthor(authorID: authorID) { result in
+            switch result {
+            case .success(let author):
+                completion(.success(author))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

@@ -101,7 +101,7 @@ final class UserNFTViewController: UIViewController {
             
             switch state {
             case .loading:
-                print("Загрузка")
+                setUIInteraction(false)
             case .loaded:
                 if self.viewModel.userNFT == nil {
                     self.noNFTLabel.isHidden = false
@@ -121,6 +121,13 @@ final class UserNFTViewController: UIViewController {
         let barButtonItem = UIBarButtonItem(customView: sortButton)
         navigationItem.rightBarButtonItem = barButtonItem
         navigationItem.title = NSLocalizedString("MyNFTTitle", comment: "")
+        setUIInteraction(true)
+    }
+    
+    private func setUIInteraction(_ enabled: Bool) {
+        DispatchQueue.main.async {
+            self.navigationItem.leftBarButtonItem?.isEnabled = enabled
+        }
     }
     
     private func setupViews() {

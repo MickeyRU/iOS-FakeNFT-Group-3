@@ -43,6 +43,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
     
     func viewWillDisappear() {
         nftService.stopAllTasks()
+        NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
         ProgressHUD.dismiss()
     }
     

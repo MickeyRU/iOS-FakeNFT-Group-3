@@ -43,6 +43,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 //ToDo: - Уведомление об ошибке
                 print(error)
             }
+            ProgressHUD.dismiss()
         }
     }
 }

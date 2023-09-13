@@ -62,7 +62,7 @@ final class FavoritesNFTViewController: UIViewController {
             
             switch state {
             case .loading:
-                print("Загрузка")
+                setUIInteraction(false)
             case .loaded:
                 guard
                     let favoritesNFT = self.viewModel.favoritesNFT,
@@ -80,7 +80,17 @@ final class FavoritesNFTViewController: UIViewController {
             }
         }
     }
+    
+    private func setUIInteraction(_ enabled: Bool) {
+        DispatchQueue.main.async {
+            self.nftCollectionView.isUserInteractionEnabled = enabled
+            self.navigationItem.leftBarButtonItem?.isEnabled = enabled
+            self.nftCollectionView.alpha = enabled ? 1.0 : 0.5
+        }
+    }
+    
     private func updateUIBasedOnNFTData() {
+        setUIInteraction(true)
         navigationItem.title = NSLocalizedString("FavoritesNFT", comment: "")
     }
     
@@ -142,6 +152,8 @@ extension FavoritesNFTViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - FavoritesNFTCellDelegateProtocol
+
 extension FavoritesNFTViewController: FavoritesNFTCellDelegateProtocol {
     func didTapHeartButton(in cell: FavoritesNFTCell) {
         guard
@@ -149,6 +161,5 @@ extension FavoritesNFTViewController: FavoritesNFTCellDelegateProtocol {
             let nft = viewModel.favoritesNFT?[indexPath.row]
         else { return }
         viewModel.dislike(for: nft)
-        nftCollectionView.reloadData()
     }
 }

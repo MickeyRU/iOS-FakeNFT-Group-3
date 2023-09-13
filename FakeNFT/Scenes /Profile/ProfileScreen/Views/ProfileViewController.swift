@@ -1,6 +1,5 @@
 import UIKit
 import Kingfisher
-import ProgressHUD
 
 final class ProfileViewController: UIViewController {
     private let userNameLabel: UILabel = {
@@ -113,7 +112,6 @@ final class ProfileViewController: UIViewController {
                     // ToDo: Аллерт для пользователя
                 }
             }
-            ProgressHUD.dismiss()
         }
     }
     

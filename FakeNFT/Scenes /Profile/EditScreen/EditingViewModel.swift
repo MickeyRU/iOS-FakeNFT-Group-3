@@ -80,21 +80,33 @@ final class EditingViewModel: EditingViewModelProtocol {
     
     func viewWillDisappear() {
         guard isChanged,
-              let userProfile = userProfile
+                let userProfile = userProfile
         else { return }
         
-        profileService.updateProfile(with: userProfile) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let updatedProfile):
-                self.userProfile = updatedProfile
-            case .failure(let error):
-                //ToDo: - Уведомление об ошибке
-                print(error)
+        let group = DispatchGroup()
+        let backgroundQueue = DispatchQueue(label: "com.appname.backgroundQueue", qos: .background)
+
+        backgroundQueue.async {
+            group.enter()
+            
+            self.profileService.updateProfile(with: userProfile) { [weak self] result in
+                defer { group.leave() }
+                guard let self = self else { return }
+
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let updatedProfile):
+                        self.userProfile = updatedProfile
+                        NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             }
+            group.wait()
         }
     }
-    
+
     func photoURLdidChanged(with url: URL) {
         imageValidator.isValidImageURL(url) { [weak self] isValid in
             guard let self = self else { return }

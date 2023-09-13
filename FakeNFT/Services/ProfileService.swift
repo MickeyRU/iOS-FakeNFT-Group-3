@@ -13,7 +13,7 @@ final class ProfileService {
         let request = FetchProfileNetworkRequest()
         networkHelper.fetchData(request: request, type: UserProfile.self) { result in
             switch result {
-            case .success(let profile):
+            case .success(let profile):                
                 completion(.success(profile))
             case .failure(let error):
                 completion(.failure(error))
@@ -28,7 +28,6 @@ final class ProfileService {
             switch result {
             case .success(let updatedProfile):
                 completion(.success(updatedProfile))
-                NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
             case .failure(let error):
                 completion(.failure(error))
             }

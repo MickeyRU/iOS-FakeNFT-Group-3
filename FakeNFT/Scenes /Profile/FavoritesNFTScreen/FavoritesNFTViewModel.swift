@@ -11,6 +11,7 @@ protocol FavoritesNFTViewModelProtocol {
     func viewDidLoad(nftList: [String])
     func viewWillDisappear()
     func fetchNFT(nftList: [String])
+    func dislike(for: NFT)
 }
 
 final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
@@ -69,5 +70,9 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
             self.state = .loaded
             ProgressHUD.dismiss()
         }
+    }
+    
+    func dislike(for: NFT) {
+        print("Пользователь нажал дизлайк")
     }
 }

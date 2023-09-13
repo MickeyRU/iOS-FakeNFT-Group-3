@@ -8,11 +8,17 @@
 import Foundation
 
 public protocol CartOrderSorterProtocol {
-    func sort(order: OrderViewModel,trait: CartOrderSorter.SortingTrait,
+    func sort(order: OrderViewModel,
+              trait: CartOrderSorter.SortingTrait,
               completion: @escaping LoadingCompletionBlock<OrderViewModel>)
 }
 
 public final class CartOrderSorter: CartOrderSorterProtocol {
+    public enum SortingTrait {
+        case price
+        case rating
+        case name
+    }
     
     private let sortingQueue = DispatchQueue(label: "com.practicum.yandex.sorting-nft")
     
@@ -28,12 +34,6 @@ public final class CartOrderSorter: CartOrderSorterProtocol {
                 completion(sortedOrder)
             }
         }
-    }
-    
-    public enum SortingTrait {
-        case price
-        case rating
-        case name
     }
 }
 

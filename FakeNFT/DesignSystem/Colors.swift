@@ -9,6 +9,8 @@ extension UIColor {
     static let unBlack = UIColor.init(hexString: "#1A1B22")
     static let unWhite = UIColor.init(hexString: "#FFFFFF")
     static let unYellow = UIColor.init(hexString: "#FEEF0D")
+    static let unLightGray = UIColor.init(hexString: "#F7F7F8")
+    static let unGreenUniversal = UIColor.init(hexString: "#1C9F00")
 
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

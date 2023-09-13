@@ -15,4 +15,9 @@
 "sort_alert_rating_action" = "By rating";
 "sort_alert_name_action" = "By name";
 "sort_alert_close_action" = "Close";
-"default _error_title" = "Название";
+"default _error_title" = "Name";
+"cart_remove_nft_text" = "Are you sure you want to \n remove the item from the order?";
+"cart_remove_nft_button_title" = "Remove";
+"cart_remove_nft_cancel_button_title" = "Cancel";
+"cart_cell_title_price" = "Price";
+"cart_purchase_button " = "To pay";

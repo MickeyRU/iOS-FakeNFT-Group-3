@@ -12,7 +12,7 @@ final class MainTabBarController: UITabBarController {
     private func generateViewControllers() -> [UIViewController] {
         let profileViewController = ProfileViewController()
         let catalogViewController = CatalogViewController()
-        let basketViewController = BasketViewController()
+        let basketViewController = CartViewFactory.create()
         let statisticsViewController = StatisticsViewController()
         return [profileViewController, catalogViewController, basketViewController, statisticsViewController]
     }

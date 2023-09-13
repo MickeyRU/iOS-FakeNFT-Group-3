@@ -9,6 +9,12 @@ import UIKit
 
 extension UIImage {
     
+    enum Icons {
+        static let sort = UIImage.named("Sort")
+        static let close = UIImage.named("Close")
+        static let star = UIImage(systemName: "star.fill")
+    }
+    
     enum PaymentResult {
         static let success = UIImage.named("CartPaymentSuccess")
         static let failure = UIImage.named("CartPaymentFailure")
@@ -25,6 +31,11 @@ extension UIImage {
         static let shibaInu = UIImage.named("ShibaInu")
         static let solana = UIImage.named("Solana")
         static let tether = UIImage.named("Tether")
+    }
+    
+    enum Cart {
+        static let active = UIImage.named("CartActive")
+        static let nonActive = UIImage.named("CartNonActive")
     }
 }
 

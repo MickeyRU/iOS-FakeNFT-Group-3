@@ -16,3 +16,8 @@
 "sort_alert_name_action" = "По названию";
 "sort_alert_close_action" = "Закрыть";
 "default _error_title" = "Название";
+"cart_remove_nft_text" = "Вы уверены, что хотите \n удалить объект из корзины?";
+"cart_remove_nft_button_title" = "Удалить";
+"cart_remove_nft_cancel_button_title" = "Вернуться";
+"cart_cell_title_price" = "Цена";
+"cart_purchase_button " = "К оплате";

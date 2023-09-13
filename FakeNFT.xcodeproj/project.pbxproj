@@ -61,6 +61,7 @@
 		BE95458C2A98CE63006C9A7C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE95458E2A98CE63006C9A7C /* Localizable.strings */; };
 		BE9545922A98D226006C9A7C /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545912A98D226006C9A7C /* UIView + Extensions.swift */; };
 		BE9545942A98F66E006C9A7C /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9545932A98F66E006C9A7C /* CustomButton.swift */; };
+		BEA63D442AB1EBD800383406 /* NetworkServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA63D432AB1EBD800383406 /* NetworkServiceHelper.swift */; };
 		BEAAF4A82AA8900600402335 /* UIViewController + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAAF4A72AA8900600402335 /* UIViewController + Extensions.swift */; };
 		BEAAF4AA2AA89A0500402335 /* SortOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAAF4A92AA89A0500402335 /* SortOptions.swift */; };
 		BEB15D472AA71A3500FDC9C1 /* NFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB15D462AA71A3500FDC9C1 /* NFTCell.swift */; };
@@ -142,6 +143,7 @@
 		BE95458F2A98CE74006C9A7C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE9545912A98D226006C9A7C /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 		BE9545932A98F66E006C9A7C /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		BEA63D432AB1EBD800383406 /* NetworkServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceHelper.swift; sourceTree = "<group>"; };
 		BEAAF4A72AA8900600402335 /* UIViewController + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extensions.swift"; sourceTree = "<group>"; };
 		BEAAF4A92AA89A0500402335 /* SortOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptions.swift; sourceTree = "<group>"; };
 		BEB15D462AA71A3500FDC9C1 /* NFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCell.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				BEAAF4A92AA89A0500402335 /* SortOptions.swift */,
 				BE00EA852AAF38F60051A403 /* GeometricParams.swift */,
 				BE6902FB2AB06AD90096C946 /* LoadingState.swift */,
+				BEA63D432AB1EBD800383406 /* NetworkServiceHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				BE43E5902A9E33A200E5A1F6 /* Observable.swift in Sources */,
 				BE906FCE2AA754EF00178C7D /* UserNFTViewModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
+				BEA63D442AB1EBD800383406 /* NetworkServiceHelper.swift in Sources */,
 				BE906FD42AA760DE00178C7D /* NFTNetworkRequests.swift in Sources */,
 				BE7E89472A9CDEC000C6B536 /* WebViewViewController.swift in Sources */,
 				BE906FD62AA768C400178C7D /* NumberFormatter+Presets.swift in Sources */,

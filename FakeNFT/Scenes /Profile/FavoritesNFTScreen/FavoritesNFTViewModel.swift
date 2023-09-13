@@ -98,8 +98,8 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
                 // Шаг 3: Опубликовать новый профиль на сервере
                 self.profileService.updateProfile(with: updatedProfile) { result in
                     switch result {
-                    case .success(let updatedProfile):
-                        print("Профиль получен - успех \(updatedProfile)")
+                    case .success(_):
+                        break
                     case .failure(let error):
                         // ToDo: - обработать ошибку
                         print(error)

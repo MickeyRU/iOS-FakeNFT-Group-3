@@ -13,7 +13,8 @@ final class ViewControllerFactory {
     
     func makeFavoritesNFTViewController(nftList: [String]) -> FavoritesNFTViewController {
         return FavoritesNFTViewController(nftList: nftList,
-                                          viewModel: FavoritesNFTViewModel(nftService: NFTService.shared))
+                                          viewModel: FavoritesNFTViewModel(nftService: NFTService.shared,
+                                                                           profileService: ProfileService.shared))
     }
     
     func makeEditingViewController() -> EditingViewController {

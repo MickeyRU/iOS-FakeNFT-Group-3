@@ -21,10 +21,12 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
     @Observable
     private (set) var state: LoadingState = .idle
     
-    private let service: NFTService
+    private let nftService: NFTService
+    private let profileService: ProfileService
     
-    init(nftService: NFTService) {
-        self.service = nftService
+    init(nftService: NFTService, profileService: ProfileService) {
+        self.nftService = nftService
+        self.profileService = profileService
     }
     
     func observeFavoritesNFT(_ handler: @escaping ([NFT]?) -> Void) {
@@ -40,7 +42,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
     }
     
     func viewWillDisappear() {
-        service.stopAllTasks()
+        nftService.stopAllTasks()
         ProgressHUD.dismiss()
     }
     
@@ -54,7 +56,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
         for element in nftList {
             group.enter()
             
-            service.fetchNFT(nftID: element) { result in
+            nftService.fetchNFT(nftID: element) { result in
                 switch result {
                 case .success(let nft):
                     fetchedNFTs.append(nft)
@@ -72,7 +74,41 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
         }
     }
     
-    func dislike(for: NFT) {
-        print("Пользователь нажал дизлайк")
+    func dislike(for nft: NFT) {
+        // Алгоритм удаления лайков - через обновление profile
+        // Шаг 1: Получить профиль пользователя
+        profileService.fetchProfile { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let userProfile):
+                // Шаг 2: Обновить профиль
+                let updatedLikes = userProfile.likes.filter { $0 != nft.id }
+                self.fetchNFT(nftList: updatedLikes)
+                let updatedProfile = UserProfile(
+                    name: userProfile.name,
+                    avatar: userProfile.avatar,
+                    description: userProfile.description,
+                    website: userProfile.website,
+                    nfts: userProfile.nfts,
+                    likes: updatedLikes,
+                    id: userProfile.id
+                )
+                
+                // Шаг 3: Опубликовать новый профиль на сервере
+                self.profileService.updateProfile(with: updatedProfile) { result in
+                    switch result {
+                    case .success(let updatedProfile):
+                        print("Профиль получен - успех \(updatedProfile)")
+                    case .failure(let error):
+                        // ToDo: - обработать ошибку
+                        print(error)
+                    }
+                }
+            case.failure(let error):
+                // ToDo: - обработать ошибку
+                print(error)
+            }
+        }
     }
 }

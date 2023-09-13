@@ -25,7 +25,7 @@ final class CurrenciesService {
 
 extension CurrenciesService: CurrenciesServiceProtocol {
     func fetchCurrencies(completion: @escaping ResultHandler<CurrenciesResult>) {
-        assert(Thread.isMainThread)
+        guard Thread.isMainThread else { return }
         guard !self.fetchingTask.isRunning else { return }
         
         let request = CurrenciesRequest()

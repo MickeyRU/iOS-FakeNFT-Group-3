@@ -32,7 +32,7 @@ final class OrderService {
 
 extension OrderService: OrderServiceProtocol {
     func fetchOrder(id: String, completion: @escaping ResultHandler<Order>) {
-        assert(Thread.isMainThread)
+        guard Thread.isMainThread else { return }
         guard !self.fetchingTask.isRunning else { return }
 
         let request = OrderRequest(orderId: id)
@@ -47,7 +47,7 @@ extension OrderService: OrderServiceProtocol {
     }
 
     func changeOrder(id: String, nftIds: [String], completion: @escaping ResultHandler<Order>) {
-        assert(Thread.isMainThread)
+        guard Thread.isMainThread else { return }
         guard !self.changingTask.isRunning else { return }
 
         var request = OrderRequest(orderId: id)
@@ -70,7 +70,7 @@ extension OrderService: OrderServiceProtocol {
 
 extension OrderService: OrderPaymentServiceProtocol {
     func purchase(orderId: String, currencyId: String, completion: @escaping ResultHandler<PurchaseResult>) {
-        assert(Thread.isMainThread)
+        guard Thread.isMainThread else { return }
         guard !self.purchasingTask.isRunning else { return }
 
         let request = PurchaseRequest(orderId: orderId, currencyId: currencyId)

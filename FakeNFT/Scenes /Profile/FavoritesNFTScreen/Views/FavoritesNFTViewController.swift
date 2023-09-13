@@ -19,6 +19,14 @@ final class FavoritesNFTViewController: UIViewController {
         return collection
     }()
     
+    private lazy var noNFTLabel: UILabel = {
+        let label = UILabel()
+        label.text = "У вас еще нет избранных NFT"
+        label.font = UIFont.sfBold17
+        label.isHidden = true
+        return label
+    }()
+    
     init(nftList: [String], viewModel: FavoritesNFTViewModelProtocol) {
         self.nftList = nftList
         self.viewModel = viewModel
@@ -51,11 +59,19 @@ final class FavoritesNFTViewController: UIViewController {
         
         viewModel.observeState { [weak self] state in
             guard let self = self else { return }
+            
             switch state {
             case .loading:
                 print("Загрузка")
             case .loaded:
-                self.updateUIBasedOnNFTData()
+                guard
+                    let favoritesNFT = self.viewModel.favoritesNFT,
+                    favoritesNFT.count == 0
+                else {
+                    self.updateUIBasedOnNFTData()
+                    return
+                }
+                self.noNFTLabel.isHidden = false
             case .error(_):
                 print("Ошибка")
                 // ToDo: - Error Alert
@@ -75,13 +91,16 @@ final class FavoritesNFTViewController: UIViewController {
     private func setupViews() {
         view.backgroundColor = .white
         
-        view.addViewWithNoTAMIC(nftCollectionView)
+        [nftCollectionView, noNFTLabel].forEach { view.addViewWithNoTAMIC($0) }
         
         NSLayoutConstraint.activate([
             nftCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             nftCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nftCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nftCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            nftCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            noNFTLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noNFTLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }

@@ -21,3 +21,7 @@
 "cart_remove_nft_cancel_button_title" = "Вернуться";
 "cart_cell_title_price" = "Цена";
 "cart_purchase_button " = "К оплате";
+"cart_payment_view_title" = "Выберите способ оплаты";
+"cart_payment_user_textview_text" = "Совершая покупку, вы соглашаетесь с условиями \n";
+"cart_payment_user_textview_link_text" = "Пользовательского соглашения";
+"cart_payment_pushase_button_title" = "Оплатить";

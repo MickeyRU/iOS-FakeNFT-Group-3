@@ -4,20 +4,18 @@
 //
 //  Created by Andrey Bezrukov on 30.08.2023.
 //
-
 import UIKit
 
-enum ResultType {
-    case success
-    case failure
-}
-
-final class CartPaymentResultViewController: UIViewController {
+public final class CartPaymentResultViewController: UIViewController {
+    public enum ResultType {
+        case success
+        case failure
+    }
     
     private let resultType: ResultType
     
     private lazy var resultImageView: UIImageView = {
-        let image: UIImage = resultType == .success ? UIImage.PaymentResult.success : UIImage.PaymentResult.failure
+        let image: UIImage = self.resultType == .success ? .PaymentResult.success : .PaymentResult.failure
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -36,18 +34,13 @@ final class CartPaymentResultViewController: UIViewController {
         return label
     }()
     
-    private lazy var resultButton: UIButton = {
-        let button = UIButton(type: .system)
+    private lazy var resultButton: AppButton = {
         let title = self.resultType == .success
         ? "cart_payment_success_title_buttom".localized
         : "cart_payment_failure_title_buttom".localized
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.unWhite, for: .normal)
-        button.titleLabel?.font = .sfBold17
-        button.backgroundColor = .unBlack
-        button.layer.cornerRadius = 16
-        button.clipsToBounds = true
-        button.addTarget(self, action: #selector(didTapResultButton), for: .touchUpInside)
+        
+        let button = AppButton(type: .filled, title: title)
+        button.addTarget(self, action: #selector(self.didTapResultButton), for: .touchUpInside)
         return button
     }()
     
@@ -62,8 +55,6 @@ final class CartPaymentResultViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifeCycle
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,10 +62,10 @@ final class CartPaymentResultViewController: UIViewController {
         setConstraints()
     }
     
-    // MARK: - Selector
+    // MARK: - Actions
     
     @objc func didTapResultButton() {
-        onResultButtonAction?(())
+        self.onResultButtonAction?(())
     }
 }
 
@@ -82,21 +73,20 @@ final class CartPaymentResultViewController: UIViewController {
 
 extension CartPaymentResultViewController {
     
-    private func addSubviews() {
-        view.backgroundColor = .unWhite
-        [resultImageView, resultLabel, resultButton].forEach{view.addViewWithNoTAMIC($0)}
+    private enum Constants {
+        static let resultImageViewInsets = UIEdgeInsets(top: 152, left: 48, bottom: 304, right: 48)
+        static let resultLabelInsets = UIEdgeInsets(top: 20, left: 36, bottom: 0, right: 36)
+        
+        static let resultButtonInsets = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
+        static let resultButtonHeight: CGFloat = 60
     }
     
-    private func setConstraints() {
-        
-        enum Constants {
-            static let resultImageViewInsets = UIEdgeInsets(top: 152, left: 48, bottom: 304, right: 48)
-            static let resultLabelInsets = UIEdgeInsets(top: 20, left: 36, bottom: 0, right: 36)
-            
-            static let resultButtonInsets = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
-            static let resultButtonHeight: CGFloat = 60
-        }
-        
+    func addSubviews() {
+        view.backgroundColor = .unWhite
+        [resultImageView, resultLabel, resultButton].forEach{ view.addViewWithNoTAMIC($0)}
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             resultImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: Constants.resultImageViewInsets.top),
             resultImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.resultImageViewInsets.left),

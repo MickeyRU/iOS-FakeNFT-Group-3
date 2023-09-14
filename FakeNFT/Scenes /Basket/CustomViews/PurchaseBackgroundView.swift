@@ -11,7 +11,7 @@ class PurchaseBackgroundView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .unLightGray
         layer.masksToBounds = true
         layer.cornerRadius = 12

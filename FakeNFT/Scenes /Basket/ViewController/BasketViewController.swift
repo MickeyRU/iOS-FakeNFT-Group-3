@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class BasketViewController: UIViewController {
+public final class BasketViewController: UIViewController {
     private let cartView = CartView()
     
     private lazy var sortButton: UIBarButtonItem = {
@@ -61,7 +61,8 @@ final class BasketViewController: UIViewController {
     
     @objc func didTapSortButton() {
         router.showSortAlert(viewController: self) { [weak self] trait in
-            self?.viewModel.sortOrder(trait: trait)
+            guard let self else { return }
+            self.viewModel.sortOrder(trait: trait)
         }
     }
 }
@@ -79,10 +80,11 @@ extension BasketViewController: CartTableViewHelperDelegate {
         with nftImage: UIImage?
     ) {
         router.showRemoveNftView(on: self, nftImage: nftImage) { [weak self] flow in
+            guard let self else { return }
             if flow == .remove {
-                self?.viewModel.removeNft(row: row)
+                self.viewModel.removeNft(row: row)
             }
-            self?.dismiss(animated: true)
+            self.dismiss(animated: true)
         }
     }
 }
@@ -103,7 +105,7 @@ private extension BasketViewController {
     
     func bind() {
         viewModel.tableViewChangeset.bind { [weak self] changeset in
-            guard let changeset = changeset else { return }
+            guard let changeset else { return }
             self?.cartView.updateTableAnimated(changeset: changeset)
         }
         
@@ -116,7 +118,7 @@ private extension BasketViewController {
         }
         
         viewModel.cartViewState.bind { [weak self] state in
-            guard let self = self else { return }
+            guard let self else { return }
             switch state {
             case .empty:
                 ProgressHUDWrapper.hide()
@@ -132,7 +134,7 @@ private extension BasketViewController {
         }
         
         viewModel.error.bind { [weak self] error in
-            guard let self = self, let error = error else { return }
+            guard let self, let error else { return }
             self.router.showErrorAlert(on: self, error: error)
         }
     }
@@ -147,12 +149,12 @@ private extension BasketViewController {
         cartView.tableViewHelper = self.tableViewHelper
         
         cartView.onTapPurchaseButton = { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             self.router.showCartPayment(on: self, orderId: self.viewModel.orderId)
         }
         
         cartView.onRefreshTable = { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             self.viewModel.fetchOrder()
         }
     }

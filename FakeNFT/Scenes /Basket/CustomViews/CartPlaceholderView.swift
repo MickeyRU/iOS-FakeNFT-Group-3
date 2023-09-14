@@ -13,7 +13,6 @@ final class CartPlaceholderView: UIView {
         label.text = "cart_placeholder_text".localized
         label.font = .sfBold17
         label.textColor = .unBlack
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -34,7 +33,7 @@ final class CartPlaceholderView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(label)
+        addViewWithNoTAMIC(label)
     }
     
     func addConstraints() {

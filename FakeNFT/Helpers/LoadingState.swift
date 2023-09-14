@@ -3,6 +3,6 @@ import Foundation
 enum LoadingState {
     case idle
     case loading
-    case loaded
+    case loaded(hasData: Bool)
     case error(Error)
 }

@@ -41,11 +41,11 @@ final class NetworkServiceHelper {
             }
         }
         
-        guard let task = task else {
-            print("task error")
+        guard let unwrappedTask = task else {
+            completion(.failure(NetworkClientError.taskCreationFailed))
             return
         }
         
-        self.currentTasks.append(task)
+        self.currentTasks.append(unwrappedTask)
     }
 }

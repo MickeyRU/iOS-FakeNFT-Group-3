@@ -27,3 +27,7 @@
 "byName"= "По названию";
 "sortTitle" = "Сортировка";
 "closeTitle" = "Закрыть";
+
+// MARK: - ToastService
+
+"profileUpdateError" = "Ошибка обновления профиля";

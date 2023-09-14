@@ -70,7 +70,7 @@ final class EditingViewController: UIViewController {
     
     @objc
     private func exitButtonTapped() {
-        viewModel.viewWillDisappear()
+        viewModel.exitButtonTapped()
         dismiss(animated: true)
     }
     

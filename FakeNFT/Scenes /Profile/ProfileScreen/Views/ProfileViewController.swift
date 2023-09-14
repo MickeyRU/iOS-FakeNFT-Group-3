@@ -34,6 +34,7 @@ final class ProfileViewController: UIViewController {
     
     private let viewModel: ProfileViewModelProtocol
     private lazy var router = ProfileRouter(viewController: self)
+    private lazy var toastService = ToastService(viewController: self)
     
     private lazy var editButton: UIButton = {
         let button = UIButton()
@@ -75,13 +76,21 @@ final class ProfileViewController: UIViewController {
         
         self.navigationController?.delegate = self
         self.tabBarController?.tabBar.isHidden = true
-
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showToastError), name: NSNotification.Name("profileUpdateErrorToastNotification"), object: nil)
+        
         setupViews()
     }
-
+    
     @objc
     private func editButtonTapped() {
         router.routeToEditingViewController()
+    }
+    
+    @objc
+    private func showToastError(_ notification: Notification) {
+        guard let message = notification.object as? String else { return }
+        toastService.showToast(message: message)
     }
     
     private func bind() {

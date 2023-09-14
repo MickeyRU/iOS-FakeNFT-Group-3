@@ -83,7 +83,7 @@ final class UserNFTViewController: UIViewController {
         
         alertService.showAlert(model: alertModel)
     }
-
+    
     
     
     private func sortData(by option: SortOption) {
@@ -101,12 +101,12 @@ final class UserNFTViewController: UIViewController {
             
             switch state {
             case .loading:
-                setUIInteraction(false)
-            case .loaded:
-                if self.viewModel.userNFT == nil {
-                    self.noNFTLabel.isHidden = false
-                } else {
+                self.setUIInteraction(false)
+            case .loaded(let hasData):
+                if hasData {
                     self.updateUIBasedOnNFTData()
+                } else {
+                    self.noNFTLabel.isHidden = false
                 }
             case .error(_):
                 print("Ошибка")

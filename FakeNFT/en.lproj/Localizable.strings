@@ -27,3 +27,7 @@
 "byName" = "By Name";
 "sortTitle" = "Sorting";
 "closeTitle" = "Close";
+
+// MARK: - ToastService
+
+"profileUpdateError" = "Profile update error";

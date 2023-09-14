@@ -11,7 +11,7 @@ final class FavoritesNFTCell: UICollectionViewCell, ReuseIdentifying {
     
     private let nftImageView = ViewFactory.shared.createNFTImageView()
     private let ratingView = ViewFactory.shared.createRatingView()
-
+    
     private let currentPriceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfRegular15
@@ -53,14 +53,11 @@ final class FavoritesNFTCell: UICollectionViewCell, ReuseIdentifying {
         delegate?.didTapHeartButton(in: self)
     }
     
-    func configure(with nft: NFT) {
-        self.nftImageView.kf.setImage(with: URL(string: nft.images[0] ))
-        self.ratingView.rating = Double(nft.rating)
-        self.name.text = nft.name
-
-        if let formattedPrice = NumberFormatter.defaultPriceFormatter.string(from: NSNumber(value: nft.price)) {
-            self.currentPriceLabel.text = "\(formattedPrice) ETH"
-        }
+    func configure(with viewModel: FavoritesNFTCellViewModel) {
+        self.nftImageView.kf.setImage(with: viewModel.imageUrl)
+        self.ratingView.rating = viewModel.formattedRating
+        self.name.text = viewModel.title
+        self.currentPriceLabel.text = viewModel.formattedPrice
     }
     
     private func setupViews() {

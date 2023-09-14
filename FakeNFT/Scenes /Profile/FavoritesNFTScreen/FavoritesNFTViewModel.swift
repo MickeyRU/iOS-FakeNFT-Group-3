@@ -2,7 +2,7 @@ import Foundation
 import ProgressHUD
 
 protocol FavoritesNFTViewModelProtocol {
-    var favoritesNFT: [NFT]? { get }
+    var favoritesNFT: [NFT] { get }
     var state: LoadingState { get }
     
     func observeFavoritesNFT(_ handler: @escaping ([NFT]?) -> Void)
@@ -16,7 +16,7 @@ protocol FavoritesNFTViewModelProtocol {
 
 final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
     @Observable
-    private (set) var favoritesNFT: [NFT]?
+    private (set) var favoritesNFT: [NFT] = []
     
     @Observable
     private (set) var state: LoadingState = .idle
@@ -70,7 +70,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
         
         group.notify(queue: .main) {
             self.favoritesNFT = fetchedNFTs
-            self.state = .loaded
+            self.state = .loaded(hasData: !fetchedNFTs.isEmpty)
             ProgressHUD.dismiss()
         }
     }

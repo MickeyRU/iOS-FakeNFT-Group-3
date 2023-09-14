@@ -102,7 +102,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         }
         authorGroup.notify(queue: .main) {
             self.userNFT = nfts
-            self.state = .loaded
+            self.state = .loaded(hasData: !nfts.isEmpty)
             ProgressHUD.dismiss()
         }
     }

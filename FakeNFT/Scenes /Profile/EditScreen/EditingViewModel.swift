@@ -6,7 +6,7 @@ protocol EditingViewModelProtocol {
     func observeUserProfileChanges(_ handler: @escaping (UserProfile?) -> Void)
     
     func viewDidLoad()
-    func viewWillDisappear()
+    func exitButtonTapped()
     
     func updateName(_ name: String)
     func updateDescription(_ description: String)
@@ -18,6 +18,7 @@ protocol EditingViewModelProtocol {
 final class EditingViewModel: EditingViewModelProtocol {
     @Observable
     private(set) var userProfile: UserProfile?
+    
     private let profileService: ProfileService
     private let imageValidator: ImageValidatorProtocol
     
@@ -78,19 +79,18 @@ final class EditingViewModel: EditingViewModelProtocol {
         isChanged = true
     }
     
-    func viewWillDisappear() {
-        guard isChanged,
-                let userProfile = userProfile
-        else { return }
+    func exitButtonTapped() {
+        guard isChanged, let userProfile = userProfile else { return }
         
         let group = DispatchGroup()
         let backgroundQueue = DispatchQueue(label: "com.appname.backgroundQueue", qos: .background)
 
-        backgroundQueue.async {
+        backgroundQueue.async(group: group) {
             group.enter()
             
             self.profileService.updateProfile(with: userProfile) { [weak self] result in
                 defer { group.leave() }
+                
                 guard let self = self else { return }
 
                 DispatchQueue.main.async {
@@ -99,11 +99,11 @@ final class EditingViewModel: EditingViewModelProtocol {
                         self.userProfile = updatedProfile
                         NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
                     case .failure(let error):
+                        NotificationCenter.default.post(name: NSNotification.Name("profileUpdateErrorToastNotification"), object: NSLocalizedString("profileUpdateError", comment: ""))
                         print(error)
                     }
                 }
             }
-            group.wait()
         }
     }
 

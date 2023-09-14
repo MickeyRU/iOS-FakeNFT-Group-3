@@ -28,6 +28,8 @@
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
 		BE00EA822AAF25420051A403 /* FavoritesNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE00EA812AAF25420051A403 /* FavoritesNFTCell.swift */; };
 		BE00EA862AAF38F60051A403 /* GeometricParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE00EA852AAF38F60051A403 /* GeometricParams.swift */; };
+		BE04AD822AB320CA00BFA108 /* ToastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE04AD812AB320CA00BFA108 /* ToastService.swift */; };
+		BE04AD842AB32D4700BFA108 /* FavoritesNFTCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE04AD832AB32D4700BFA108 /* FavoritesNFTCellViewModel.swift */; };
 		BE28CB1C2AA5E4DA00AADB8D /* ProfileNetworkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE28CB1B2AA5E4DA00AADB8D /* ProfileNetworkRequests.swift */; };
 		BE28CB1E2AA616B500AADB8D /* ProfileUpdateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE28CB1D2AA616B500AADB8D /* ProfileUpdateDTO.swift */; };
 		BE28CB202AA61F4800AADB8D /* ImageValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */; };
@@ -109,6 +111,8 @@
 		3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatters+Presets.swift"; sourceTree = "<group>"; };
 		BE00EA812AAF25420051A403 /* FavoritesNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTCell.swift; sourceTree = "<group>"; };
 		BE00EA852AAF38F60051A403 /* GeometricParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometricParams.swift; sourceTree = "<group>"; };
+		BE04AD812AB320CA00BFA108 /* ToastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastService.swift; sourceTree = "<group>"; };
+		BE04AD832AB32D4700BFA108 /* FavoritesNFTCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTCellViewModel.swift; sourceTree = "<group>"; };
 		BE28CB1B2AA5E4DA00AADB8D /* ProfileNetworkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkRequests.swift; sourceTree = "<group>"; };
 		BE28CB1D2AA616B500AADB8D /* ProfileUpdateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateDTO.swift; sourceTree = "<group>"; };
 		BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageValidator.swift; sourceTree = "<group>"; };
@@ -331,7 +335,6 @@
 			isa = PBXGroup;
 			children = (
 				BE43E58F2A9E33A200E5A1F6 /* Observable.swift */,
-				BE9319E12AA2608D00BD2D2D /* AlertService.swift */,
 				BE9319DF2AA1F1B400BD2D2D /* ViewControllerFactory.swift */,
 				BE9319E32AA3560D00BD2D2D /* ViewFactory.swift */,
 				BE28CB1F2AA61F4800AADB8D /* ImageValidator.swift */,
@@ -339,6 +342,8 @@
 				BE00EA852AAF38F60051A403 /* GeometricParams.swift */,
 				BE6902FB2AB06AD90096C946 /* LoadingState.swift */,
 				BEA63D432AB1EBD800383406 /* NetworkServiceHelper.swift */,
+				BE9319E12AA2608D00BD2D2D /* AlertService.swift */,
+				BE04AD812AB320CA00BFA108 /* ToastService.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 			children = (
 				BE6902F82AB06A400096C946 /* Views */,
 				BE6902F92AB06A600096C946 /* FavoritesNFTViewModel.swift */,
+				BE04AD832AB32D4700BFA108 /* FavoritesNFTCellViewModel.swift */,
 			);
 			path = FavoritesNFTScreen;
 			sourceTree = "<group>";
@@ -621,6 +627,7 @@
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				BE7E89432A9CCFE800C6B536 /* UserNFTViewController.swift in Sources */,
 				BEAAF4A82AA8900600402335 /* UIViewController + Extensions.swift in Sources */,
+				BE04AD842AB32D4700BFA108 /* FavoritesNFTCellViewModel.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				BE43E58B2A9E327400E5A1F6 /* ProfileService.swift in Sources */,
 				BE6902FC2AB06AD90096C946 /* LoadingState.swift in Sources */,
@@ -638,6 +645,7 @@
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */,
 				BE28CB202AA61F4800AADB8D /* ImageValidator.swift in Sources */,
+				BE04AD822AB320CA00BFA108 /* ToastService.swift in Sources */,
 				BE9545882A98C30B006C9A7C /* StatisticsViewController.swift in Sources */,
 				BE9319DE2AA1EBDB00BD2D2D /* ProfileRouter.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,

@@ -1,8 +1,7 @@
 import UIKit
 
-final class UserNFTViewController: UIViewController {
-    private let nftList: [String]
-    private let viewModel: UserNFTViewModelProtocol
+final class MyNFTViewController: UIViewController {
+    private let viewModel: MyNFTViewModelProtocol
     
     private lazy var alertService: AlertServiceProtocol = {
         return AlertService(viewController: self)
@@ -11,7 +10,6 @@ final class UserNFTViewController: UIViewController {
     private lazy var nftTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(NFTCell.self)
-        tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         return tableView
@@ -32,8 +30,7 @@ final class UserNFTViewController: UIViewController {
         return label
     }()
     
-    init(nftList: [String], viewModel: UserNFTViewModelProtocol) {
-        self.nftList = nftList
+    init(viewModel: MyNFTViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.bind()
@@ -46,7 +43,7 @@ final class UserNFTViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.viewDidLoad(nftList: self.nftList)
+        viewModel.viewDidLoad()
         setupViews()
         configNavigationBar()
     }
@@ -153,33 +150,33 @@ final class UserNFTViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension UserNFTViewController: UITableViewDataSource {
+extension MyNFTViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.userNFT?.count ?? 0
+        viewModel.userNFTs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NFTCell = tableView.dequeueReusableCell()
         cell.selectionStyle = .none
+        cell.delegate = self
         
-        guard let nft = viewModel.userNFT?[indexPath.row] else {
-            print("Error to get NFT")
-            return cell
-        }
+        guard let nft = viewModel.getNFT(index: indexPath.row) else{ return cell }
+        cell.configure(nft: nft, authorName: "Hiiii")
         
-        if let author = viewModel.authors[nft.author] {
-            cell.configure(nft: nft, authorName: author.name)
-        } else {
-            print("error to get author ID")
-            cell.configure(nft: nft, authorName: "Unknown author")
-        }
+//        if let author = viewModel.authors[nft.author] {
+//            cell.configure(nft: nft, authorName: author.name)
+//        } else {
+//            print("error to get author ID")
+//            cell.configure(nft: nft, authorName: "Unknown author")
+//        }
         
         return cell
     }
 }
 
-// MARK: - UITableViewDelegate
-
-extension UserNFTViewController: UITableViewDelegate {
-    
+extension MyNFTViewController: MyNFTCellDelegateProtocol {
+    func didTapHeartButton(in cell: NFTCell) {
+        guard let index = nftTableView.indexPath(for: cell)?.row else { return }
+        viewModel.didTapHeartButton(at: index)
+    }
 }

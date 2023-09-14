@@ -26,13 +26,7 @@ final class ViewFactory {
         imageView.clipsToBounds = true
         return imageView
     }
-    
-    func createLikeImageView() -> UIImageView {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "emptyHeartButtonImage")
-        return imageView
-    }
-    
+        
     func createRatingView() -> CosmosView {
         let view = CosmosView()
         view.settings.starSize = 12

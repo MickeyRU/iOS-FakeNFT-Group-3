@@ -6,9 +6,9 @@ final class ViewControllerFactory {
         return controller
     }
     
-    func makeUserNFTViewController(nftList: [String]) -> UserNFTViewController {
-        return UserNFTViewController(nftList: nftList,
-                                     viewModel: UserNFTViewModel(nftService: NFTService.shared))
+    func makeUserNFTViewController(profile: UserProfile) -> MyNFTViewController {
+        return MyNFTViewController(viewModel: MyNFTViewModel(nftService: NFTService.shared,
+                                                             profileService: ProfileService.shared, userProfile: profile))
     }
     
     func makeFavoritesNFTViewController(nftList: [String]) -> FavoritesNFTViewController {

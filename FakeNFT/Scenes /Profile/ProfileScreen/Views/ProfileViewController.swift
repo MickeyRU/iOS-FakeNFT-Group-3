@@ -200,7 +200,8 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            router.routeToUserNFT(nftList: viewModel.userProfile?.nfts ?? [])
+            guard let userProfile = viewModel.userProfile else { return }
+            router.routeToUserNFT(profile: userProfile)
         case 1:
             router.routeToFavoritesNFT(nftList: viewModel.userProfile?.likes ?? [])
         case 2:
@@ -219,7 +220,7 @@ extension ProfileViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController is ProfileViewController {
             navigationController.setNavigationBarHidden(true, animated: animated)
-        } else if viewController is UserNFTViewController || viewController is FavoritesNFTViewController || viewController is WebViewViewController {
+        } else if viewController is MyNFTViewController || viewController is FavoritesNFTViewController || viewController is WebViewViewController {
             navigationController.setNavigationBarHidden(false, animated: animated)
         }
     }

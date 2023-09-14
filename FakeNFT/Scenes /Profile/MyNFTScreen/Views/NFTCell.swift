@@ -2,10 +2,21 @@ import UIKit
 import Cosmos
 import Kingfisher
 
+protocol MyNFTCellDelegateProtocol: AnyObject {
+    func didTapHeartButton(in cell: NFTCell)
+}
+
 final class NFTCell: UITableViewCell, ReuseIdentifying {
+    weak var delegate: MyNFTCellDelegateProtocol?
+    
     private let nftImageView = ViewFactory.shared.createNFTImageView()
-    private let likeImageView = ViewFactory.shared.createLikeImageView()
     private let ratingView = ViewFactory.shared.createRatingView()
+    
+    private lazy var likeButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private let authorPrefix: UILabel = {
         let label = UILabel()
@@ -70,27 +81,39 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(nft: NFT, authorName: String) {
-        self.nftImageView.kf.setImage(with: URL(string: nft.images[0]))
-        self.name.text = nft.name
-        self.ratingView.rating = Double(nft.rating)
+    @objc
+    private func likeButtonTapped() {
+        delegate?.didTapHeartButton(in: self)
+    }
+    
+    func configure(nft: NFTDisplayModel, authorName: String) {
+        self.nftImageView.kf.setImage(with: URL(string: nft.nft.images[0]))
+        self.name.text = nft.nft.name
+        self.ratingView.rating = Double(nft.nft.rating)
         self.author.text = authorName
         
-        if let formattedPrice = NumberFormatter.defaultPriceFormatter.string(from: NSNumber(value: nft.price)) {
+        if nft.isSelected {
+            self.likeButton.setImage(UIImage(named: "filledHeartButtonImage"), for: .normal)
+        } else {
+            self.likeButton.setImage(UIImage(named: "emptyHeartButtonImage"), for: .normal)
+        }
+
+        if let formattedPrice = NumberFormatter.defaultPriceFormatter.string(from: NSNumber(value: nft.nft.price)) {
             self.currentPriceLabel.text = "\(formattedPrice) ETH"
         }
     }
     
     private func setupViews() {
-        nftImageView.addViewWithNoTAMIC(likeImageView)
         [authorPrefix, author].forEach { authorStackView.addArrangedSubview($0) }
         [name, ratingView, authorStackView].forEach { nftDetailsStackView.addArrangedSubview($0) }
         [priceLabel, currentPriceLabel].forEach { priceStackView.addArrangedSubview($0) }
-        [nftImageView, nftDetailsStackView, priceStackView].forEach { contentView.addViewWithNoTAMIC($0) }
+        [nftImageView, likeButton, nftDetailsStackView, priceStackView].forEach { contentView.addViewWithNoTAMIC($0) }
         
         NSLayoutConstraint.activate([
-            likeImageView.topAnchor.constraint(equalTo: nftImageView.topAnchor),
-            likeImageView.trailingAnchor.constraint(equalTo: nftImageView.trailingAnchor),
+            likeButton.topAnchor.constraint(equalTo: nftImageView.topAnchor),
+            likeButton.trailingAnchor.constraint(equalTo: nftImageView.trailingAnchor),
+            likeButton.heightAnchor.constraint(equalToConstant: 44),
+            likeButton.widthAnchor.constraint(equalToConstant: 44),
             
             nftImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             nftImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

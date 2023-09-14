@@ -20,11 +20,11 @@ final class EditingViewModel: EditingViewModelProtocol {
     private(set) var userProfile: UserProfile?
     
     private let profileService: ProfileService
-    private let imageValidator: ImageValidatorProtocol
+    private let imageValidator: ImageValidatorServiceProtocol
     
     private var isChanged: Bool = false
     
-    init(profileService: ProfileService, imageValidator: ImageValidatorProtocol = ImageValidator()) {
+    init(profileService: ProfileService, imageValidator: ImageValidatorServiceProtocol = ImageValidatorService()) {
         self.profileService = profileService
         self.imageValidator = imageValidator
     }

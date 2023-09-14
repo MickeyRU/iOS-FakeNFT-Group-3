@@ -10,3 +10,13 @@ struct NFT: Codable {
     let author: String
     let id: String
 }
+
+struct NFTDisplayModel {
+    let nft: NFT
+    var isSelected: Bool
+    
+    init(from nft: NFT, likedIds: [String]) {
+        self.nft = nft
+        self.isSelected = likedIds.contains(nft.id)
+    }
+}

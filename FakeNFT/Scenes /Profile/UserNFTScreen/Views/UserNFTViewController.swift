@@ -26,7 +26,7 @@ final class UserNFTViewController: UIViewController {
     
     private lazy var noNFTLabel: UILabel = {
         let label = UILabel()
-        label.text = "У вас еще нет NFT"
+        label.text = NSLocalizedString("noNFTTitle", comment: "")
         label.font = UIFont.sfBold17
         label.isHidden = true
         return label
@@ -73,9 +73,9 @@ final class UserNFTViewController: UIViewController {
             self.viewModel.userSelectedSorting(by: .title)
         }
         
-        let cancelAction = AlertActionModel(title: "Закрыть", style: .cancel, handler: nil)
+        let cancelAction = AlertActionModel(title: NSLocalizedString("closeTitle", comment: ""), style: .cancel, handler: nil)
         
-        let alertModel = AlertModel(title: "Сортировка",
+        let alertModel = AlertModel(title: NSLocalizedString("sortTitle", comment: ""),
                                     message: nil,
                                     style: .actionSheet,
                                     actions: [priceAction, ratingAction, titleAction, cancelAction],

@@ -48,7 +48,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
     }
     
     func fetchNFT(nftList: [String]) {
-        ProgressHUD.show("Загрузка...")
+        ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         state = .loading
         
         var fetchedNFTs: [NFT] = []

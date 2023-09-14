@@ -128,7 +128,7 @@ final class EditingViewModel: EditingViewModelProtocol {
     }
     
     private func fetchUserProfile() {
-        ProgressHUD.show("Загрузка...")
+        ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         profileService.fetchProfile { [weak self] result in
             guard let self = self else { return }
             switch result {

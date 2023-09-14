@@ -21,7 +21,7 @@ final class FavoritesNFTViewController: UIViewController {
     
     private lazy var noNFTLabel: UILabel = {
         let label = UILabel()
-        label.text = "У вас еще нет избранных NFT"
+        label.text = NSLocalizedString("noFavoritesNFTTitle", comment: "")
         label.font = UIFont.sfBold17
         label.isHidden = true
         return label

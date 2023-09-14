@@ -168,9 +168,9 @@ extension ProfileViewController: UITableViewDataSource {
         case 0:
             cellTitle = NSLocalizedString("MyNFTTitle", comment: "") + " (\(viewModel.userProfile?.nfts.count ?? 0))"
         case 1:
-            cellTitle = "Избранные NFT " + "(\(viewModel.userProfile?.likes.count ?? 0))"
+            cellTitle = NSLocalizedString("FavoritesNFTTitle", comment: "")  + " (\(viewModel.userProfile?.likes.count ?? 0))"
         case 2:
-            cellTitle = "О разработчике"
+            cellTitle = NSLocalizedString("AboutDeveloper", comment: "")
         default:
             break
         }

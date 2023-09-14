@@ -38,7 +38,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
     }
     
     func viewDidLoad(nftList: [String]) {
-        ProgressHUD.show("Загрузка...")
+        ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         state = .loading
         
         var fetchedNFTs: [NFT] = []

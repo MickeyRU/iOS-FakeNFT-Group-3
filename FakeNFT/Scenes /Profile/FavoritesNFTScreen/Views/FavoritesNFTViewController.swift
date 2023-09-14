@@ -68,10 +68,10 @@ final class FavoritesNFTViewController: UIViewController {
                     let favoritesNFT = self.viewModel.favoritesNFT,
                     favoritesNFT.count == 0
                 else {
-                    self.updateUIBasedOnNFTData()
+                    self.updateUI(isNoNFT: false)
                     return
                 }
-                self.noNFTLabel.isHidden = false
+                self.updateUI(isNoNFT: true)
             case .error(_):
                 print("Ошибка")
                 // ToDo: - Error Alert
@@ -89,10 +89,12 @@ final class FavoritesNFTViewController: UIViewController {
         }
     }
     
-    private func updateUIBasedOnNFTData() {
+    private func updateUI(isNoNFT: Bool) {
         setUIInteraction(true)
-        navigationItem.title = NSLocalizedString("FavoritesNFT", comment: "")
+        self.noNFTLabel.isHidden = !isNoNFT
+        navigationItem.title = isNoNFT ? nil : NSLocalizedString("FavoritesNFT", comment: "")
     }
+
     
     private func configNavigationBar() {
         setupCustomBackButton()

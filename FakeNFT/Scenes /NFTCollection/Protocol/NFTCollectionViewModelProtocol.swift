@@ -23,9 +23,20 @@ protocol NFTCollectionViewModelProtocol: AnyObject {
     var imageURL: URL? { get }
     var imageURLObserve: NFTCollectionObservable<URL?> { get }
 
+    var isLoaded: Bool { get }
+    var isLoadedObserve: NFTCollectionObservable<Bool> { get }
+
+    var favorites: [String] { get }
+    var favoritesObserve: NFTCollectionObservable<[String]> { get }
+
+    var orders: [String] { get }
+    var ordersObserve: NFTCollectionObservable<[String]> { get }
+
     var numberOfRows: Int { get }
 
     func initialize()
     func nft(at indexPath: IndexPath) -> NFT?
     func getCellViewModel(for nft: NFT) -> NFTCellViewModel
+    func favoriteButtonTapped(at indexPath: IndexPath)
+    func cartButtonTapped(at indexPath: IndexPath)
 }

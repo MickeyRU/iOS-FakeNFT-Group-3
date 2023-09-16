@@ -41,6 +41,8 @@
 		4FC41B0B2AB10296004080B8 /* AuthorWebObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC41B0A2AB10296004080B8 /* AuthorWebObservable.swift */; };
 		4FC41B0D2AB10327004080B8 /* AuthorWebViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC41B0C2AB10327004080B8 /* AuthorWebViewModelProtocol.swift */; };
 		4FC41B0F2AB103C8004080B8 /* AuthorWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC41B0E2AB103C8004080B8 /* AuthorWebViewModel.swift */; };
+		4FDB111F2AB5939400A506CE /* NFTFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDB111E2AB5939400A506CE /* NFTFavorites.swift */; };
+		4FDB11212AB5962100A506CE /* NFTOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDB11202AB5962100A506CE /* NFTOrders.swift */; };
 		4FE61EAB2AA47831008072F2 /* CatalogObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */; };
 		4FE61EAE2AA47875008072F2 /* CatalogViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE61EAD2AA47875008072F2 /* CatalogViewModelProtocol.swift */; };
 		4FE61EB62AA483AD008072F2 /* NFTCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE61EB52AA483AD008072F2 /* NFTCollectionViewController.swift */; };
@@ -108,6 +110,8 @@
 		4FC41B0A2AB10296004080B8 /* AuthorWebObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorWebObservable.swift; sourceTree = "<group>"; };
 		4FC41B0C2AB10327004080B8 /* AuthorWebViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorWebViewModelProtocol.swift; sourceTree = "<group>"; };
 		4FC41B0E2AB103C8004080B8 /* AuthorWebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorWebViewModel.swift; sourceTree = "<group>"; };
+		4FDB111E2AB5939400A506CE /* NFTFavorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavorites.swift; sourceTree = "<group>"; };
+		4FDB11202AB5962100A506CE /* NFTOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTOrders.swift; sourceTree = "<group>"; };
 		4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogObservable.swift; sourceTree = "<group>"; };
 		4FE61EAD2AA47875008072F2 /* CatalogViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModelProtocol.swift; sourceTree = "<group>"; };
 		4FE61EB52AA483AD008072F2 /* NFTCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionViewController.swift; sourceTree = "<group>"; };
@@ -358,6 +362,8 @@
 			isa = PBXGroup;
 			children = (
 				4FAC6C732AA7BAAD00E257EE /* NFT.swift */,
+				4FDB111E2AB5939400A506CE /* NFTFavorites.swift */,
+				4FDB11202AB5962100A506CE /* NFTOrders.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -613,6 +619,7 @@
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				4FC0D3792AAC6B7F00037A8D /* NFTCollectionViewModelProtocol.swift in Sources */,
 				4FC41B092AB0E98F004080B8 /* AuthorWebViewController.swift in Sources */,
+				4FDB11212AB5962100A506CE /* NFTOrders.swift in Sources */,
 				4FAC6C722AA7ABB700E257EE /* NFTCell.swift in Sources */,
 				4FE61EB62AA483AD008072F2 /* NFTCollectionViewController.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
@@ -631,6 +638,7 @@
 				BE9545882A98C30B006C9A7C /* StatisticsViewController.swift in Sources */,
 				4F8C436B2AAF8FA600CC1968 /* AlertService.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
+				4FDB111F2AB5939400A506CE /* NFTFavorites.swift in Sources */,
 				4FC41B0B2AB10296004080B8 /* AuthorWebObservable.swift in Sources */,
 				4F57E5362AA0FAD900957522 /* CatalogViewModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,

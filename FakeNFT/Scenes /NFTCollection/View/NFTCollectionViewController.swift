@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import ProgressHUD
 
 final class NFTCollectionViewController: UIViewController {
 
@@ -85,7 +86,28 @@ final class NFTCollectionViewController: UIViewController {
         viewModel.initialize()
     }
 
+    func favoriteButtonTapped(cell: NFTCell) {
+        if let indexPath = collectionView.indexPath(for: cell) {
+            viewModel.favoriteButtonTapped(at: indexPath)
+        }
+    }
+
+    func cartButtonTapped(cell: NFTCell) {
+        if let indexPath = collectionView.indexPath(for: cell) {
+            viewModel.cartButtonTapped(at: indexPath)
+        }
+    }
+
     private func bind() {
+        viewModel.isLoadedObserve.bind(action: { [weak self] newValue in
+            guard let self = self else { return }
+            if newValue {
+                ProgressHUD.dismiss()
+            } else {
+                ProgressHUD.show()
+            }
+        })
+
         viewModel.nameObserve.bind(action: { [weak self] newValue in
             guard let self = self else { return }
             self.nameLabel.text = newValue
@@ -114,6 +136,21 @@ final class NFTCollectionViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         })
+
+        viewModel.favoritesObserve.bind(action: { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        })
+
+        viewModel.ordersObserve.bind(action: { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        })
+
     }
 
     @objc
@@ -128,7 +165,6 @@ final class NFTCollectionViewController: UIViewController {
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
-
 }
 
 // MARK: - CollectionViewDataSource
@@ -143,6 +179,7 @@ extension NFTCollectionViewController: UICollectionViewDataSource {
         }
         let cell: NFTCell = collectionView.dequeueReusableCell(indexPath: indexPath)
         cell.viewModel = viewModel.getCellViewModel(for: nft)
+        cell.delegate = self
         return cell
     }
 }

@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 
 final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
@@ -34,6 +35,7 @@ final class CatalogViewController: UIViewController {
         setupConstraints()
 
         bind()
+        ProgressHUD.show()
         viewModel.initialize()
 
         initializeAlertService()
@@ -44,6 +46,7 @@ final class CatalogViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                ProgressHUD.dismiss()
             }
         })
     }

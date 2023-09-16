@@ -16,8 +16,9 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
         return imageView
     }()
 
-    private let favoriteButton = {
+    private lazy var favoriteButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -59,8 +60,9 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
         return label
     }()
 
-    private let cartButton = {
+    private lazy var cartButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -79,6 +81,8 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
             }
         }
     }
+
+    weak var delegate: NFTCollectionViewController?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,6 +105,19 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
             }
         }
     }
+
+    @objc
+    func favoriteButtonTapped() {
+        guard let delegate = delegate else { return }
+        delegate.favoriteButtonTapped(cell: self)
+    }
+
+    @objc
+    func cartButtonTapped() {
+        guard let delegate = delegate else { return }
+        delegate.cartButtonTapped(cell: self)
+    }
+
 }
 
 // MARK: - UI

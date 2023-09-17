@@ -22,13 +22,14 @@ struct AlertModel {
 }
 
 protocol AlertServiceProtocol {
+    func initVC(viewController: UIViewController)
     func showAlert(model: AlertModel)
 }
 
 final class AlertService: AlertServiceProtocol {
     private weak var viewController: UIViewController?
 
-    init(viewController: UIViewController) {
+    func initVC(viewController: UIViewController) {
         self.viewController = viewController
     }
 

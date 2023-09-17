@@ -32,10 +32,11 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
     private(set) var numberOfRows = 0
     private let collection: NFTCollection
 
-    private let networkClient = DefaultNetworkClient()
+    private(set) var networkService: NFTNetworkServiceProtocol
 
-    init(with collection: NFTCollection) {
+    init(with collection: NFTCollection, networkService: NFTNetworkServiceProtocol) {
         self.collection = collection
+        self.networkService = networkService
     }
 
     func initialize() {
@@ -53,82 +54,53 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
     }
 
     private func loadNFTCollectionFromApi() {
-        let group = DispatchGroup()
-        loadFavorites(dispatchGroup: group)
-        loadOrders(dispatchGroup: group)
 
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            self.loadNFT()
-        }
-    }
-
-    private func loadFavorites(dispatchGroup: DispatchGroup) {
+        let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
-        let request = ExampleRequest(endpoint: URL(string: "https://64e794b8b0fd9648b7902489.mockapi.io/api/v1/profile/1"))
-        networkClient.send(request: request, type: NFTFavorites.self) { [weak self] result in
+        networkService.loadFavorites { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(favorites):
-                DispatchQueue.main.async {
-                    self.favorites = favorites.likes
-                    dispatchGroup.leave()
-                }
+                self.favorites = favorites.likes
+                dispatchGroup.leave()
             case let .failure(error):
-                DispatchQueue.main.async {
-                    print("error favorites")
-                    dispatchGroup.leave()
-                }
+                print("error favorites")
+                dispatchGroup.leave()
             }
         }
-    }
 
-    private func loadOrders(dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        let request = ExampleRequest(endpoint: URL(string: "https://64e794b8b0fd9648b7902489.mockapi.io/api/v1/orders/1"))
-        networkClient.send(request: request, type: NFTOrders.self) { [weak self] result in
+        networkService.loadOrders { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(orders):
-                DispatchQueue.main.async {
-                    self.orders = orders.nfts
-                    dispatchGroup.leave()
-                }
+            case let .success(nfts):
+                self.orders = nfts
+                dispatchGroup.leave()
             case let .failure(error):
-                DispatchQueue.main.async {
-                    print("error ordrers")
-                    dispatchGroup.leave()
-                }
-            }
-        }
-    }
-
-    private func loadNFT() {
-        let dispatchGroup = DispatchGroup()
-        for nftId in collection.nfts {
-            dispatchGroup.enter()
-            let request = ExampleRequest(endpoint: URL(string: "https://64e794b8b0fd9648b7902489.mockapi.io/api/v1/nft/\(nftId)"))
-            networkClient.send(request: request, type: NFT.self) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case let .success(nft):
-                    DispatchQueue.main.async {
-                        self.nfts.append(nft)
-                        dispatchGroup.leave()
-                    }
-                case .failure:
-                    DispatchQueue.main.async {
-                        print("error nft \(nftId)")
-                        dispatchGroup.leave()
-                    }
-                }
+                print("error ordrers")
+                dispatchGroup.leave()
             }
         }
 
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self = self else { return }
-            self.numberOfRows = self.nfts.count
-            self.isLoaded = true
+            let nftDispatchGroup = DispatchGroup()
+            for nftId in collection.nfts {
+                networkService.loadNFT(id: nftId, dispatchGroup: nftDispatchGroup) { result in
+                    switch result {
+                    case let .success(nft):
+                        self.nfts.append(nft)
+                    case .failure:
+                        print("error nft \(nftId)")
+                    }
+                }
+            }
+
+            nftDispatchGroup.notify(queue: .main) { [weak self] in
+                guard let self = self else { return }
+                self.numberOfRows = self.nfts.count
+                self.isLoaded = true
+            }
         }
     }
 
@@ -176,20 +148,7 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
             favorites.append(nft.id)
         }
 
-        let request = UpdateRequest(endpoint: URL(string: "https://64e794b8b0fd9648b7902489.mockapi.io/api/v1/profile/1"), dto: NFTFavorites(likes: favorites))
-        networkClient.send(request: request) { result in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    print("success")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print("Unable to update favorites")
-                }
-            }
-        }
-
+        networkService.updateFavorites(newFavorites: favorites)
     }
 
     func cartButtonTapped(at indexPath: IndexPath) {
@@ -203,19 +162,6 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
             orders.append(nft.id)
         }
 
-        let request = UpdateRequest(endpoint: URL(string: "https://64e794b8b0fd9648b7902489.mockapi.io/api/v1/orders/1"), dto: NFTOrders(nfts: orders))
-        networkClient.send(request: request) { result in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    print("success")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print("Unable to ypdate cart")
-                }
-            }
-        }
-
+        networkService.updateOrders(newOrders: orders)
     }
 }

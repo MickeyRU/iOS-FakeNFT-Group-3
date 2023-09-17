@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct NFTFavorites: Encodable, Decodable {
+struct NFTFavorites: Codable {
     let likes: [String]
 }

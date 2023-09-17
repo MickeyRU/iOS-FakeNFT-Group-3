@@ -124,7 +124,10 @@ extension CatalogViewController: UITableViewDelegate {
 
         let vc = UINavigationController(
             rootViewController: NFTCollectionViewController(
-                viewModel: NFTCollectionViewModel(with: collection)))
+                viewModel: NFTCollectionViewModel(
+                    with: collection,
+                    networkService: NFTNetworkService(
+                        networkClient: DefaultNetworkClient()))))
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct NFTOrders: Encodable, Decodable {
+struct NFTOrders: Codable {
     let nfts: [String]
 }

@@ -150,7 +150,7 @@ extension NFTCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 1 {
-            return UIEdgeInsets(top: 124, left: 16, bottom: 0, right: 16)
+            return UIEdgeInsets(top: 24, left: 16, bottom: 0, right: 16)
         } else {
             return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }

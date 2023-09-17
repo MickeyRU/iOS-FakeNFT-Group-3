@@ -25,6 +25,7 @@ protocol NFTCollectionViewModelProtocol: AnyObject {
     var description: String? { get }
     var imageURL: URL? { get }
     var numberOfRows: Int { get }
+    var networkService: NFTNetworkServiceProtocol { get }
 
     func initialize()
     func nft(at indexPath: IndexPath) -> NFT?

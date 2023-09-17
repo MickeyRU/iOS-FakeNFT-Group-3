@@ -41,6 +41,8 @@
 		4FC41B0B2AB10296004080B8 /* AuthorWebObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC41B0A2AB10296004080B8 /* AuthorWebObservable.swift */; };
 		4FC41B0D2AB10327004080B8 /* AuthorWebViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC41B0C2AB10327004080B8 /* AuthorWebViewModelProtocol.swift */; };
 		4FC41B0F2AB103C8004080B8 /* AuthorWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC41B0E2AB103C8004080B8 /* AuthorWebViewModel.swift */; };
+		4FC9995B2AB6DFF80068A0C1 /* NFTCollectionDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC9995A2AB6DFF80068A0C1 /* NFTCollectionDescriptionCell.swift */; };
+		4FC9995D2AB6E38D0068A0C1 /* NFTCollectionDescriptionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC9995C2AB6E38D0068A0C1 /* NFTCollectionDescriptionCellViewModel.swift */; };
 		4FDB111F2AB5939400A506CE /* NFTFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDB111E2AB5939400A506CE /* NFTFavorites.swift */; };
 		4FDB11212AB5962100A506CE /* NFTOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDB11202AB5962100A506CE /* NFTOrders.swift */; };
 		4FE61EAB2AA47831008072F2 /* CatalogObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */; };
@@ -110,6 +112,8 @@
 		4FC41B0A2AB10296004080B8 /* AuthorWebObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorWebObservable.swift; sourceTree = "<group>"; };
 		4FC41B0C2AB10327004080B8 /* AuthorWebViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorWebViewModelProtocol.swift; sourceTree = "<group>"; };
 		4FC41B0E2AB103C8004080B8 /* AuthorWebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorWebViewModel.swift; sourceTree = "<group>"; };
+		4FC9995A2AB6DFF80068A0C1 /* NFTCollectionDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionDescriptionCell.swift; sourceTree = "<group>"; };
+		4FC9995C2AB6E38D0068A0C1 /* NFTCollectionDescriptionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionDescriptionCellViewModel.swift; sourceTree = "<group>"; };
 		4FDB111E2AB5939400A506CE /* NFTFavorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTFavorites.swift; sourceTree = "<group>"; };
 		4FDB11202AB5962100A506CE /* NFTOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTOrders.swift; sourceTree = "<group>"; };
 		4FE61EAA2AA47831008072F2 /* CatalogObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogObservable.swift; sourceTree = "<group>"; };
@@ -353,6 +357,7 @@
 			children = (
 				4FE61EB52AA483AD008072F2 /* NFTCollectionViewController.swift */,
 				4FAC6C712AA7ABB700E257EE /* NFTCell.swift */,
+				4FC9995A2AB6DFF80068A0C1 /* NFTCollectionDescriptionCell.swift */,
 				4FC41B082AB0E98F004080B8 /* AuthorWebViewController.swift */,
 			);
 			path = View;
@@ -374,6 +379,7 @@
 				4FBB15BE2AA9250900771B19 /* NFTCollectionViewModel.swift */,
 				4FC41B0E2AB103C8004080B8 /* AuthorWebViewModel.swift */,
 				4FC0D3762AAC63F000037A8D /* NFTCellViewModel.swift */,
+				4FC9995C2AB6E38D0068A0C1 /* NFTCollectionDescriptionCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -618,6 +624,7 @@
 				4FAC6C742AA7BAAD00E257EE /* NFT.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				4FC0D3792AAC6B7F00037A8D /* NFTCollectionViewModelProtocol.swift in Sources */,
+				4FC9995D2AB6E38D0068A0C1 /* NFTCollectionDescriptionCellViewModel.swift in Sources */,
 				4FC41B092AB0E98F004080B8 /* AuthorWebViewController.swift in Sources */,
 				4FDB11212AB5962100A506CE /* NFTOrders.swift in Sources */,
 				4FAC6C722AA7ABB700E257EE /* NFTCell.swift in Sources */,
@@ -628,6 +635,7 @@
 				4FC0D3752AAC5BC900037A8D /* NFTCollectionObservable.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
+				4FC9995B2AB6DFF80068A0C1 /* NFTCollectionDescriptionCell.swift in Sources */,
 				BE9545922A98D226006C9A7C /* UIView + Extensions.swift in Sources */,
 				4FC41B0F2AB103C8004080B8 /* AuthorWebViewModel.swift in Sources */,
 				4FBB15BF2AA9250900771B19 /* NFTCollectionViewModel.swift in Sources */,

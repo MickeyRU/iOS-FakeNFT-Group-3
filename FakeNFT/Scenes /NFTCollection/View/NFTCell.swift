@@ -140,7 +140,13 @@ private extension NFTCell {
     }
 
     func setupConstraints() {
+        let edgePadding: CGFloat = 32
+        let totalSpaceBetweenCells: CGFloat = 18
+        let amountOfCellsInARow: CGFloat = 3
+        let cellWidth = (UIScreen.main.bounds.size.width - edgePadding - totalSpaceBetweenCells)
+        / amountOfCellsInARow
         NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalToConstant: cellWidth),
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

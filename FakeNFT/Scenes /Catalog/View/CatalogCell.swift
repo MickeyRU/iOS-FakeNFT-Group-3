@@ -29,6 +29,7 @@ final class CatalogCell: UITableViewCell, ReuseIdentifying {
             guard let viewModel = viewModel else {
                 return
             }
+
             collectionTitle.text = viewModel.collectionTitle
             if let imageEncodedString = viewModel.imageString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),
                 let imageUrl = URL(string: imageEncodedString) {
@@ -66,10 +67,10 @@ final class CatalogCell: UITableViewCell, ReuseIdentifying {
             collectionCover.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionCover.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionCover.heightAnchor.constraint(equalToConstant: 140),
+            collectionTitle.topAnchor.constraint(equalTo: collectionCover.bottomAnchor, constant: 4),
             collectionTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),
-            collectionCover.bottomAnchor.constraint(equalTo: collectionTitle.topAnchor, constant: -4)
+            collectionTitle.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
 }

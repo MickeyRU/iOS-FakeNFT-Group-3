@@ -53,6 +53,7 @@ class AuthorWebViewController: UIViewController {
 
     @objc
     private func backButtonTapped() {
+        ProgressHUD.dismiss()
         dismiss(animated: true)
     }
 }

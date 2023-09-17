@@ -13,22 +13,6 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
     var nftsObserve: NFTCollectionObservable<[NFT]> { $nfts }
 
     @NFTCollectionObservable
-    private(set) var name: String?
-    var nameObserve: NFTCollectionObservable<String?> { $name }
-
-    @NFTCollectionObservable
-    private(set) var author: String?
-    var authorObserve: NFTCollectionObservable<String?> { $author }
-
-    @NFTCollectionObservable
-    private(set) var description: String?
-    var descriptionObserve: NFTCollectionObservable<String?> { $description }
-
-    @NFTCollectionObservable
-    private(set) var imageURL: URL?
-    var imageURLObserve: NFTCollectionObservable<URL?> { $imageURL }
-
-    @NFTCollectionObservable
     private(set) var isLoaded: Bool = false
     var isLoadedObserve: NFTCollectionObservable<Bool> { $isLoaded }
 
@@ -39,6 +23,11 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
     @NFTCollectionObservable
     private(set) var favorites: [String] = []
     var favoritesObserve: NFTCollectionObservable<[String]> { $favorites }
+
+    private(set) var name: String?
+    private(set) var author: String?
+    private(set) var description: String?
+    private(set) var imageURL: URL?
 
     private(set) var numberOfRows = 0
     private let collection: NFTCollection
@@ -164,6 +153,15 @@ final class NFTCollectionViewModel: NFTCollectionViewModelProtocol {
             imageURL: nftImageURL,
             favorite: nftFavorite,
             cart: nftCart)
+        return cellViewModel
+    }
+
+    func getDescriptionCellViewModel() -> NFTCollectionDescriptionCellViewModel {
+        let cellViewModel = NFTCollectionDescriptionCellViewModel(
+            name: name!,
+            author: author!,
+            description: description!,
+            imageURL: imageURL)
         return cellViewModel
     }
 

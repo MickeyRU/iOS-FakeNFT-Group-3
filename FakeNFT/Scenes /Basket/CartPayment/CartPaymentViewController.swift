@@ -84,7 +84,8 @@ public final class CartPaymentViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func didTapPurchaseButton() {
+    @objc
+    func didTapPurchaseButton() {
         viewModel.purсhase()
     }
     
@@ -211,18 +212,38 @@ extension CartPaymentViewController {
             purchaseBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             purchaseBackgroundView.heightAnchor.constraint(equalToConstant: Constants.purchaseBackgroundViewHeight),
             
-            userAgreementTextView.topAnchor.constraint(equalTo: purchaseBackgroundView.topAnchor,constant: Constants.userAgreementTextViewInsets.top),
-            userAgreementTextView.leadingAnchor.constraint(equalTo: purchaseBackgroundView.leadingAnchor,constant: Constants.userAgreementTextViewInsets.left),
+            userAgreementTextView.topAnchor.constraint(
+                equalTo: purchaseBackgroundView.topAnchor,
+                constant: Constants.userAgreementTextViewInsets.top
+            ),
+            userAgreementTextView.leadingAnchor.constraint(
+                equalTo: purchaseBackgroundView.leadingAnchor,
+                constant: Constants.userAgreementTextViewInsets.left
+            ),
             userAgreementTextView.trailingAnchor.constraint(
                 equalTo: purchaseBackgroundView.trailingAnchor,
-                constant: -Constants.userAgreementTextViewInsets.right),userAgreementTextView.bottomAnchor.constraint(
+                constant: -Constants.userAgreementTextViewInsets.right),
+            userAgreementTextView.bottomAnchor.constraint(
                     equalTo: purchaseBackgroundView.bottomAnchor,
-                    constant: -Constants.userAgreementTextViewInsets.bottom),
+                    constant: -Constants.userAgreementTextViewInsets.bottom
+            ),
             
-            purchaseButton.topAnchor.constraint(equalTo: userAgreementTextView.bottomAnchor,constant: Constants.purchaseButtonInsets.top),
-            purchaseButton.leadingAnchor.constraint(equalTo: purchaseBackgroundView.leadingAnchor,constant: Constants.purchaseButtonInsets.left),
-            purchaseButton.trailingAnchor.constraint(equalTo: purchaseBackgroundView.trailingAnchor,constant: -Constants.purchaseButtonInsets.right),
-            purchaseButton.bottomAnchor.constraint(equalTo: purchaseBackgroundView.bottomAnchor,constant: -Constants.purchaseButtonInsets.bottom),
+            purchaseButton.topAnchor.constraint(
+                equalTo: userAgreementTextView.bottomAnchor,
+                constant: Constants.purchaseButtonInsets.top
+            ),
+            purchaseButton.leadingAnchor.constraint(
+                equalTo: purchaseBackgroundView.leadingAnchor,
+                constant: Constants.purchaseButtonInsets.left
+            ),
+            purchaseButton.trailingAnchor.constraint(
+                equalTo: purchaseBackgroundView.trailingAnchor,
+                constant: -Constants.purchaseButtonInsets.right
+            ),
+            purchaseButton.bottomAnchor.constraint(
+                equalTo: purchaseBackgroundView.bottomAnchor,
+                constant: -Constants.purchaseButtonInsets.bottom
+            ),
         ])
     }
 }

@@ -100,28 +100,53 @@ extension CartTableViewCell {
     private func addSubviews() {
         backgroundColor = .unWhite
         accessoryView = cartAccessoryView
-        [nftImageView, titleLabel, starsView, priceTitleLabel, priceLabel].forEach{contentView.addViewWithNoTAMIC($0)}
+        [nftImageView, titleLabel, starsView,
+         priceTitleLabel, priceLabel].forEach{contentView.addViewWithNoTAMIC($0)}
     }
     
     private func setConstraints() {
         
         NSLayoutConstraint.activate([
-            nftImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.nftImageViewEdgeInset),
-            nftImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: Constants.nftImageViewEdgeInset),
-            nftImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -Constants.nftImageViewEdgeInset),
+            nftImageView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: Constants.nftImageViewEdgeInset
+            ),
+            nftImageView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: Constants.nftImageViewEdgeInset
+            ),
+            nftImageView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -Constants.nftImageViewEdgeInset
+            ),
             nftImageView.widthAnchor.constraint(equalTo: nftImageView.heightAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: nftImageView.topAnchor, constant: Constants.titleLabelTopInset),
-            titleLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: Constants.titleLabelSideInset),
+            titleLabel.topAnchor.constraint(
+                equalTo: nftImageView.topAnchor,
+                constant: Constants.titleLabelTopInset
+            ),
+            titleLabel.leadingAnchor.constraint(
+                equalTo: nftImageView.trailingAnchor,
+                constant: Constants.titleLabelSideInset
+            ),
             
-            starsView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.starsViewTopInset),
+            starsView.topAnchor.constraint(
+                equalTo: titleLabel.bottomAnchor,
+                constant: Constants.starsViewTopInset
+            ),
             starsView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             starsView.widthAnchor.constraint(equalToConstant: Constants.starsViewWidth),
             
-            priceTitleLabel.topAnchor.constraint(equalTo: starsView.bottomAnchor,constant: Constants.priceTitleLabelTopInset),
+            priceTitleLabel.topAnchor.constraint(
+                equalTo: starsView.bottomAnchor,
+                constant: Constants.priceTitleLabelTopInset
+            ),
             priceTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            priceLabel.topAnchor.constraint(equalTo: priceTitleLabel.bottomAnchor,constant: Constants.priceLabelTopInset),
+            priceLabel.topAnchor.constraint(
+                equalTo: priceTitleLabel.bottomAnchor,
+                constant: Constants.priceLabelTopInset
+            ),
             priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor)
         ])
     }

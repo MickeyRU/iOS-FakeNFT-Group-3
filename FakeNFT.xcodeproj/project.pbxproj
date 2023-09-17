@@ -49,6 +49,7 @@
 		914090482AA0D6060078C234 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914090472AA0D6060078C234 /* Currency.swift */; };
 		9140904A2AA0D6170078C234 /* CurrencyCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914090492AA0D6170078C234 /* CurrencyCellViewModel.swift */; };
 		9140904C2AA0D6420078C234 /* PurchaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9140904B2AA0D6420078C234 /* PurchaseResult.swift */; };
+		915DC3502AB76E2C006AA7D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DC34F2AB76E2C006AA7D9 /* Constants.swift */; };
 		91C869BB2AB225C4006657F8 /* CartPaymentResultViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C869BA2AB225C4006657F8 /* CartPaymentResultViewFactory.swift */; };
 		91C869BD2AB225EA006657F8 /* CartPaymentWebViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C869BC2AB225EA006657F8 /* CartPaymentWebViewFactory.swift */; };
 		91C869C02AB22650006657F8 /* CartPaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C869BF2AB22650006657F8 /* CartPaymentWebViewController.swift */; };
@@ -160,6 +161,7 @@
 		914090472AA0D6060078C234 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		914090492AA0D6170078C234 /* CurrencyCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCellViewModel.swift; sourceTree = "<group>"; };
 		9140904B2AA0D6420078C234 /* PurchaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResult.swift; sourceTree = "<group>"; };
+		915DC34F2AB76E2C006AA7D9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		91C869BA2AB225C4006657F8 /* CartPaymentResultViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPaymentResultViewFactory.swift; sourceTree = "<group>"; };
 		91C869BC2AB225EA006657F8 /* CartPaymentWebViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPaymentWebViewFactory.swift; sourceTree = "<group>"; };
 		91C869BF2AB22650006657F8 /* CartPaymentWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPaymentWebViewController.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				9140902C2AA0BF670078C234 /* Strings+Extensions.swift */,
 				91CABF322AA9BA9100365C0D /* Double.swift */,
 				91CABF342AA9BAB200365C0D /* NumberFormatter.swift */,
+				915DC34F2AB76E2C006AA7D9 /* Constants.swift */,
 				914090262AA0BA640078C234 /* Uikit */,
 			);
 			path = Extensions;
@@ -906,6 +909,7 @@
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				911211292AAF1D6D0008C68F /* CurrenciesRequest.swift in Sources */,
 				BE9545822A98C273006C9A7C /* ProfileViewController.swift in Sources */,
+				915DC3502AB76E2C006AA7D9 /* Constants.swift in Sources */,
 				BE9545882A98C30B006C9A7C /* StatisticsViewController.swift in Sources */,
 				91CABF5C2AA9E11300365C0D /* CurrencyViewModelFactory.swift in Sources */,
 				91CABF312AA9B8F100365C0D /* CartViewInteractor.swift in Sources */,

@@ -9,9 +9,11 @@ import UIKit.UIViewController
 
 public protocol CartPaymentRouterProtocol {
     func showUserAgreementWebView(on viewController: UIViewController, urlString: String)
-    func showPaymentResult(on viewController: UIViewController,
-                           resultType: CartPaymentResultViewController.ResultType,
-                           resultButtonAction: @escaping ActionCallback<Void>)
+    func showPaymentResult(
+        on viewController: UIViewController,
+        resultType: CartPaymentResultViewController.ResultType,
+        resultButtonAction: @escaping ActionCallback<Void>
+    )
     func showErrorAlert(on viewController: UIViewController, error: Error)
 }
 

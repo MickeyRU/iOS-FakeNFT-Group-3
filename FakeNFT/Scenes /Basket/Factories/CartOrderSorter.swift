@@ -43,9 +43,9 @@ extension CartOrderSorter {
         case .name:
             return { $0.name < $1.name }
         case .price:
-            return { $0.price < $1.price }
+            return { $0.price > $1.price }
         case .rating:
-            return { $0.rating < $1.rating }
+            return { $0.rating > $1.rating }
         }
     }
 }

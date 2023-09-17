@@ -88,18 +88,48 @@ extension CartPaymentResultViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            resultImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: Constants.resultImageViewInsets.top),
-            resultImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.resultImageViewInsets.left),
-            resultImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -Constants.resultImageViewInsets.right),
-            resultImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -Constants.resultImageViewInsets.bottom),
+            resultImageView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: Constants.resultImageViewInsets.top
+            ),
+            resultImageView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.resultImageViewInsets.left
+            ),
+            resultImageView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -Constants.resultImageViewInsets.right
+            ),
+            resultImageView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -Constants.resultImageViewInsets.bottom
+            ),
             
-            resultLabel.topAnchor.constraint(equalTo: resultImageView.bottomAnchor,constant: Constants.resultLabelInsets.top),
-            resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.resultLabelInsets.left),
-            resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -Constants.resultLabelInsets.right),
+            resultLabel.topAnchor.constraint(
+                equalTo: resultImageView.bottomAnchor,
+                constant: Constants.resultLabelInsets.top
+            ),
+            resultLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.resultLabelInsets.left
+            ),
+            resultLabel.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -Constants.resultLabelInsets.right
+            ),
             
-            resultButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.resultButtonInsets.left),
-            resultButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -Constants.resultButtonInsets.right),
-            resultButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -Constants.resultButtonInsets.bottom),
+            resultButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.resultButtonInsets.left
+            ),
+            resultButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -Constants.resultButtonInsets.right
+            ),
+            resultButton.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -Constants.resultButtonInsets.bottom
+            ),
             resultButton.heightAnchor.constraint(equalToConstant: Constants.resultButtonHeight)
         ])
     }

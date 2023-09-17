@@ -102,16 +102,34 @@ private extension CartPaymentCollectionViewCell {
 
     func setConstraints() {
         NSLayoutConstraint.activate([
-            currencyImageView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: Constants.currencyImageViewInsets.top),
-            currencyImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: Constants.currencyImageViewInsets.left),
-            currencyImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -Constants.currencyImageViewInsets.bottom),
+            currencyImageView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: Constants.currencyImageViewInsets.top
+            ),
+            currencyImageView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: Constants.currencyImageViewInsets.left
+            ),
+            currencyImageView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -Constants.currencyImageViewInsets.bottom
+            ),
             currencyImageView.widthAnchor.constraint(equalTo: currencyImageView.heightAnchor),
 
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor,constant: Constants.titleLabelTopInset),
-            titleLabel.leadingAnchor.constraint(equalTo: currencyImageView.trailingAnchor,constant: Constants.labelsSideInset),
+            titleLabel.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: Constants.titleLabelTopInset
+            ),
+            titleLabel.leadingAnchor.constraint(
+                equalTo: currencyImageView.trailingAnchor,
+                constant: Constants.labelsSideInset
+            ),
 
             shortNameLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            shortNameLabel.leadingAnchor.constraint(equalTo: currencyImageView.trailingAnchor,constant: Constants.labelsSideInset)
+            shortNameLabel.leadingAnchor.constraint(
+                equalTo: currencyImageView.trailingAnchor,
+                constant: Constants.labelsSideInset
+            )
         ])
     }
 }

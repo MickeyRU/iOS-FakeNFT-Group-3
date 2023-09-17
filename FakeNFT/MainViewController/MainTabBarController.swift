@@ -50,11 +50,12 @@ final class MainTabBarController: UITabBarController {
 private extension MainTabBarController {
     func subscribeToShowCatalogNotification() {
         NotificationCenterWrapper.shared.subscribeToNotification(type: .showCatalog) { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             let catalogViewController = 1
             let cartNavigationControllerIndex = 2
-            guard let cartNavigationController = self.viewControllers?[cartNavigationControllerIndex] as? UINavigationController else { return }
-
+            let cartController = self.viewControllers?[cartNavigationControllerIndex] as? UINavigationController
+            guard let cartNavigationController = cartController else { return }
+            
             cartNavigationController.popToRootViewController(animated: false)
             self.selectedIndex = catalogViewController
         }

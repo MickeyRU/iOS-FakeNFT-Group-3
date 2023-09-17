@@ -9,7 +9,11 @@ import UIKit
 
 public protocol CartTableViewHelperDelegate: AnyObject {
     var order: OrderViewModel? { get }
-    func cartTableViewHelper(_ cartTableViewHelper: CartTableViewHelper, removeRow: Int, with nftImage: UIImage?)
+    func cartTableViewHelper(
+        _ cartTableViewHelper: CartTableViewHelper,
+        removeRow: Int,
+        with nftImage: UIImage?
+    )
 }
 
 public protocol CartTableViewHelperProtocol: UITableViewDataSource, UITableViewDelegate {

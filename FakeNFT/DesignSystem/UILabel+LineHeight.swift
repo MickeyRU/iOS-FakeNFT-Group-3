@@ -9,7 +9,7 @@ import UIKit
 
 extension UILabel {
     var lineHeight: CGFloat {
-        get { 0 }
+        get { .zero }
         set {
             let lineHeight = newValue
             let mutableParagraphStyle = NSMutableParagraphStyle()

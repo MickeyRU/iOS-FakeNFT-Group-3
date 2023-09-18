@@ -34,7 +34,7 @@ final class CartPaymentCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = Constants.cornerRadius / 2
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .unBlack
+        imageView.backgroundColor = .unBlackOnly
         return imageView
     }()
 

@@ -75,6 +75,7 @@ final class NFTCollectionDescriptionCell: UICollectionViewCell, ReuseIdentifying
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         setupView()
         setupConstraints()
     }
@@ -96,11 +97,9 @@ private extension NFTCollectionDescriptionCell {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width),
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 310),
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             authorTitleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 13),
@@ -112,5 +111,13 @@ private extension NFTCollectionDescriptionCell {
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+
+        let imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: 310)
+        imageViewHeightConstraint.priority = UILayoutPriority(999)
+        imageViewHeightConstraint.isActive = true
+
+        let contentViewWidthConstraint = contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        contentViewWidthConstraint.priority = UILayoutPriority(999)
+        contentViewWidthConstraint.isActive = true
     }
 }

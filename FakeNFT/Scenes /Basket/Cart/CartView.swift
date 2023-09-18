@@ -151,19 +151,41 @@ extension CartView {
             purchaseBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             purchaseBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             purchaseBackgroundView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            purchaseBackgroundView.heightAnchor.constraint( equalToConstant: Constants.purchaseBackgroundViewHeight),
+            purchaseBackgroundView.heightAnchor.constraint(equalToConstant: Constants.purchaseBackgroundViewHeight),
 
-            nftCountLabel.topAnchor.constraint(equalTo: purchaseBackgroundView.topAnchor,constant: Constants.nftCountLabelTopInset),
-            nftCountLabel.leadingAnchor.constraint(equalTo: purchaseBackgroundView.leadingAnchor,constant: Constants.labelsLeadingInset),
+            nftCountLabel.topAnchor.constraint(
+                equalTo: purchaseBackgroundView.topAnchor,
+                constant: Constants.nftCountLabelTopInset
+            ),
+            nftCountLabel.leadingAnchor.constraint(
+                equalTo: purchaseBackgroundView.leadingAnchor,
+                constant: Constants.labelsLeadingInset
+            ),
 
-            finalCostLabel.topAnchor.constraint(equalTo: nftCountLabel.bottomAnchor,constant: Constants.finalCostLabelTopInset),
-            finalCostLabel.leadingAnchor.constraint(equalTo: purchaseBackgroundView.leadingAnchor,constant: Constants.labelsLeadingInset),
-            finalCostLabelWidthConstraint,
+            finalCostLabel.topAnchor.constraint(
+                equalTo: nftCountLabel.bottomAnchor,
+                constant: Constants.finalCostLabelTopInset
+            ),
+            finalCostLabel.leadingAnchor.constraint(
+                equalTo: purchaseBackgroundView.leadingAnchor,
+                constant: Constants.labelsLeadingInset),finalCostLabelWidthConstraint,
 
-            purchaseButton.topAnchor.constraint(equalTo: purchaseBackgroundView.topAnchor,constant: Constants.purchaseButtonInsets.top),
-            purchaseButton.leadingAnchor.constraint(equalTo: finalCostLabel.trailingAnchor,constant: Constants.purchaseButtonInsets.left),
-            purchaseButton.trailingAnchor.constraint(equalTo: purchaseBackgroundView.trailingAnchor,constant: -Constants.purchaseButtonInsets.right),
-            purchaseButton.bottomAnchor.constraint(equalTo: purchaseBackgroundView.bottomAnchor,constant: -Constants.purchaseButtonInsets.bottom),
+            purchaseButton.topAnchor.constraint(
+                equalTo: purchaseBackgroundView.topAnchor,
+                constant: Constants.purchaseButtonInsets.top
+            ),
+            purchaseButton.leadingAnchor.constraint(
+                equalTo: finalCostLabel.trailingAnchor,
+                constant: Constants.purchaseButtonInsets.left
+            ),
+            purchaseButton.trailingAnchor.constraint(
+                equalTo: purchaseBackgroundView.trailingAnchor,
+                constant: -Constants.purchaseButtonInsets.right
+            ),
+            purchaseButton.bottomAnchor.constraint(
+                equalTo: purchaseBackgroundView.bottomAnchor,
+                constant: -Constants.purchaseButtonInsets.bottom
+            ),
 
             placeholderView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             placeholderView.leadingAnchor.constraint(equalTo: leadingAnchor),

@@ -8,6 +8,12 @@ final class MainTabBarController: UITabBarController {
         viewControllers = generateViewControllers()
         generateTabBarIconsWithName(for: viewControllers)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        subscribeToShowCatalogNotification()
+    }
 
     private func generateViewControllers() -> [UIViewController] {
         let profileViewController = ProfileViewController()
@@ -35,6 +41,23 @@ final class MainTabBarController: UITabBarController {
         for (index, viewController) in viewControllers.enumerated() {
             viewController.tabBarItem.image = imagesArray[index]
             viewController.tabBarItem.title = nameArray[index]
+        }
+    }
+}
+
+// MARK: - NotificationCenter
+
+private extension MainTabBarController {
+    func subscribeToShowCatalogNotification() {
+        NotificationCenterWrapper.shared.subscribeToNotification(type: .showCatalog) { [weak self] _ in
+            guard let self else { return }
+            let catalogViewController = 1
+            let cartNavigationControllerIndex = 2
+            let cartController = self.viewControllers?[cartNavigationControllerIndex] as? UINavigationController
+            guard let cartNavigationController = cartController else { return }
+            
+            cartNavigationController.popToRootViewController(animated: false)
+            self.selectedIndex = catalogViewController
         }
     }
 }

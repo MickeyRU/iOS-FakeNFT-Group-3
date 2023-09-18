@@ -6,11 +6,33 @@ extension UIColor {
     static let unBackground = UIColor.init(hexString: "#1A1B2280")
     static let unGreen = UIColor.init(hexString: "#1C9F00")
     static let unBlue = UIColor.init(hexString: "#0A84FF")
-    static let unBlack = UIColor.init(hexString: "#1A1B22")
-    static let unWhite = UIColor.init(hexString: "#FFFFFF")
     static let unYellow = UIColor.init(hexString: "#FEEF0D")
-    static let unLightGray = UIColor.init(hexString: "#F7F7F8")
     static let unGreenUniversal = UIColor.init(hexString: "#1C9F00")
+    static let unBlackOnly = UIColor.init(hexString: "#1A1B22")
+    
+    static let unBlack = UIColor { (traits: UITraitCollection) -> UIColor in
+        if traits.userInterfaceStyle == .light {
+            return UIColor.init(hexString: "#1A1B22")
+        } else {
+            return UIColor.init(hexString: "FFFFFF")
+        }
+    }
+    
+    static let unWhite = UIColor { (traits: UITraitCollection) -> UIColor in
+        if traits.userInterfaceStyle == .light {
+            return UIColor.init(hexString: "#FFFFFF")
+        } else {
+            return UIColor.init(hexString: "1A1B22")
+        }
+    }
+    
+    static let unLightGray = UIColor { (traits: UITraitCollection) -> UIColor in
+        if traits.userInterfaceStyle == .light {
+            return UIColor.init(hexString: "#F7F7F8")
+        } else {
+            return UIColor.init(hexString: "2C2C2E")
+        }
+    }
 
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

@@ -26,4 +26,8 @@ struct AppConstants {
             static let controller = "currencies"
         }
     }
+    
+    enum Links {
+        static let purchaseUserAgreement = "https://yandex.ru/legal/practicum_termsofuse/"
+    }
 }

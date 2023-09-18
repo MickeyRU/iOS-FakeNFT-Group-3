@@ -28,7 +28,7 @@ extension UITableView {
         }
         return cell
     }
-    
+
     func cellForRow<T: UITableViewCell>(indexPath: IndexPath) -> T where T: ReuseIdentifying {
         guard let cell = cellForRow(at: indexPath) as? T else {
             assertionFailure("Could not get cell with type: \(T.self)")
@@ -46,6 +46,14 @@ extension UICollectionView {
     func dequeueReusableCell<T: UICollectionViewCell>(indexPath: IndexPath) -> T where T: ReuseIdentifying {
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.defaultReuseIdentifier, for: indexPath) as? T else {
             assertionFailure("Could not dequeue cell with identifier: \(T.defaultReuseIdentifier) for: \(indexPath)")
+            return T()
+        }
+        return cell
+    }
+
+    func cellForItem<T: UICollectionViewCell>(indexPath: IndexPath) -> T where T: ReuseIdentifying {
+        guard let cell = cellForItem(at: indexPath) as? T else {
+            assertionFailure("Could not get cell with type: \(T.self)")
             return T()
         }
         return cell

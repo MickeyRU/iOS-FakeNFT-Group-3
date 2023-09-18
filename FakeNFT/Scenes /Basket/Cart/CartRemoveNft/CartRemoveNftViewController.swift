@@ -111,23 +111,53 @@ extension CartRemoveNftViewController {
             blurredEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             blurredEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            nftImageView.topAnchor.constraint(equalTo: view.topAnchor,constant: Constants.nftImageViewTopInset),
-            nftImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.nftImageViewSideInset),
-            nftImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -Constants.nftImageViewSideInset),
+            nftImageView.topAnchor.constraint(
+                equalTo: view.topAnchor,
+                constant: Constants.nftImageViewTopInset
+            ),
+            nftImageView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.nftImageViewSideInset
+            ),
+            nftImageView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -Constants.nftImageViewSideInset
+            ),
             nftImageView.heightAnchor.constraint(equalTo: nftImageView.widthAnchor),
             
-            removeNftLabel.topAnchor.constraint(equalTo: nftImageView.bottomAnchor,constant: Constants.removeNftLabelTopInset),
-            removeNftLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.removeNftLabelSideInset),
-            removeNftLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -Constants.removeNftLabelSideInset),
+            removeNftLabel.topAnchor.constraint(
+                equalTo: nftImageView.bottomAnchor,
+                constant: Constants.removeNftLabelTopInset
+            ),
+            removeNftLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.removeNftLabelSideInset
+            ),
+            removeNftLabel.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -Constants.removeNftLabelSideInset
+            ),
             
-            removeNftButton.topAnchor.constraint(equalTo: removeNftLabel.bottomAnchor,constant: Constants.buttonsTopInset),
-            removeNftButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: Constants.buttonsSideInset),
-            removeNftButton.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor,constant: -Constants.buttonsSpacing),
+            removeNftButton.topAnchor.constraint(
+                equalTo: removeNftLabel.bottomAnchor,
+                constant: Constants.buttonsTopInset
+            ),
+            removeNftButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.buttonsSideInset
+            ),
+            removeNftButton.trailingAnchor.constraint(
+                equalTo: cancelButton.leadingAnchor,
+                constant: -Constants.buttonsSpacing
+            ),
             removeNftButton.widthAnchor.constraint(equalTo: cancelButton.widthAnchor),
             removeNftButton.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight),
             
             cancelButton.topAnchor.constraint(equalTo: removeNftButton.topAnchor),
-            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -Constants.buttonsSideInset),
+            cancelButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -Constants.buttonsSideInset
+            ),
             cancelButton.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight)
         ])
     }

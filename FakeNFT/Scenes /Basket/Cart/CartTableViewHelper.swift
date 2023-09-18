@@ -9,7 +9,11 @@ import UIKit
 
 public protocol CartTableViewHelperDelegate: AnyObject {
     var order: OrderViewModel? { get }
-    func cartTableViewHelper(_ cartTableViewHelper: CartTableViewHelper, removeRow: Int, with nftImage: UIImage?)
+    func cartTableViewHelper(
+        _ cartTableViewHelper: CartTableViewHelper,
+        removeRow: Int,
+        with nftImage: UIImage?
+    )
 }
 
 public protocol CartTableViewHelperProtocol: UITableViewDataSource, UITableViewDelegate {
@@ -58,6 +62,7 @@ extension CartTableViewHelper: CartTableViewHelperProtocol {
     ) -> UITableViewCell {
         guard let nft = self.delegate?.order?[indexPath.row] else { return UITableViewCell() }
         let cell: CartTableViewCell = tableView.dequeueReusableCell()
+        cell.delegate = self.delegate as? CartTableViewCellDelegate
         cell.nft = nft
         return cell
     }

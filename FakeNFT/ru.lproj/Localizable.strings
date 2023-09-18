@@ -3,3 +3,25 @@
 "catalog" = "Каталог";
 "basket" = "Корзина";
 "statistic" = "Статистика";
+
+//MARK: Basket
+"cart_placeholder_text" = "Корзина пуста";
+"cart_payment_success_title_buttom" = "Вернуться в каталог";
+"cart_payment_failure_title_buttom" = "Попробовать еще раз";
+"cart_payment_success_title_label" = "Успех! Оплата прошла, поздравляем с покупкой!";
+"cart_payment_failure_title_label" = "Упс! Что-то пошло не так:(\n Попробуйте ещё раз!";
+"sort_alert_title" = "Сортировка";
+"sort_alert_price_action" = "По цене";
+"sort_alert_rating_action" = "По рейтингу";
+"sort_alert_name_action" = "По названию";
+"sort_alert_close_action" = "Закрыть";
+"default _error_title" = "Название";
+"cart_remove_nft_text" = "Вы уверены, что хотите \n удалить объект из корзины?";
+"cart_remove_nft_button_title" = "Удалить";
+"cart_remove_nft_cancel_button_title" = "Вернуться";
+"cart_cell_title_price" = "Цена";
+"cart_purchase_button " = "К оплате";
+"cart_payment_view_title" = "Выберите способ оплаты";
+"cart_payment_user_textview_text" = "Совершая покупку, вы соглашаетесь с условиями \n";
+"cart_payment_user_textview_link_text" = "Пользовательского соглашения";
+"cart_payment_pushase_button_title" = "Оплатить";

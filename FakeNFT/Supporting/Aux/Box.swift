@@ -2,7 +2,28 @@
 //  Box.swift
 //  FakeNFT
 //
-//  Created by Andrey Bezrukov on 18.09.2023.
+//  Created by Andrey Bezrukov on 04.09.2023.
 //
 
 import Foundation
+
+public final class Box<T> {
+    typealias Listener = (T) -> Void
+
+    var listener: Listener?
+
+    public var value: T {
+        didSet {
+            self.listener?(self.value)
+        }
+    }
+
+    public init(_ value: T) {
+        self.value = value
+    }
+
+    func bind(listener: Listener?) {
+        self.listener = listener
+        self.listener?(self.value)
+    }
+}

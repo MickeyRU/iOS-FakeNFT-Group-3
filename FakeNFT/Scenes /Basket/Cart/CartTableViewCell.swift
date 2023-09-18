@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol CartTableViewCellDelegate: AnyObject {
+    func didTapAccessoryView(forRow row: Int, with nftImage: UIImage?)
+}
+
 final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
+    
+    var row: Int = .zero
+    weak var delegate: CartTableViewCellDelegate?
     
     private enum Constants {
         static let nftImageViewCornerRadius: CGFloat = 12
@@ -66,9 +73,12 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         return label
     }()
     
-    private let cartAccessoryView: UIImageView = {
+    private lazy var cartAccessoryView: UIImageView = {
         let image = UIImage.Cart.active.withTintColor(.unBlack)
         let imageView = UIImageView(image: image)
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleAccessoryViewTap))
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -90,6 +100,11 @@ final class CartTableViewCell: UITableViewCell, ReuseIdentifying {
         titleLabel.text = ""
         starsView.rating = .zero
         priceLabel.text = ""
+    }
+    
+    @objc
+    private func handleAccessoryViewTap() {
+        delegate?.didTapAccessoryView(forRow: row, with: nft?.image)
     }
 }
 

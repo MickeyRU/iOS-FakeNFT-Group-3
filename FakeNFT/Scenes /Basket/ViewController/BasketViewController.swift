@@ -69,7 +69,7 @@ public final class BasketViewController: UIViewController {
 
 // MARK: - CartTableViewHelperDelegate
 
-extension BasketViewController: CartTableViewHelperDelegate {
+extension BasketViewController: CartTableViewHelperDelegate, CartTableViewCellDelegate {
     public var order: OrderViewModel? {
         viewModel.order
     }
@@ -81,6 +81,16 @@ extension BasketViewController: CartTableViewHelperDelegate {
     ) {
         router.showRemoveNftView(on: self, nftImage: nftImage) { [weak self] flow in
             guard let self else { return }
+            if flow == .remove {
+                self.viewModel.removeNft(row: row)
+            }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func didTapAccessoryView(forRow row: Int, with nftImage: UIImage?) {
+        router.showRemoveNftView(on: self, nftImage: nftImage) { [weak self] flow in
+            guard let self = self else { return }
             if flow == .remove {
                 self.viewModel.removeNft(row: row)
             }

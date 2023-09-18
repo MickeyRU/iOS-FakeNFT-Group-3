@@ -62,6 +62,7 @@ extension CartTableViewHelper: CartTableViewHelperProtocol {
     ) -> UITableViewCell {
         guard let nft = self.delegate?.order?[indexPath.row] else { return UITableViewCell() }
         let cell: CartTableViewCell = tableView.dequeueReusableCell()
+        cell.delegate = self.delegate as? CartTableViewCellDelegate
         cell.nft = nft
         return cell
     }

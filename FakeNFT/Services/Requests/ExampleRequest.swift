@@ -1,7 +1,11 @@
 import Foundation
 
 struct ExampleRequest: NetworkRequest {
-    var endpoint: URL? {
-        URL(string: "INSERT_URL_HERE")
-    }
+    var endpoint: URL?
+}
+
+struct UpdateRequest: NetworkRequest {
+    var endpoint: URL?
+    var httpMethod: HttpMethod = .put
+    var dto: Encodable?
 }

@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 
 final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
@@ -12,10 +13,14 @@ final class CatalogViewController: UIViewController {
     }()
 
     private let viewModel: CatalogViewModelProtocol
+    private let alertService: AlertServiceProtocol
 
-    init(viewModel: CatalogViewModelProtocol) {
+    init(viewModel: CatalogViewModelProtocol, alertService: AlertServiceProtocol) {
         self.viewModel = viewModel
+        self.alertService = alertService
+
         super.init(nibName: nil, bundle: nil)
+        self.alertService.initVC(viewController: self)
     }
 
     required init?(coder: NSCoder) {
@@ -31,6 +36,7 @@ final class CatalogViewController: UIViewController {
         setupConstraints()
 
         bind()
+        ProgressHUD.show()
         viewModel.initialize()
     }
 
@@ -39,38 +45,15 @@ final class CatalogViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                ProgressHUD.dismiss()
             }
         })
     }
 
     @objc
     private func sortButtonTapped() {
-        let alert = UIAlertController(
-            title: NSLocalizedString("sort", comment: "Sorting alert title"),
-            message: nil,
-            preferredStyle: .actionSheet)
-
-        let sortByName = UIAlertAction(
-            title: NSLocalizedString("sort.byName", comment: "Sorting alert by name button"),
-            style: .default) { _ in
-            print("Sorted by name")
-
-        }
-        alert.addAction(sortByName)
-
-        let sortByCount = UIAlertAction(
-            title: NSLocalizedString("sort.byAmount", comment: "Sorting alert by amount button"),
-            style: .default) { _ in
-            print("Sorted by count")
-        }
-        alert.addAction(sortByCount)
-
-        let cancel = UIAlertAction(
-            title: NSLocalizedString("close", comment: "Sorting alert close button"),
-            style: .cancel)
-        alert.addAction(cancel)
-
-        present(alert, animated: true)
+        let alertModel = viewModel.getAlertModel()
+        alertService.showAlert(model: alertModel)
     }
 }
 
@@ -105,7 +88,10 @@ extension CatalogViewController: UITableViewDelegate {
 
         let vc = UINavigationController(
             rootViewController: NFTCollectionViewController(
-                viewModel: NFTCollectionViewModel(with: collection)))
+                viewModel: NFTCollectionViewModel(
+                    with: collection,
+                    networkService: NFTNetworkService(
+                        networkClient: DefaultNetworkClient()))))
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

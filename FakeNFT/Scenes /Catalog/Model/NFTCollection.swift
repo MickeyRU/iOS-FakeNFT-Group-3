@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NFTCollection: Codable {
+struct NFTCollection: Decodable {
     let id: String
     let name: String
     let imageString: String

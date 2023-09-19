@@ -14,8 +14,8 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     private let profileService: ProfileService
     
-    init(model: ProfileService) {
-        self.profileService = model
+    init(service: ProfileService) {
+        self.profileService = service
         NotificationCenter.default.addObserver(self, selector: #selector(profileUpdated), name: NSNotification.Name("profileUpdated"), object: nil)
     }
     
@@ -33,7 +33,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     }
     
     private func fetchUserProfile() {
-        ProgressHUD.show("Загрузка...")
+        ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         profileService.fetchProfile { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -43,6 +43,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 //ToDo: - Уведомление об ошибке
                 print(error)
             }
+            ProgressHUD.dismiss()
         }
     }
 }

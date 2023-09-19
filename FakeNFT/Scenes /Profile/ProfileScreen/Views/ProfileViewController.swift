@@ -1,6 +1,5 @@
 import UIKit
 import Kingfisher
-import ProgressHUD
 
 final class ProfileViewController: UIViewController {
     private let userNameLabel: UILabel = {
@@ -35,6 +34,7 @@ final class ProfileViewController: UIViewController {
     
     private let viewModel: ProfileViewModelProtocol
     private lazy var router = ProfileRouter(viewController: self)
+    private lazy var toastService = ToastService(viewController: self)
     
     private lazy var editButton: UIButton = {
         let button = UIButton()
@@ -76,13 +76,21 @@ final class ProfileViewController: UIViewController {
         
         self.navigationController?.delegate = self
         self.tabBarController?.tabBar.isHidden = true
-
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showToastError), name: NSNotification.Name("profileUpdateErrorToastNotification"), object: nil)
+        
         setupViews()
     }
-
+    
     @objc
     private func editButtonTapped() {
         router.routeToEditingViewController()
+    }
+    
+    @objc
+    private func showToastError(_ notification: Notification) {
+        guard let message = notification.object as? String else { return }
+        toastService.showToast(message: message)
     }
     
     private func bind() {
@@ -113,7 +121,6 @@ final class ProfileViewController: UIViewController {
                     // ToDo: Аллерт для пользователя
                 }
             }
-            ProgressHUD.dismiss()
         }
     }
     
@@ -170,9 +177,9 @@ extension ProfileViewController: UITableViewDataSource {
         case 0:
             cellTitle = NSLocalizedString("MyNFTTitle", comment: "") + " (\(viewModel.userProfile?.nfts.count ?? 0))"
         case 1:
-            cellTitle = "Избранные NFT " + "(\(viewModel.userProfile?.likes.count ?? 0))"
+            cellTitle = NSLocalizedString("FavoritesNFTTitle", comment: "")  + " (\(viewModel.userProfile?.likes.count ?? 0))"
         case 2:
-            cellTitle = "О разработчике"
+            cellTitle = NSLocalizedString("AboutDeveloper", comment: "")
         default:
             break
         }
@@ -195,7 +202,7 @@ extension ProfileViewController: UITableViewDelegate {
         case 0:
             router.routeToUserNFT(nftList: viewModel.userProfile?.nfts ?? [])
         case 1:
-            router.routeToFavoritesNFT()
+            router.routeToFavoritesNFT(nftList: viewModel.userProfile?.likes ?? [])
         case 2:
             if let url = URL(string: userWebSiteTextView.text) {
                 router.routeToWebView(url: url)

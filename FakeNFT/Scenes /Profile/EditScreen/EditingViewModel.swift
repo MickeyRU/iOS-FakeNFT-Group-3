@@ -6,7 +6,7 @@ protocol EditingViewModelProtocol {
     func observeUserProfileChanges(_ handler: @escaping (UserProfile?) -> Void)
     
     func viewDidLoad()
-    func viewWillDisappear()
+    func exitButtonTapped()
     
     func updateName(_ name: String)
     func updateDescription(_ description: String)
@@ -18,9 +18,11 @@ protocol EditingViewModelProtocol {
 final class EditingViewModel: EditingViewModelProtocol {
     @Observable
     private(set) var userProfile: UserProfile?
-    private let profileService: ProfileService
     
+    private let profileService: ProfileService
     private let imageValidator: ImageValidatorProtocol
+    
+    private var isChanged: Bool = false
     
     init(profileService: ProfileService, imageValidator: ImageValidatorProtocol = ImageValidator()) {
         self.profileService = profileService
@@ -46,6 +48,7 @@ final class EditingViewModel: EditingViewModelProtocol {
             likes: currentProfile.likes,
             id: currentProfile.id
         )
+        isChanged = true
     }
     
     func updateDescription(_ description: String) {
@@ -59,6 +62,7 @@ final class EditingViewModel: EditingViewModelProtocol {
             likes: currentProfile.likes,
             id: currentProfile.id
         )
+        isChanged = true
     }
     
     func updateWebSite(_ website: String) {
@@ -72,22 +76,37 @@ final class EditingViewModel: EditingViewModelProtocol {
             likes: currentProfile.likes,
             id: currentProfile.id
         )
+        isChanged = true
     }
     
-    func viewWillDisappear() {
-        guard let userProfile = userProfile else { return }
-        profileService.updateProfile(with: userProfile) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let updatedProfile):
-                self.userProfile = updatedProfile
-            case .failure(let error):
-                //ToDo: - Уведомление об ошибке
-                print(error)
+    func exitButtonTapped() {
+        guard isChanged, let userProfile = userProfile else { return }
+        
+        let group = DispatchGroup()
+        let backgroundQueue = DispatchQueue(label: "com.appname.backgroundQueue", qos: .background)
+
+        backgroundQueue.async(group: group) {
+            group.enter()
+            
+            self.profileService.updateProfile(with: userProfile) { [weak self] result in
+                defer { group.leave() }
+                
+                guard let self = self else { return }
+
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let updatedProfile):
+                        self.userProfile = updatedProfile
+                        NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
+                    case .failure(let error):
+                        NotificationCenter.default.post(name: NSNotification.Name("profileUpdateErrorToastNotification"), object: NSLocalizedString("profileUpdateError", comment: ""))
+                        print(error)
+                    }
+                }
             }
         }
     }
-    
+
     func photoURLdidChanged(with url: URL) {
         imageValidator.isValidImageURL(url) { [weak self] isValid in
             guard let self = self else { return }
@@ -109,7 +128,7 @@ final class EditingViewModel: EditingViewModelProtocol {
     }
     
     private func fetchUserProfile() {
-        ProgressHUD.show("Загрузка...")
+        ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         profileService.fetchProfile { [weak self] result in
             guard let self = self else { return }
             switch result {

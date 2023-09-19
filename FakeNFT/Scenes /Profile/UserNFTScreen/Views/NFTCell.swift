@@ -5,26 +5,7 @@ import Kingfisher
 final class NFTCell: UITableViewCell, ReuseIdentifying {
     private let nftImageView = ViewFactory.shared.createNFTImageView()
     private let likeImageView = ViewFactory.shared.createLikeImageView()
-    
-    private var name: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.sfBold17
-        return label
-    }()
-    
-    private let ratingView: CosmosView = {
-        let view = CosmosView()
-        view.settings.starSize = 12
-        view.settings.totalStars = 5
-        view.settings.starMargin = 2
-        view.settings.filledColor = UIColor.unYellow
-        view.settings.emptyBorderColor = UIColor.init(hexString: "F7F7F8")
-        view.settings.filledBorderColor = UIColor.unYellow
-        view.settings.updateOnTouch = false
-        view.settings.filledImage = UIImage(named: "filledStarImage")
-        view.settings.emptyImage = UIImage(named: "emptyStarImage")
-        return view
-    }()
+    private let ratingView = ViewFactory.shared.createRatingView()
     
     private let authorPrefix: UILabel = {
         let label = UILabel()
@@ -72,6 +53,12 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
         stackView.axis = .vertical
         stackView.spacing = 2
         return stackView
+    }()
+    
+    private var name: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.sfBold17
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

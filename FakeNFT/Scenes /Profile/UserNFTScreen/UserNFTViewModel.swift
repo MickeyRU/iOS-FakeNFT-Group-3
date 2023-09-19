@@ -1,13 +1,6 @@
 import Foundation
 import ProgressHUD
 
-enum LoadingState {
-    case idle
-    case loading
-    case loaded
-    case error(Error)
-}
-
 protocol UserNFTViewModelProtocol {
     var userNFT: [NFT]? { get }
     var authors: [String: Author] { get }
@@ -16,8 +9,8 @@ protocol UserNFTViewModelProtocol {
     func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void)
     func observeState(_ handler: @escaping (LoadingState) -> Void)
     
-    func fetchNFT(nftList: [String])
-    func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void)
+    func viewDidLoad(nftList: [String])
+    func viewWillDisappear()
     
     func userSelectedSorting(by option: SortOption)
 }
@@ -30,10 +23,10 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
     private (set) var state: LoadingState = .idle
     
     private (set) var authors: [String: Author] = [:] // Dictionary с ID автора как ключом и данными автора как значением.
-    private let model: UserNFTModel
+    private let service: NFTService
     
-    init(model: UserNFTModel) {
-        self.model = model
+    init(nftService: NFTService) {
+        self.service = nftService
     }
     
     func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void) {
@@ -44,8 +37,8 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         $state.observe(handler)
     }
     
-    func fetchNFT(nftList: [String]) {
-        ProgressHUD.show("Загрузка...")
+    func viewDidLoad(nftList: [String]) {
+        ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         state = .loading
         
         var fetchedNFTs: [NFT] = []
@@ -54,7 +47,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         for element in nftList {
             group.enter()
             
-            model.fetchNFT(nftID: element) { (result) in
+            service.fetchNFT(nftID: element) { (result) in
                 switch result {
                 case .success(let nft):
                     fetchedNFTs.append(nft)
@@ -66,19 +59,13 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         }
         
         group.notify(queue: .main) {
-            self.fetchAuthor(nfts: fetchedNFTs)
+            self.fetchAuthorList(nfts: fetchedNFTs)
         }
     }
     
-    func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void) {
-        model.fetchAuthor(authorID: authorID) { result in
-            switch result {
-            case .success(let author):
-                completion(.success(author))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func viewWillDisappear() {
+        service.stopAllTasks()
+        ProgressHUD.dismiss()
     }
     
     func userSelectedSorting(by option: SortOption) {
@@ -98,7 +85,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         self.userNFT = nfts
     }
     
-    private func fetchAuthor(nfts: [NFT]) {
+    private func fetchAuthorList(nfts: [NFT]) {
         let authorGroup = DispatchGroup()
         
         for nft in nfts {
@@ -115,8 +102,19 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         }
         authorGroup.notify(queue: .main) {
             self.userNFT = nfts
-            self.state = .loaded
+            self.state = .loaded(hasData: !nfts.isEmpty)
+            ProgressHUD.dismiss()
         }
-        ProgressHUD.dismiss()
+    }
+    
+    private func fetchAuthor(authorID: String, completion: @escaping (Result<Author, Error>) -> Void) {
+        service.fetchAuthor(authorID: authorID) { result in
+            switch result {
+            case .success(let author):
+                completion(.success(author))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

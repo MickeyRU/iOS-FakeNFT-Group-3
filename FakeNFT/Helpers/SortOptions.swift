@@ -8,11 +8,11 @@ enum SortOption {
     var description: String {
         switch self {
         case .price:
-            return "По цене"
+            return NSLocalizedString("byPrice", comment: "")
         case .rating:
-            return "По рейтингу"
+            return NSLocalizedString("byRating", comment: "")
         case .title:
-            return "По названию"
+            return NSLocalizedString("byName", comment: "")
         }
     }
 }

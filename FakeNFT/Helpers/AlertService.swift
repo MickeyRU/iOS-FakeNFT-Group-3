@@ -18,7 +18,7 @@ protocol AlertServiceProtocol {
     func showAlert(model: AlertModel)
 }
 
-class AlertService: AlertServiceProtocol {
+final class AlertService: AlertServiceProtocol {
     private weak var viewController: UIViewController?
     
     init(viewController: UIViewController) {

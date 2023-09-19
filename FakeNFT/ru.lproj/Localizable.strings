@@ -8,3 +8,31 @@
 "sort.byAmount" = "По количеству NFT";
 "close" = "Закрыть";
 "author" = "Автор коллекции:";
+
+// MARK: - Profile
+"changePhoto" = "Сменить фото";
+"userName" = "Имя";
+"discription" = "Описание";
+"webSite" = "Сайт";
+"from" = "от";
+"Price" = "Цена";
+"MyNFTTitle" = "Mои NFT";
+"FavoritesNFTTitle" = "Избранные NFT";
+"AboutDeveloper" = "О разработчике";
+"noNFTTitle" = "У вас еще нет NFT";
+"noFavoritesNFTTitle" = "У вас еще нет избранных NFT";
+
+// MARK: - ProgressHUD
+"Loading" = "Загрузка...";
+
+// MARK: - SortOption
+
+"byPrice" = "По цене";
+"byRating" = "По рейтингу";
+"byName"= "По названию";
+"sortTitle" = "Сортировка";
+"closeTitle" = "Закрыть";
+
+// MARK: - ToastService
+
+"profileUpdateError" = "Ошибка обновления профиля";

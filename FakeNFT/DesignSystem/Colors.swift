@@ -7,7 +7,6 @@ extension UIColor {
     static let unGreen = UIColor.init(hexString: "#1C9F00")
     static let unBlue = UIColor.init(hexString: "#0A84FF")
     static let unYellow = UIColor.init(hexString: "#FEEF0D")
-<<<<<<< HEAD
     static let unGreenUniversal = UIColor.init(hexString: "#1C9F00")
     static let unBlackOnly = UIColor.init(hexString: "#1A1B22")
     
@@ -34,9 +33,7 @@ extension UIColor {
             return UIColor.init(hexString: "2C2C2E")
         }
     }
-=======
->>>>>>> e1c4d710e5fbdde5e2cce4a796b9304b19827012
-
+    
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()

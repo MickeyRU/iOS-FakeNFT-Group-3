@@ -8,15 +8,12 @@ final class MainTabBarController: UITabBarController {
         viewControllers = generateViewControllers()
         generateTabBarIconsWithName(for: viewControllers)
     }
-<<<<<<< HEAD:FakeNFT/MainViewController/MainTabBarController.swift
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         subscribeToShowCatalogNotification()
     }
-=======
->>>>>>> e1c4d710e5fbdde5e2cce4a796b9304b19827012:FakeNFT/MainTabBarController.swift
 
     private func generateViewControllers() -> [UIViewController] {
         let profileViewController = ProfileViewController()

@@ -2,21 +2,21 @@ import Foundation
 import ProgressHUD
 
 protocol FavoritesNFTViewModelProtocol {
-    var favoritesNFT: [NFT] { get }
+    var favoritesNFT: [ProfileNFT] { get }
     var state: LoadingState { get }
     
-    func observeFavoritesNFT(_ handler: @escaping ([NFT]?) -> Void)
+    func observeFavoritesNFT(_ handler: @escaping ([ProfileNFT]?) -> Void)
     func observeState(_ handler: @escaping (LoadingState) -> Void)
     
     func viewDidLoad(nftList: [String])
     func viewWillDisappear()
     func fetchNFT(nftList: [String])
-    func dislike(for: NFT)
+    func dislike(for: ProfileNFT)
 }
 
 final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
     @Observable
-    private (set) var favoritesNFT: [NFT] = []
+    private (set) var favoritesNFT: [ProfileNFT] = []
     
     @Observable
     private (set) var state: LoadingState = .idle
@@ -29,7 +29,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
         self.profileService = profileService
     }
     
-    func observeFavoritesNFT(_ handler: @escaping ([NFT]?) -> Void) {
+    func observeFavoritesNFT(_ handler: @escaping ([ProfileNFT]?) -> Void) {
         $favoritesNFT.observe(handler)
     }
     
@@ -51,7 +51,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
         ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         state = .loading
         
-        var fetchedNFTs: [NFT] = []
+        var fetchedNFTs: [ProfileNFT] = []
         let group = DispatchGroup()
         
         for element in nftList {
@@ -75,7 +75,7 @@ final class FavoritesNFTViewModel: FavoritesNFTViewModelProtocol {
         }
     }
     
-    func dislike(for nft: NFT) {
+    func dislike(for nft: ProfileNFT) {
         // Алгоритм удаления лайков - через обновление profile
         // Шаг 1: Получить профиль пользователя
         profileService.fetchProfile { [weak self] result in

@@ -2,11 +2,11 @@ import Foundation
 import ProgressHUD
 
 protocol UserNFTViewModelProtocol {
-    var userNFT: [NFT]? { get }
+    var userNFT: [ProfileNFT]? { get }
     var authors: [String: Author] { get }
     var state: LoadingState { get }
     
-    func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void)
+    func observeUserNFT(_ handler: @escaping ([ProfileNFT]?) -> Void)
     func observeState(_ handler: @escaping (LoadingState) -> Void)
     
     func viewDidLoad(nftList: [String])
@@ -17,7 +17,7 @@ protocol UserNFTViewModelProtocol {
 
 final class UserNFTViewModel: UserNFTViewModelProtocol {
     @Observable
-    private (set) var userNFT: [NFT]?
+    private (set) var userNFT: [ProfileNFT]?
     
     @Observable
     private (set) var state: LoadingState = .idle
@@ -29,7 +29,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         self.service = nftService
     }
     
-    func observeUserNFT(_ handler: @escaping ([NFT]?) -> Void) {
+    func observeUserNFT(_ handler: @escaping ([ProfileNFT]?) -> Void) {
         $userNFT.observe(handler)
     }
     
@@ -41,7 +41,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         ProgressHUD.show(NSLocalizedString("Loading", comment: ""))
         state = .loading
         
-        var fetchedNFTs: [NFT] = []
+        var fetchedNFTs: [ProfileNFT] = []
         let group = DispatchGroup()
         
         for element in nftList {
@@ -85,7 +85,7 @@ final class UserNFTViewModel: UserNFTViewModelProtocol {
         self.userNFT = nfts
     }
     
-    private func fetchAuthorList(nfts: [NFT]) {
+    private func fetchAuthorList(nfts: [ProfileNFT]) {
         let authorGroup = DispatchGroup()
         
         for nft in nfts {

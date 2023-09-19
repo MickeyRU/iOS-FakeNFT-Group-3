@@ -4,13 +4,13 @@ final class UserNFTViewController: UIViewController {
     private let nftList: [String]
     private let viewModel: UserNFTViewModelProtocol
     
-    private lazy var alertService: AlertServiceProtocol = {
-        return AlertService(viewController: self)
+    private lazy var alertService: ProfileAlertServiceProtocol = {
+        return ProfileAlertService(viewController: self)
     }()
     
     private lazy var nftTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NFTCell.self)
+        tableView.register(ProfileNFTCell.self)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -159,7 +159,7 @@ extension UserNFTViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: NFTCell = tableView.dequeueReusableCell()
+        let cell: ProfileNFTCell = tableView.dequeueReusableCell()
         cell.selectionStyle = .none
         
         guard let nft = viewModel.userNFT?[indexPath.row] else {

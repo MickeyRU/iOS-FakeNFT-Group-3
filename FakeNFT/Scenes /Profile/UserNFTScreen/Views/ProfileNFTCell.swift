@@ -2,7 +2,7 @@ import UIKit
 import Cosmos
 import Kingfisher
 
-final class NFTCell: UITableViewCell, ReuseIdentifying {
+final class ProfileNFTCell: UITableViewCell, ReuseIdentifying {
     private let nftImageView = ViewFactory.shared.createNFTImageView()
     private let likeImageView = ViewFactory.shared.createLikeImageView()
     private let ratingView = ViewFactory.shared.createRatingView()
@@ -70,7 +70,7 @@ final class NFTCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(nft: NFT, authorName: String) {
+    func configure(nft: ProfileNFT, authorName: String) {
         self.nftImageView.kf.setImage(with: URL(string: nft.images[0]))
         self.name.text = nft.name
         self.ratingView.rating = Double(nft.rating)

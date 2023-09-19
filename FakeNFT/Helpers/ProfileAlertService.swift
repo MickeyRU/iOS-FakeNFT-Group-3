@@ -1,12 +1,12 @@
 import UIKit
 
-struct AlertActionModel {
+struct ProfileAlertActionModel {
     let title: String
     let style: UIAlertAction.Style
     let handler: ((String?) -> Void)?
 }
 
-struct AlertModel {
+struct ProfileAlertModel {
     let title: String?
     let message: String?
     let style: UIAlertController.Style
@@ -14,11 +14,11 @@ struct AlertModel {
     let textFieldPlaceholder: String?
 }
 
-protocol AlertServiceProtocol {
+protocol ProfileAlertServiceProtocol {
     func showAlert(model: AlertModel)
 }
 
-final class AlertService: AlertServiceProtocol {
+final class ProfileAlertService: ProfileAlertServiceProtocol {
     private weak var viewController: UIViewController?
     
     init(viewController: UIViewController) {

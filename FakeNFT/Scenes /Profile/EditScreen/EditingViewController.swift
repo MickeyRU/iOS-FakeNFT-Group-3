@@ -20,8 +20,8 @@ final class EditingViewController: UIViewController {
         return view
     }()
     
-    private lazy var alertService: AlertServiceProtocol = {
-        return AlertService(viewController: self)
+    private lazy var alertService: ProfileAlertServiceProtocol = {
+        return ProfileAlertService(viewController: self)
     }()
     
     private lazy var nameLabel = ViewFactory.shared.createTextLabel()

@@ -6,7 +6,7 @@ struct FavoritesNFTCellViewModel {
     let formattedRating: Double
     let formattedPrice: String
     
-    init(nft: NFT) {
+    init(nft: ProfileNFT) {
         self.title = nft.name
         self.imageUrl = URL(string: nft.images.first ?? "")
         self.formattedRating = Double(nft.rating)

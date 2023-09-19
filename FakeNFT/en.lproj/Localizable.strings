@@ -8,3 +8,31 @@
 "sort.byAmount" = "By number of NFTs";
 "close" = "Close";
 "author" = "Collection author:";
+
+// MARK: - Profile
+"changePhoto" = "Change photo";
+"userName" = "Name";
+"discription" = "Discription";
+"webSite" = "Website";
+"from" = "from";
+"Price" = "Price";
+"MyNFTTitle" = "My NFT";
+"FavoritesNFTTitle" = "Favorites NFT";
+"AboutDeveloper" = "About the developer";
+"noNFTTitle" = "You don't have any NFTs yet";
+"noFavoritesNFTTitle" = "You don't have any favorite NFTs yet";
+
+// MARK: - ProgressHUD
+"Loading" = "Loading...";
+
+// MARK: - SortOption
+
+"byPrice" = "By Price";
+"byRating" = "By Rating";
+"byName" = "By Name";
+"sortTitle" = "Sorting";
+"closeTitle" = "Close";
+
+// MARK: - ToastService
+
+"profileUpdateError" = "Profile update error";

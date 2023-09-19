@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class NFTNetworkServiceImpl: NFTNetworkService {
+final class NFTNetworkServiceImpl: BasketNFTNetworkService {
     private let networkClient: NetworkClient
 
     init(networkClient: NetworkClient) {

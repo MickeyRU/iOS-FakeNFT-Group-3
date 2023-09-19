@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NFTNetworkService {
+protocol BasketNFTNetworkService {
     func getNFTCollection(
         result: @escaping ResultHandler<NFTCollectionResponse>
     )

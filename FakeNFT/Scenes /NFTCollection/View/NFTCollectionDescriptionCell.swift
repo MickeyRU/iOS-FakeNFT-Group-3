@@ -93,6 +93,11 @@ private extension NFTCollectionDescriptionCell {
         contentView.addViewWithNoTAMIC(authorTitleLabel)
         contentView.addViewWithNoTAMIC(authorLabel)
         contentView.addViewWithNoTAMIC(descriptionLabel)
+
+        nameLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        authorTitleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        authorLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        descriptionLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
 
     func setupConstraints() {
@@ -102,10 +107,12 @@ private extension NFTCollectionDescriptionCell {
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             authorTitleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 13),
             authorTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             authorLabel.leadingAnchor.constraint(equalTo: authorTitleLabel.trailingAnchor, constant: 4),
             authorLabel.centerYAnchor.constraint(equalTo: authorTitleLabel.centerYAnchor),
+            authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             descriptionLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 5),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),

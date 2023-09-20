@@ -47,7 +47,7 @@ final class WebViewViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .unWhite
         
         [webView, progressView].forEach { view.addViewWithNoTAMIC($0) }
         

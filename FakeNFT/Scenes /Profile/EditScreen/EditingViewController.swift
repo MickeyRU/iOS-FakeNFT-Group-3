@@ -34,7 +34,6 @@ final class EditingViewController: UIViewController {
     private lazy var exitButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "xmarkImage"), for: .normal)
-        button.tintColor = .black
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -110,7 +109,7 @@ final class EditingViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .unWhite
         view.addTapGestureToHideKeyboard()
         
         [exitButton, userPhotoImageView, overlayView, changePhotoButton, nameLabel, nameTextView, descriptionLabel, descriptionTextView, webSiteLabel, webSiteTextView].forEach { view.addViewWithNoTAMIC($0) }

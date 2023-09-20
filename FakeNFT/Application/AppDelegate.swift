@@ -10,6 +10,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         ProgressHUD.animationType = .systemActivityIndicator
         ProgressHUD.colorAnimation = .black
         ProgressHUD.colorBackground = .lightGray
+        UINavigationBar.appearance().tintColor = .unBlack
         return true
     }
 

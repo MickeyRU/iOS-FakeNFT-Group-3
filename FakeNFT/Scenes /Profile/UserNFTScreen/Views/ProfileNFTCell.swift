@@ -82,6 +82,8 @@ final class ProfileNFTCell: UITableViewCell, ReuseIdentifying {
     }
     
     private func setupViews() {
+        contentView.backgroundColor = .unWhite
+        
         nftImageView.addViewWithNoTAMIC(likeImageView)
         [authorPrefix, author].forEach { authorStackView.addArrangedSubview($0) }
         [name, ratingView, authorStackView].forEach { nftDetailsStackView.addArrangedSubview($0) }

@@ -9,8 +9,7 @@ final class ProfileCell: UITableViewCell, ReuseIdentifying {
     
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.forward")
-        imageView.tintColor = .black
+        imageView.image = UIImage(named: "nextButtonImage")
         return imageView
     }()
     
@@ -28,6 +27,7 @@ final class ProfileCell: UITableViewCell, ReuseIdentifying {
     }
     
     private func setupViews() {
+        contentView.backgroundColor = .unWhite
         [arrowImageView, titleLabel].forEach { contentView.addViewWithNoTAMIC($0) }
             
         NSLayoutConstraint.activate([

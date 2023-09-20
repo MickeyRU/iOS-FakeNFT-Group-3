@@ -16,6 +16,7 @@ final class FavoritesNFTViewController: UIViewController {
         collection.delegate = self
         collection.dataSource = self
         collection.register(FavoritesNFTCell.self)
+        collection.backgroundColor = .unWhite
         return collection
     }()
     
@@ -95,7 +96,7 @@ final class FavoritesNFTViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .unWhite
         
         [nftCollectionView, noNFTLabel].forEach { view.addViewWithNoTAMIC($0) }
         

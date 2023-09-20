@@ -14,6 +14,7 @@ final class UserNFTViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .unWhite
         return tableView
     }()
     
@@ -131,7 +132,7 @@ final class UserNFTViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .unWhite
         
         [nftTableView, noNFTLabel].forEach { view.addViewWithNoTAMIC($0) }
         

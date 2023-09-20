@@ -29,6 +29,7 @@ final class ProfileViewController: UIViewController {
         textView.font = UIFont.sfRegular15
         textView.textContainer.lineFragmentPadding = 16
         textView.isHidden = true
+        textView.backgroundColor = .unWhite
         return textView
     }()
     
@@ -39,6 +40,7 @@ final class ProfileViewController: UIViewController {
     private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "editButton"), for: .normal)
+        button.tintColor = .unWhite
         button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -125,7 +127,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .unWhite
         
         [editButton, profileImageView, userNameLabel, userDescriptionLabel, userWebSiteTextView, profileTableView].forEach {
             view.addViewWithNoTAMIC($0)

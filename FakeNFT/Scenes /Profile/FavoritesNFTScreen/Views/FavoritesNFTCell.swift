@@ -61,6 +61,8 @@ final class FavoritesNFTCell: UICollectionViewCell, ReuseIdentifying {
     }
     
     private func setupViews() {
+        contentView.backgroundColor = .unWhite
+        
         [name, ratingView, currentPriceLabel].forEach { nftDetailsStackView.addArrangedSubview($0) }
         [nftImageView, nftDetailsStackView, likeButton].forEach { contentView.addViewWithNoTAMIC($0) }
         

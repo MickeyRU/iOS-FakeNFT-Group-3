@@ -14,7 +14,7 @@ final class ViewFactory {
         let textView = UITextView()
         textView.isScrollEnabled = false
         textView.font = UIFont.sfRegular17
-        textView.backgroundColor = UIColor.init(hexString: "F7F7F8")
+        textView.backgroundColor = .unLightGray
         textView.layer.cornerRadius = 12
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 10, bottom: 11, right: 10)
         return textView
@@ -39,7 +39,7 @@ final class ViewFactory {
         view.settings.totalStars = 5
         view.settings.starMargin = 2
         view.settings.filledColor = UIColor.unYellow
-        view.settings.emptyBorderColor = UIColor.init(hexString: "F7F7F8")
+        view.settings.emptyBorderColor = .unLightGray
         view.settings.filledBorderColor = UIColor.unYellow
         view.settings.updateOnTouch = false
         view.settings.filledImage = UIImage(named: "filledStarImage")

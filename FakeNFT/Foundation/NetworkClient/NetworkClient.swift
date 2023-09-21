@@ -5,6 +5,7 @@ enum NetworkClientError: Error {
     case urlRequestError(Error)
     case urlSessionError
     case parsingError
+    case taskCreationFailed
 }
 
 protocol NetworkClient {
@@ -29,6 +30,8 @@ struct DefaultNetworkClient: NetworkClient {
         self.session = session
         self.decoder = decoder
         self.encoder = encoder
+        
+        self.decoder.dateDecodingStrategy = .iso8601
     }
 
     @discardableResult
